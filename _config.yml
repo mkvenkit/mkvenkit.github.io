@@ -5,7 +5,7 @@ highlighter:      rouge
 permalink:   /:title/
 
 # Setup
-title:            Electronut
+title:            electronut
 tagline:          Programming & Embedded Systems
 description:      Python, OpenGL, and Embedded Systems
 
