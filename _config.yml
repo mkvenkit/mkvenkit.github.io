@@ -11,7 +11,7 @@ description:      'Python, OpenGL, & Embedded Systems'
 
 url:              mkvenkit.github.io
 
-baseurl: /
+baseurl: "/"
 
 home_url: /
 
