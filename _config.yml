@@ -8,7 +8,7 @@ permalink:   /:title/
 # Setup
 title:            Electronut
 tagline:          'Programming & Embedded Systems'
-description:      'A blog on Programming, Python, OpenGL, and Embedded Systems'
+description:      'Python, OpenGL, & Embedded Systems'
 url:              http://electronut.in
 baseurl:          /
 
