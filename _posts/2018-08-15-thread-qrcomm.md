@@ -6,7 +6,7 @@ tags: [Thread, OpenThread, nRF52840, Nordic, QR code, commissioning]
 categories: [Electronics, programming]
 comments: false
 modified: 2018-08-16
-thumbnail: /images/2018/thread-qrcomm/thread-qrcomm.jpg
+thumbnail: /images/2018/thread-qrcomm/thread-qrcomm-tn.jpg
 images: /images/2018/thread-qrcomm/thread-qrcomm.jpg
 ---
 
