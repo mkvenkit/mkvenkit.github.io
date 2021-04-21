@@ -1,1 +1,23 @@
-theme: jekyll-theme-slate
+# Dependencies
+markdown:         redcarpet
+highlighter:      pygments
+
+# Permalinks
+permalink:        pretty
+relative_permalinks: true
+
+# Setup
+title:            Electronut
+tagline:          'Programming & Embedded Systems'
+description:      'A blog on Programming, Python, OpenGL, and Embedded Systems'
+url:              http://electronut.in
+baseurl:          /
+
+author:
+  name:           'Mahesh Venkitachalam'
+  url:            https://twitter.com/mkvenkit
+
+paginate:         5
+
+github:
+  repo:           https://github.com/mkvenkit
