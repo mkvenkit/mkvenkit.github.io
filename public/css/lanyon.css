@@ -575,6 +575,8 @@ a.pagination-item:hover {
   float: left;
   padding: 4px;
   /*background-color: green;*/
+  height: 130px;
+  width: 130px;
 }
 
 .art-title {
