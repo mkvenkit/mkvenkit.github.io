@@ -568,7 +568,7 @@ a.pagination-item:hover {
 .art-summary {
   /*border: 2px solid gray;*/
   padding: 2px;
-  min-height: 130px;
+  height: 140px;
 }
 
 .art-img {
