@@ -16,6 +16,9 @@ author:
   url:               https://twitter.com/mkvenkit
   email:             info@electronut.in
 
+github:
+  repo:           https://github.com/mkvenkit  
+
 # Gems
 plugins:
   - jekyll-paginate
