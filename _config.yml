@@ -1,7 +1,7 @@
 # Setup
 title:            electronut
-tagline:          Programming & Embedded Systems
-description:      Python, OpenGL, and Embedded Systems
+tagline:          Writings on Programming & Embedded Systems by Mahesh Venkitachalam
+description:      electronut
 
 url:                 https://mkvenkit.github.io
 baseurl:             ''
