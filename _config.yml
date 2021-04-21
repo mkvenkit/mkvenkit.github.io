@@ -6,13 +6,14 @@ permalink:   /:title/
 
 # Setup
 title:            Electronut
-tagline:          'Programming & Embedded Systems'
-description:      'Python, OpenGL, & Embedded Systems'
+tagline:          Programming & Embedded Systems
+description:      Python, OpenGL, and Embedded Systems
 
 url:              https://mkvenkit.github.io
+baseurl:          /
 
 author:
-  name:           'Mahesh Venkitachalam'
+  name:           Mahesh Venkitachalam
   url:            https://twitter.com/mkvenkit
 
 paginate:         5
