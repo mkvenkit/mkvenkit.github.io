@@ -3,18 +3,20 @@ layout: page
 title: Articles
 ---
 
-<div class="posts">
-  {% for post in site.posts %}
-  <div class="post">
-    <h1 class="post-title">
-      <a href="{{ post.url | absolute_url }}">
-        {{ post.title }}
-      </a>
-    </h1>
+{% for post in site.posts %}
+ 
+<hr/>
 
-    <span class="post-date">{{ post.date | date_to_string }}</span>
-  </div>
-  <hr/>
-  {% endfor %}
+<div class="art-summary">
+
+<div class="art-img">
+<a href="{{ post.url | relative_url }}"><img src ="{{post.thumbnail }}"></a>
+</div> 
+<div class="art-title"> {{ post.title }} </div>
+<div class = "art-desc">
+{{ post.excerpt }}...<a href ="{{ post.url | relative_url }}">continue reading...</a>
 </div>
+ 
+</div>
+{% endfor %}
 

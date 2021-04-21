@@ -556,3 +556,35 @@ a.pagination-item:hover {
 .layout-reverse.sidebar-overlay #sidebar-checkbox:checked ~ .sidebar {
   box-shadow: -.25rem 0 .5rem rgba(0,0,0,.1);
 }
+
+/* electronut.in */
+
+.pp-promo {
+  border: 2px solid gray;
+  padding: 10px;
+  border-radius: 10px; 
+}
+
+.art-summary {
+  /*border: 2px solid gray;*/
+  padding: 2px;
+}
+
+.art-img {
+  float: left;
+  padding: 4px;
+  /*background-color: green;*/
+}
+
+.art-title {
+  padding-top: 4px;
+  padding-left: 10px;
+  /*background-color: white;*/
+  font: italic small-caps bold 18px Georgia, serif;
+}
+
+.art-desc {
+  padding-top: 4px;
+  padding-left: 10px;
+  /*background-color: yellow;*/
+}
