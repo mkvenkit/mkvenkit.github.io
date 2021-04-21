@@ -6,7 +6,7 @@ tags: [nRF51822, nRF-DK, BLE, SWD, JTAG, ADC]
 categories: [Electronics]
 comments: true
 modified: 2015-09-06
-thumbnail: images/2015/07/nRF51-BO-SWD-DK.jpg
+thumbnail: images/2015/07/nRF51-BO-SWD-DK-tn.jpg
 images: images/2015/07/nRF51-BO-SWD-DK.jpg
 ---
 

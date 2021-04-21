@@ -6,7 +6,7 @@ tags: [BLE, nRF51822, LED, Diwali]
 categories: [Electronics]
 comments: true
 modified: 2015-11-09
-thumbnail: images/2015/11/ble-lamp-final.jpg
+thumbnail: images/2015/11/ble-lamp-final-tn.jpg
 images: images/2015/11/ble-lamp-final.jpg
 ---
 

@@ -6,7 +6,7 @@ tags: [AVR, Arduino, ATmega32u4, bootloader]
 categories: [Electronics]
 comments: true
 modified: 2015-06-07
-thumbnail: images/2015/06/atmega32u4-solder1.jpg
+thumbnail: images/2015/06/atmega32u4-solder1-tn.jpg
 images: images/2015/06/atmega32u4-solder1.jpg
 ---
 

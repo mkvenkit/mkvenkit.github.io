@@ -6,7 +6,7 @@ tags: [LED, touch, badge, beginner, electronics, SMD, soldering, python]
 categories: [Electronics]
 comments: true
 modified: 2015-09-26
-thumbnail: images/2015/09/bb.png
+thumbnail: images/2015/09/bb-tn.png
 images: images/2015/09/bb.png
 ---
 

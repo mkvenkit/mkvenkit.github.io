@@ -6,7 +6,7 @@ tags: [connector, header, hack, breadboard]
 categories: [Circuits]
 comments: true
 modified: 2014-12-15
-thumbnail: images/2014/12/8-pin-header-hack.jpg
+thumbnail: images/2014/12/8-pin-header-hack-tn.jpg
 images: images/2014/12/8-pin-header-hack.jpg
 ---
 

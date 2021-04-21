@@ -6,7 +6,7 @@ tags: [LM35, ESP8266, Arduino, IoT, temperature, sensor, WiFi]
 categories: [Circuits]
 comments: true
 modified: 2016-09-02
-thumbnail: images/2015/01/iot-device.jpg
+thumbnail: images/2015/01/iot-device-tn.jpg
 images: images/2015/01/iot-device.jpg
 ---
 

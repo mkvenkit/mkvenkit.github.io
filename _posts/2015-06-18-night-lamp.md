@@ -6,7 +6,7 @@ tags: [555, PIR, kit]
 categories: [Electronics]
 comments: true
 modified: 2015-06-18
-thumbnail: images/2015/06/nl-final.jpg 
+thumbnail: images/2015/06/nl-final-tn.jpg 
 images: images/2015/06/nl-final.jpg 
 ---
 

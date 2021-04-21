@@ -6,7 +6,7 @@ tags: [DHT11, temperature, humidity, sensor, plot, cloud, IOT, Internet Of Thing
 categories: [Raspberry Pi]
 comments: true
 modified: 2014-12-14
-thumbnail: images/2014/12/thingspeak-stream.jpg
+thumbnail: images/2014/12/thingspeak-stream-tn.jpg
 images: images/2014/12/thingspeak-stream.jpg
 ---
 

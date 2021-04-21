@@ -6,7 +6,7 @@ tags: [reed switch, MOSFET]
 categories: [Electronics]
 comments: true
 modified: 2015-05-22
-thumbnail: images/2015/05/box-final.jpg
+thumbnail: images/2015/05/box-final-tn.jpg
 images: images/2015/05/box-final.jpg
 ---
 

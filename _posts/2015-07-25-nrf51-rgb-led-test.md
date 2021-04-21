@@ -6,7 +6,7 @@ tags: [nRF51822, nRF-DK, BLE, softdevice, S110, RGB, LED, PWM]
 categories: [Electronics]
 comments: true
 modified: 2015-07-25
-thumbnail: images/2015/07/nrf51-rgb-led.jpg
+thumbnail: images/2015/07/nrf51-rgb-led-tn.jpg
 images: images/2015/07/nrf51-rgb-led.jpg
 ---
 

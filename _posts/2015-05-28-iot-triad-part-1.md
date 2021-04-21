@@ -6,7 +6,7 @@ tags: [nRF8001, Arduino, BLE, IoT]
 categories: [Electronics]
 comments: true
 modified: 2015-05-28
-thumbnail: images/2015/05/iott-device.jpg 
+thumbnail: images/2015/05/iott-device-tn.jpg 
 images: images/2015/05/iott-device.jpg 
 ---
 

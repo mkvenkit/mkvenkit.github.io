@@ -6,7 +6,7 @@ tags: [ESP8266, WiFi, IoT, Internet Of Things, Arduino, LM35, ThingSpeak]
 categories: [Arduino, Circuits]
 comments: true
 modified: 2016-09-02
-thumbnail: images/2014/12/esp8266-arduino-hookup.jpg
+thumbnail: images/2014/12/esp8266-arduino-hookup-tn.jpg
 images: images/2014/12/esp8266-arduino-hookup.jpg
 ---
 
