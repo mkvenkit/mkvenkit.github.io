@@ -8,6 +8,27 @@ layout: default
   {{ content }}
 </div>
 
+<!-- Book promotion  -->
+{% if page.pp-promo %}
+<div class="pp-promo">
+
+<img src = "/images/pp-128.png">
+
+<p>
+If you liked this article, please consider supporting my efforts by purchasing my book. 
+</p>
+
+<p>
+<a href = "https://nostarch.com/pythonplayground">Python Playground</a>, published by No Starch Press, USA, is a collection of 
+imaginative programming projects that will inspire you to use Python to 
+make art and music, build simulations of real-world phenomena, and 
+interact with hardware like the Arduino and Raspberry Pi. Do 
+check it out!
+</p>
+
+</div>        
+{% endif %}
+
 {% if site.related_posts.size >= 1 %}
 <div class="related">
   <h2>Related posts</h2>
