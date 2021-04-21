@@ -10,6 +10,7 @@ tagline:          'Programming & Embedded Systems'
 description:      'Python, OpenGL, & Embedded Systems'
 url:              http://electronut.in
 baseurl:          /
+home_url: /
 
 author:
   name:           'Mahesh Venkitachalam'
