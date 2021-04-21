@@ -8,8 +8,11 @@ permalink:   /:title/
 title:            Electronut
 tagline:          'Programming & Embedded Systems'
 description:      'Python, OpenGL, & Embedded Systems'
+
 url:              http://electronut.in
-baseurl:          /
+
+baseurl: /
+
 home_url: /
 
 author:
