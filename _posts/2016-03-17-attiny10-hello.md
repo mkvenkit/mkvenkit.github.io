@@ -6,7 +6,7 @@ tags: [tinyAVR, ATtiny10, TPI, Atmel ICE, Atmel Studio]
 categories: [Electronics]
 comments: true
 modified: 2016-03-17
-thumbnail: images/2016/03/attiny10-finger.jpg
+thumbnail: images/2016/03/attiny10-finger-tn.jpg
 images: images/2016/03/attiny10-finger.jpg
 ---
 

@@ -6,7 +6,7 @@ tags: [nRF52832, Nordic, BLE, beacon, sensor, python, GCC, Embedded]
 categories: [Electronics]
 comments: false
 modified: 2017-07-09
-thumbnail: images/2017/06/bluey-beacon.png
+thumbnail: images/2017/06/bluey-beacon-tn.png
 images: images/2017/06/bluey-beacon.png
 ---
 
