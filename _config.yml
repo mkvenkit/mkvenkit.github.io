@@ -11,10 +11,6 @@ description:      'Python, OpenGL, & Embedded Systems'
 
 url:              mkvenkit.github.io
 
-baseurl: "yo"
-
-home_url: /
-
 author:
   name:           'Mahesh Venkitachalam'
   url:            https://twitter.com/mkvenkit
