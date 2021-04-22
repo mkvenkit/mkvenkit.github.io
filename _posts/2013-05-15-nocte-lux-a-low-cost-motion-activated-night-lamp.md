@@ -27,6 +27,7 @@ meta:
   _edit_last: '5'
   _cc_post_template_type: img-left-content-right
   _thumbnail_id: '100'
+thumbnail: 
 ---
 <p>No, it's not the $10000 Leica lens of similar name. ;-)</p>
 <p>For this project, I wanted to try and make a simple night lamp – something that you can put under your cot and use it simply by picking it up. Useful in case you get up in the middle of the night and need a quick light. So I used a tilt switch and a 555 IC to design the circuit.</p>
