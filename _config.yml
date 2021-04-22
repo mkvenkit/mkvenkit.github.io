@@ -4,7 +4,7 @@ tagline:          "  Writings on Programming & Embedded Systems - by Mahesh Venk
 description:      electronut
 
 url:                 https://electronut.in/
-baseurl:             ''
+baseurl:             /
 paginate:            5
 permalink:           /:title/
 
