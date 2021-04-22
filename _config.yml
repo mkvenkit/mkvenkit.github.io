@@ -3,7 +3,7 @@ title:            electronut
 tagline:          "  Writings on Programming & Embedded Systems - by Mahesh Venkitachalam"
 description:      electronut
 
-url:                 https://mkvenkit.github.io
+url:                 https://electronut.in/
 baseurl:             ''
 paginate:            5
 permalink:           /:title/
