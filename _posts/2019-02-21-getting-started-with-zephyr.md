@@ -6,7 +6,7 @@ tags: [Zephyr, RTOS, nRF52832, Nordic, BLE]
 categories: [Electronics, programming]
 comments: false
 modified: 2019-02-21
-thumbnail: 
+thumbnail: /images/2019/02/app_kernel_conf_1-1-tn.png
 ---
 
 ## Introduction
@@ -65,7 +65,7 @@ Enabling only what you need is critical for embedded systems, since it has a dir
 
 Kconfig also provides an interactive UI for setting all the configuration options. Doing a `ninja menuconfig` in the _build_ directory with bring up this UI:
 
-![Getting Started with Zephyr RTOS on Nordic nRF52832 hackaBLE 1](https://electronut.in/wp-content/uploads/2019/02/app_kernel_conf_1-1.png)
+![Getting Started with Zephyr RTOS on Nordic nRF52832 hackaBLE 1](/images/2019/02/app_kernel_conf_1-1.png)
 
 \[Image source: https://docs.zephyrproject.org/latest/application/index.html\]
 
@@ -75,7 +75,7 @@ Now let’s put this above knowledge to some use by building a couple of Zephyr 
 
 ## Required Hardware
 
-![Getting Started with Zephyr RTOS on Nordic nRF52832 hackaBLE 2](https://electronut.in/wp-content/uploads/2019/02/IMG_7765-e1550748770908-1.jpg)
+![Getting Started with Zephyr RTOS on Nordic nRF52832 hackaBLE 2](/images/2019/02/IMG_7765-e1550748770908-1.jpg)
 
 You need the following hardware to build this project.
 
@@ -253,7 +253,7 @@ picocom -e b -b 115200 /dev/ttyACM1
 
 In the attached screenshot below, you can see the output:
 
-![Getting Started with Zephyr RTOS on Nordic nRF52832 hackaBLE 3](https://electronut.in/wp-content/uploads/2019/02/Screenshot-from-2019-02-21-11-54-48-1024x576.png)
+![Getting Started with Zephyr RTOS on Nordic nRF52832 hackaBLE 3](/images/2019/02/Screenshot-from-2019-02-21-11-54-48-1024x576.png)
 
 From the above, you also get an idea of my workflow. I use the _byobu_ terminal multiplexer, and the four screens from top left, going anti-clockwise are – zephyr build, USB monitoring using `dmesg -w`, picocom output, and a Python shell for calculations.
 
@@ -469,17 +469,17 @@ What we’re doing above is notifying the connected device with the new sensor v
 
 You can build and flash the code similar to the hello example. To test the device, we will be using the Nordic nRFConnect mobile app. Here’s what you see when you scan:
 
-![Getting Started with Zephyr RTOS on Nordic nRF52832 hackaBLE 4](https://electronut.in/wp-content/uploads/2019/02/IMG_7761-e1550749119268-1.png)
+![Getting Started with Zephyr RTOS on Nordic nRF52832 hackaBLE 4](/images/2019/02/IMG_7761-e1550749119268-1.png)
 
 In the above screenshot, you can see that the last two bytes of the advertisement packet manufacturer data is _0x1b21_ – 27 degree C with a humidity of 33%.
 
 Now, let’s connect to it.
 
-![Getting Started with Zephyr RTOS on Nordic nRF52832 hackaBLE 5](https://electronut.in/wp-content/uploads/2019/02/IMG_7762-e1550749105136-1.png)
+![Getting Started with Zephyr RTOS on Nordic nRF52832 hackaBLE 5](/images/2019/02/IMG_7762-e1550749105136-1.png)
 
 You can see the UUID of the primary service we defined. If you click on it, you will see the characteristics:
 
-![Getting Started with Zephyr RTOS on Nordic nRF52832 hackaBLE 6](https://electronut.in/wp-content/uploads/2019/02/IMG_7764-e1550749094953-1.png)
+![Getting Started with Zephyr RTOS on Nordic nRF52832 hackaBLE 6](/images/2019/02/IMG_7764-e1550749094953-1.png)
 
 Taking some help from Python, we get:
 
