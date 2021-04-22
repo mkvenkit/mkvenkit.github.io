@@ -581,6 +581,10 @@ a.pagination-item:hover {
   padding: 4px;
 }
 
+td.art-img-cell {
+  width: 130px;
+}
+
 td.art-txt-cell {
   vertical-align: top;
 }
