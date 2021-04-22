@@ -197,39 +197,14 @@ Before we upload the code, let’s take a look at the hardware hookup.
 
 For this project, hook up the hardware as follows so it matches up with our DTS and config files.
 
-hackaBLE
-
-Bumpy
-
-BME280
-
-P0.27
-
-Rx
-
-P0.25
-
-Tx
-
-P0.03
-
-SCL
-
-P0.04
-
-SDA
-
-GND
-
-GND
-
-GND
-
-VDD
-
-3V3
-
-VDD
+|**hackaBLE** | **Bumpy** | **BME280**|
+|--|--|--|
+| P0.27	| Rx | |
+| P0.25	| Tx | |  	
+| P0.03 | 	 | SCL |
+| P0.04 |    | SDA |
+| GND | GND	 | GND |
+| VDD | 3V3	| VDD|
 
 ### Upload and Test
 
