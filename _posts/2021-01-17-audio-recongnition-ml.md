@@ -234,11 +234,11 @@ $python3 audio\_test.py --nsec 3 --output hello.wav
 
 This is what the WAV file looks like it when I transfer the file over to my computer and open it in [Audacity](https://www.audacityteam.org/).
 
-![Simple Audio Recognition on a Raspberry Pi using Machine Learning (I2S, TensorFlow Lite) 7](/images/2021/01/Screenshot-2021-01-17-at-10.26.04-AM-1024x352.png)
+![Simple Audio Recognition on a Raspberry Pi using Machine Learning (I2S, TensorFlow Lite) 7](/images/2021/01/au1.png)
 
 As you can see, there are 2 channels, but data only on one of them (as expected), and the volume level is very low. Here’s what it looks like after normalising it in Audacity.
 
-![Simple Audio Recognition on a Raspberry Pi using Machine Learning (I2S, TensorFlow Lite) 8](/images/2021/01/Screenshot-2021-01-17-at-10.26.25-AM-1024x353.png)
+![Simple Audio Recognition on a Raspberry Pi using Machine Learning (I2S, TensorFlow Lite) 8](/images/2021/01/au2.png)
 
 Looks much better now. These experiments give us a sense of how to process the audio stream before we send it as input to our TensorFlow Lite interpreter.
 
@@ -319,7 +319,7 @@ Next, we need to pick the relevant 1 second of data from the input. For this. we
 
 Here are plots of a 3 second audio data as it goes through the above stages:
 
-![Simple Audio Recognition on a Raspberry Pi using Machine Learning (I2S, TensorFlow Lite) 9](/images/2021/01/Screenshot-2021-01-17-at-12.32.54-PM-1024x804.png)
+![Simple Audio Recognition on a Raspberry Pi using Machine Learning (I2S, TensorFlow Lite) 9](/images/2021/01/stages.png)
 
 Note that if the maximum amplitude is close to the start or end of the clip, we will end up with an extracted clip of less than one second. So we need to pad the data with zeros as follows:
 
