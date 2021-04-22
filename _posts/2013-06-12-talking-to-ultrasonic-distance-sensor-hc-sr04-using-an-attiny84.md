@@ -34,6 +34,7 @@ meta:
   _wpas_done_all: '1'
 image:
   feature: header.jpg
+thumbnail: images/2013/06/IMG_1503-tn.png
 ---
 <p><iframe width="560" height="315" src="http://www.youtube.com/embed/sDbGe3rc61Q" frameborder="0" allowfullscreen></iframe></p>
 <p>In a previous post, I talked about <a href="http://electronut.in/using-ultrasonic-distance-sensor-module-hc-sr04-with-an-arduino/" title="Using Ultrasonic Distance Sensor Module HC-SR04 with an Arduino">interfacing an Arduino with the HC-SR04</a> ultrasonic distance sensor. This time, I will do the same, but using an ATtiny84 and C code - no Arduino hardware or libraries.</p>

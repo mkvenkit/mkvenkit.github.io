@@ -30,7 +30,7 @@ meta:
   _cc_post_template_type: img-left-content-right
   _thumbnail_id: '312'
   _wpas_done_all: '1'
-thumbnail: images/2013/05/chips.png
+thumbnail: images/2013/05/chips-tn.png
 ---
 <p><img style="padding: 20px;" src="{{ site.baseurl }}/images/2013/05/IMG_1474.jpg"/></p>
 <p>Freescale makes some nifty accelerometer chips, like the popular MMA8452, for which Sparkfun, USA sells a breakout board. But unfortunately (for hobbyists) they all come in hard-to-solder tiny little packages, like the 16 pin QFN which is just 3 mm x 3mm across. </p>

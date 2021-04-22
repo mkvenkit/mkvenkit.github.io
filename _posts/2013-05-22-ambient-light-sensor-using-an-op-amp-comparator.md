@@ -29,6 +29,7 @@ meta:
   _cc_post_template_type: img-left-content-right
   _thumbnail_id: '190'
   _wpas_done_all: '1'
+thumbnail: images/2013/05/IMG_1416-tn.jpg
 ---
 <p>Say you have a microcontroller circuit that does something when it goes dark. To save power, you want to put the chip to sleep when the ambient light drops below a certain level. One way to do this is using an <a href="http://en.wikipedia.org/wiki/Photoresistor">LDR </a>and an op-amp <a href="http://en.wikipedia.org/wiki/Comparator">comparator</a>. </p>
 <p>Here is the schematic:</p>

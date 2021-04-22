@@ -28,7 +28,7 @@ meta:
   _edit_last: '5'
   _cc_post_template_type: img-left-content-right
   _wpas_done_all: '1'
-thumbnail: images/2013/06/IMG_1499.jpg
+thumbnail: images/2013/06/IMG_1499-tn.jpg
 ---
 <p style="padding: 20px;">
 <a href="{{site.baseurl }}/images/2013/06/IMG_1496.jpg"/>

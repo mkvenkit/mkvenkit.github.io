@@ -32,7 +32,7 @@ meta:
   _cc_post_template_type: img-left-content-right
   _thumbnail_id: '220'
   _wpas_done_all: '1'
-thumbnail: images/2013/05/plot.png
+thumbnail: images/2013/05/plot-tn.png
 ---
 <p><iframe width="560" height="315" src="http://www.youtube.com/embed/LMr5UHJJPNk" frameborder="0" allowfullscreen></iframe></p>
 <p><a href="http://www.arduino.cc/">Arduino </a> is fantastic as an intermediary between your computer and a raw electronic circuit. Using the serial interface, you can retrieve information from sensors attached to your Arduino. (You can also send information via the serial interface to actuate circuits and devices (LEDs, relays, servos, etc.) connected to your Arduino.) Once you have the data in your computer, you can do all sorts of things with it - analyze it, display it, or share it on the internet, for instance.</p>

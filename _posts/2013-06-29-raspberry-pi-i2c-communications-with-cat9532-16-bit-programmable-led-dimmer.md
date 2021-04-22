@@ -31,7 +31,7 @@ meta:
   _edit_last: '5'
   _cc_post_template_type: img-left-content-right
   _wpas_done_all: '1'
-thumbnail: images/2013/06/IMG_1613.jpg
+thumbnail: images/2013/06/IMG_1613-tn.jpg
 ---
 <p><iframe width="560" height="315" src="//www.youtube.com/embed/7vckzlMZZq4?rel=0" frameborder="0" allowfullscreen></iframe></p>
 <p>I have a couple of servos on a pan/tilt bracket that I want to control from my Raspberry Pi. As I started looking at options, I read about the <a href="http://www.adafruit.com/products/815">Adafruit 16-channel servo driver</a>. This board is not available where I live, and I got curious about chips that generate PWM signals that could be configured via the I2C protocol. I found a cheap one (less than 2 USD) on element14 - the <a href="http://www.onsemi.com/PowerSolutions/product.do?id=CAT9532">CAT9532 16-bit Programmable LED Dimmer chip</a> from Catalyst Semiconductor.</p>

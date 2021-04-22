@@ -30,7 +30,7 @@ meta:
   _cc_post_template_type: img-left-content-right
   _thumbnail_id: '281'
   _wpas_done_all: '1'
-thumbnail: images/2013/05/IMG_1462.jpg
+thumbnail: images/2013/05/IMG_1462-tn.jpg
 ---
 <p>I just got hold of an HC-SR04 Ultrasonic Sensor Module. This is a short post on hooking it up to an Arduino Uno and getting distance information from it.</p>
 <p>The sensor has 4 pins - VCC (5V), GND, Trigger and Echo. Looking at the datasheet for HC-SR04, the way it work is:</p>

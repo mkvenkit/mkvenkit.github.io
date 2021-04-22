@@ -29,7 +29,7 @@ meta:
   _cc_page_slider_cat: a:0:{}
   _thumbnail_id: '439'
   _wpas_done_all: '1'
-thumbnail: images/2013/06/IMG_1534.jpg
+thumbnail: images/2013/06/IMG_1534-tn.jpg
 ---
 <p>This is a short post on setting up the Raspberry Pi (RPi) for development for the first time.</p>
 <p>Being that the RPi is a full-fledged mini computer, it seems prudent to get a case rather than sticking wires all over it. Here's a case that I picked up from ebay:</p>
