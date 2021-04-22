@@ -34,7 +34,7 @@ meta:
   _wpas_done_all: '1'
 image:
   feature: header.jpg
-thumbnail: /images/2013/06/IMG_1503-tn.png
+thumbnail: /images/2013/06/IMG_1503-tn.jpg
 ---
 
 <iframe width="560" height="315" src="https://www.youtube.com/embed/sDbGe3rc61Q" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
