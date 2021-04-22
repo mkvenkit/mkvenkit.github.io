@@ -6,16 +6,16 @@ tags: [TensoFlow, ML, Raspberry Pi, I2S, Audio]
 categories: [Electronics, programming]
 comments: false
 modified: 2021-01-17
-thumbnail: images/2021/01/IMG_5446-1024x683-tn.jpg
+thumbnail: /images/2021/01/IMG_5446-1024x683-tn.jpg
 ---
 
-![Simple Audio Recognition on a Raspberry Pi using Machine Learning (I2S, TensorFlow Lite) 1](images/2021/01/IMG_5446-1024x683.jpg)
+![Simple Audio Recognition on a Raspberry Pi using Machine Learning (I2S, TensorFlow Lite) 1](/images/2021/01/IMG_5446-1024x683.jpg)
 
 ## Introduction
 
 You know a technology is maturing when there is an abundance of jokes about it on the internet.
 
-![Simple Audio Recognition on a Raspberry Pi using Machine Learning (I2S, TensorFlow Lite) 2](images/2021/01/machine_learning_2x.png)
+![Simple Audio Recognition on a Raspberry Pi using Machine Learning (I2S, TensorFlow Lite) 2](/images/2021/01/machine_learning_2x.png)
 
 Source: https://xkcd.com/1838/
 
@@ -33,7 +33,7 @@ Adapt the official TensorFlow [simple audio recognition example](https://www.ten
 
 Here’s our plan:
 
-![Simple Audio Recognition on a Raspberry Pi using Machine Learning (I2S, TensorFlow Lite) 3](images/2021/01/simple_audio_pi_arch.png)
+![Simple Audio Recognition on a Raspberry Pi using Machine Learning (I2S, TensorFlow Lite) 3](/images/2021/01/simple_audio_pi_arch.png)
 
 Project Architecture
 
@@ -54,7 +54,7 @@ An important thing to be aware of during the training phase of your ML project i
 
 In our case, the input data consists of 8000 audio files in WAV format. Each of them is sampled at 16000 Hz and have a length of less than or equal to 1 second. So the first order of business is to read these files, extract the audio data, and pad them to make them all equal to 1 second. In this process, the data is also normalised to \[-1, 1\]. This is what the input data typically looks like after these manipulations:
 
-![Simple Audio Recognition on a Raspberry Pi using Machine Learning (I2S, TensorFlow Lite) 4](images/2021/01/Screenshot-2021-01-16-at-7.11.53-PM-1024x769.png)
+![Simple Audio Recognition on a Raspberry Pi using Machine Learning (I2S, TensorFlow Lite) 4](/images/2021/01/Screenshot-2021-01-16-at-7.11.53-PM-1024x769.png)
 
 Now we’re not going to feed this data directly into a model. We’re going to create spectrograms from it. Why? Because a spectrogram captures how the signal frequencies changes over time as the command is spoken. This gives use features to train for, which will help in identifying the command. To compute the spectrograms, we will use STFT or the short-time Fourier transform. This is where our code deviates from the official example. See the snippet of code below:
 
@@ -85,13 +85,13 @@ Also, about the spectrogram tensor shape. The official example had set up the ST
 
 Here’s how a typical sample data and its spectrogram looks like:
 
-![Simple Audio Recognition on a Raspberry Pi using Machine Learning (I2S, TensorFlow Lite) 5](images/2021/01/Screenshot-2021-01-16-at-9.15.37-PM-1024x673.png)
+![Simple Audio Recognition on a Raspberry Pi using Machine Learning (I2S, TensorFlow Lite) 5](/images/2021/01/Screenshot-2021-01-16-at-9.15.37-PM-1024x673.png)
 
 You can see above how the evolution of the sound is captured much better in the spectrogram compared to the raw signal. This will be the input to our model.
 
 Here’s the neural network architecture used to train the data, as per the official example code:
 
-![Simple Audio Recognition on a Raspberry Pi using Machine Learning (I2S, TensorFlow Lite) 6](images/2021/01/simple_audio_pi_model.png)
+![Simple Audio Recognition on a Raspberry Pi using Machine Learning (I2S, TensorFlow Lite) 6](/images/2021/01/simple_audio_pi_model.png)
 
 The input passed through an initial scaling and normalisation, and then through a couple of convolution layers, a maxpool, dropout, a fully connected dense layer, before the final dense layer that maps the input to the set of eight commands. The choice of the above architecture may seem a little arbitrary or complicated, but real-world neural networks are usually much deeper. If you are new to all this, I highly recommend that you enroll in Andrew Ng’s Deep Learning specialisation on Coursera. The courses will help you gain a much better intuitive understanding of how to build such models.
 
@@ -234,11 +234,11 @@ $python3 audio\_test.py --nsec 3 --output hello.wav
 
 This is what the WAV file looks like it when I transfer the file over to my computer and open it in [Audacity](https://www.audacityteam.org/).
 
-![Simple Audio Recognition on a Raspberry Pi using Machine Learning (I2S, TensorFlow Lite) 7](images/2021/01/Screenshot-2021-01-17-at-10.26.04-AM-1024x352.png)
+![Simple Audio Recognition on a Raspberry Pi using Machine Learning (I2S, TensorFlow Lite) 7](/images/2021/01/Screenshot-2021-01-17-at-10.26.04-AM-1024x352.png)
 
 As you can see, there are 2 channels, but data only on one of them (as expected), and the volume level is very low. Here’s what it looks like after normalising it in Audacity.
 
-![Simple Audio Recognition on a Raspberry Pi using Machine Learning (I2S, TensorFlow Lite) 8](images/2021/01/Screenshot-2021-01-17-at-10.26.25-AM-1024x353.png)
+![Simple Audio Recognition on a Raspberry Pi using Machine Learning (I2S, TensorFlow Lite) 8](/images/2021/01/Screenshot-2021-01-17-at-10.26.25-AM-1024x353.png)
 
 Looks much better now. These experiments give us a sense of how to process the audio stream before we send it as input to our TensorFlow Lite interpreter.
 
@@ -319,7 +319,7 @@ Next, we need to pick the relevant 1 second of data from the input. For this. we
 
 Here are plots of a 3 second audio data as it goes through the above stages:
 
-![Simple Audio Recognition on a Raspberry Pi using Machine Learning (I2S, TensorFlow Lite) 9](images/2021/01/Screenshot-2021-01-17-at-12.32.54-PM-1024x804.png)
+![Simple Audio Recognition on a Raspberry Pi using Machine Learning (I2S, TensorFlow Lite) 9](/images/2021/01/Screenshot-2021-01-17-at-12.32.54-PM-1024x804.png)
 
 Note that if the maximum amplitude is close to the start or end of the clip, we will end up with an extracted clip of less than one second. So we need to pad the data with zeros as follows:
 
