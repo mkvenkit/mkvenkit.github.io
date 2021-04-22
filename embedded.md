@@ -9,7 +9,7 @@ Here's some of the hardware designed by Electronut Labs.
 
 # SnapVCC
 
-![SnapVCC](snapvcc.jpg)
+![SnapVCC](images/embedded/snapvcc.jpg)
 
 snapVCC is a highly portable and convenient power supply for your electronics projects. It’s designed to snap right on to a 9 V battery and give you 3.3 V or 5 V power wherever you need it.
 
