@@ -23,11 +23,15 @@ systems. Enjoy!
 <div class="art-img">
 <a href="{{ post.url | relative_url }}"><img src ="{{post.thumbnail }}"></a>
 </div> 
-<div class="art-title"> {{ post.title }} </div>
-<div class = "art-desc">
-{{ post.excerpt }}...<a href ="{{ post.url | relative_url }}">continue reading...</a>
-</div>
-<div class = "art-date">{{ post.modified }}</div>
+
+<div class="art-txt">
+  <div class="art-title"> {{ post.title }} </div>
+  <div class = "art-desc">
+  {{ post.excerpt }}...<a href ="{{ post.url | relative_url }}">continue reading...</a>
+  </div>
+  <div class = "art-date">{{ post.modified }}</div>
+</div> 
+
 </div>
 {% endfor %}
 

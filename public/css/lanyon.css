@@ -566,34 +566,38 @@ a.pagination-item:hover {
 }
 
 .art-summary {
-  /*border: 2px solid gray;*/
-  padding: 2px;
-  height: 140px;
+  padding: 10px;
+  height: 150px;
 }
 
 .art-img {
   float: left;
   padding: 4px;
-  /*background-color: green;*/
-  height: 130px;
-  width: 130px;
+  text-align: center; 
+  margin: 2px;
+}
+
+.art-txt {
+  padding: 4px;
+}
+
+td.art-txt-cell {
+  vertical-align: top;
 }
 
 .art-title {
   padding-top: 4px;
   padding-left: 10px;
-  /*background-color: white;*/
   font: italic small-caps bold 18px Georgia, serif;
 }
 
 .art-desc {
   padding-top: 4px;
   padding-left: 10px;
-  /*background-color: yellow;*/
 }
 
 .art-date {
   padding-top: 4px;
   padding-left: 10px;
-  /*background-color: yellow;*/
+  font: italic 10px Georgia, serif;
 }
