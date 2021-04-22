@@ -23,6 +23,8 @@ meta:
 image:
   feature: header.jpg
   
+modified: 2014-04-04
+
 thumbnail: images/2014/04/IMG_3558-tn.jpg
 ---
 <p style="padding: 20px;">

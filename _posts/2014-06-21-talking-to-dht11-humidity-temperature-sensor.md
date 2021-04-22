@@ -17,6 +17,9 @@ published: true
 comments: true
 meta:
   _edit_last: '5'
+
+modified: 2014-06-21
+
 thumbnail: images/2014/06/dht11-tn.jpg
 ---
 <p style="padding: 20px;">

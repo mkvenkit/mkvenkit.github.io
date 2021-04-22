@@ -20,6 +20,9 @@ meta:
   _wpas_done_all: '1'
 image:
   feature: header.jpg
+
+modified: 2014-03-29
+
 ---
 <p style="padding: 20px;">
 <img src="{{ site.baseurl }}/images/2014/03/photo8.jpg" />

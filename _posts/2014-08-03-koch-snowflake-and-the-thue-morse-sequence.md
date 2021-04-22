@@ -18,6 +18,9 @@ comments: true
 meta:
   _edit_last: '5'
   _thumbnail_id: '814'
+
+modified: 2014-08-03
+
 thumbnail: images/2014/08/koch-tn.png
 ---
 <p>When you first study recursion, you will invariably run into a "factorial" example. But if you are lucky, you will also run into a far more interesting algorithm - one that draws a fractal geometry construct called the "Koch snowflake". This curve was discovered in 1904 by Swedish mathematician Helge von Koch [1]. Drawing this curve is straightforward, and we will do so using Python <code>turtle</code> graphics. But this curve also has a deeper connection with a mathematical sequence called the Thue-Morse sequence [2], which we will explore in a bit.</p>

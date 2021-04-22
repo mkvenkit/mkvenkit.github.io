@@ -4,7 +4,7 @@ title: A Joule Thief Circuit
 excerpt: "I was looking for a simple voltage boost circuit when I found the Joule Thief."
 tags: [joule thief, ferrite toroid, boost, circuit]
 comments: false
-#modified: 2014-12-09
+modified: 2014-12-09
 thumbnail: images/2014/12/joule-thief-breadboard-tn.jpg
 images: images/2014/12/joule-thief-breadboard.jpg
 ---

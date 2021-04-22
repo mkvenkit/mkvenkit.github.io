@@ -17,6 +17,8 @@ meta:
 image:
   feature: header.jpg
 
+modified: 2014-07-18
+
 thumbnail: images/2014/07/ac-tn.png
 ---
 <p>I have been reading <a href="http://interactivepython.org/courselib/static/pythonds/index.html">Miller & Ranum's e-book on Python/Algorithms</a>. (A superb book which is also free online.) While looking through their chapter on <em>Algorithm Analysis</em>, I took their idea of using the Python <code>Timer</code> and <code>timeit</code> methods a bit forward to create a simple plotting scheme using <code>matplotlib</code>. </p>

@@ -17,6 +17,8 @@ meta:
   _thumbnail_id: '874'
 image:
   feature: header.jpg
+
+modified: 2014-11-18
 ---
 <p>Just got my hands on the <a href="http://www.raspberrypi.org/products/model-a-plus/">Raspberry Pi Model A+</a>. <!--more--></p>
 

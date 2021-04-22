@@ -23,6 +23,9 @@ meta:
   _oembed_d43707f278918764a45e6417ece83141: '{{unknown}}'
 image:
   feature: header.jpg
+
+modified: 2014-05-04
+
 thumbnail: images/2014/05/adapter-tn.png
 ---
 <p style="padding: 20px;">
