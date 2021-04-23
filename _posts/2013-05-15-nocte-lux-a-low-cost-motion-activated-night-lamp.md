@@ -27,6 +27,9 @@ meta:
   _edit_last: '5'
   _cc_post_template_type: img-left-content-right
   _thumbnail_id: '100'
+
+modified: 2013-05-15
+
 thumbnail: 
 ---
 <p>No, it's not the $10000 Leica lens of similar name. ;-)</p>

@@ -30,6 +30,9 @@ meta:
   _cc_post_template_type: img-left-content-right
   _thumbnail_id: '312'
   _wpas_done_all: '1'
+
+modified: 2013-05-30
+
 thumbnail: images/2013/05/chips-tn.png
 ---
 <p><img style="padding: 20px;" src="{{ site.baseurl }}/images/2013/05/IMG_1474.jpg"/></p>

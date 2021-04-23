@@ -29,6 +29,8 @@ meta:
   _wpas_done_all: '1'
 image:
   feature: header.jpg
+
+modified: 2013-06-27
 ---
 <p>I keep <a href="http://electronut.in/starting-raspberry-pi-wifi-ssh-and-gpio/" title="Starting Raspberry Pi: WiFi, ssh and GPIO">logged into my Raspberry Pi from my Mac</a>. The Pi is connected to my network using a USB WiFi adapter. But when I leave the login idle for a while, I find it to be (a) frozen and (b) I cannot login via a new ssh session - in fact, I can't even ping the Pi anymore. </p>
 <p>I found the solution for problem (b) above <a href="http://raspberrypi.stackexchange.com/questions/1384/how-do-i-disable-suspend-mode/4518#4518">in a StackOverflow post</a>. </p>

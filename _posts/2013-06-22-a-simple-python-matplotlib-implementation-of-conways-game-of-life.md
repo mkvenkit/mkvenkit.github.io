@@ -30,6 +30,9 @@ meta:
   _wpas_done_all: '1'
 image:
   feature: header.jpg
+
+modified: 2013-06-22
+
 ---
 <p><iframe width="560" height="315" src="http://www.youtube.com/embed/scBKQfvdc7c?rel=0" frameborder="0" allowfullscreen></iframe></p>
 <p>I was recently reading about Conway's Game of Life - a cellular automaton discovered by British mathematician John Conway in 1970. Using 4 simple rules, his system creates complex patterns as it evolves over time. You can read more about this <a href="http://en.wikipedia.org/wiki/Conway%27s_Game_of_Life">here</a>.</p>

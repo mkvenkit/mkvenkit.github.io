@@ -14,7 +14,8 @@ These days I spend time consulting on computer graphics (C++/OpenGL) and Embedde
 You can find me on Twitter at [@mkvenkit][1] and [@electronutlabs][2]. 
 
 **Mahesh Venkitachalam**
-[23 April 2021]
+
+(23 April 2021)
 
 ![portrait](images/mahesh-portrait.jpg)
 

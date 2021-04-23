@@ -26,6 +26,9 @@ meta:
   _edit_last: '5'
   _cc_post_template_type: img-left-content-right
   _thumbnail_id: '73'
+
+modified: 2013-05-15
+
 thumbnail: images/2013/05/Automatic-lights-tn.jpg
 ---
 <p>This is a small project that I worked on last year. I have a desk made of dark wood, and it was very difficult to see what was inside the bottom draw. I put together a simple circuit with the schematic below - something which lit up a few strips of LEDs using a magnet stuck to the side of the door to switch a transistor on/off.</p>

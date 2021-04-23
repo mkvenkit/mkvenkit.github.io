@@ -30,6 +30,9 @@ meta:
   _cc_post_template_type: img-left-content-right
   _thumbnail_id: '281'
   _wpas_done_all: '1'
+
+modified: 2013-05-28
+
 thumbnail: images/2013/05/IMG_1462-tn.jpg
 ---
 <p>I just got hold of an HC-SR04 Ultrasonic Sensor Module. This is a short post on hooking it up to an Arduino Uno and getting distance information from it.</p>

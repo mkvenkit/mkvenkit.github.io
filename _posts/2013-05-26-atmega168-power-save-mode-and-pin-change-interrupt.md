@@ -37,6 +37,9 @@ meta:
   _wpas_done_all: '1'
 image:
   feature: header.jpg
+
+modified: 2013-05-26
+
 ---
 <p>Most times your microcontroller is running in a loop, waiting for something to happen - like a button press. All this while it is consuming power, and this could be an issue, especially if you are running the circuit from a battery. To counter this problem, there are ways of reducing the power consumption of your chip. Here are the various "sleep modes" supported by the ATmega168. </p>
 <p>[Table reproduced from Atmel ATmega168 datasheet for illustrative purpose]</p>

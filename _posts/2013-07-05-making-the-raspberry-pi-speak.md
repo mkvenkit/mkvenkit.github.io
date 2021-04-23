@@ -30,6 +30,8 @@ meta:
   _cc_post_template_type: img-left-content-right
   _wpas_done_all: '1'
 
+modified: 2013-07-05
+
 thumbnail: images/2013/07/photo-tn.jpg
 ---
 <p style="padding: 20px;">

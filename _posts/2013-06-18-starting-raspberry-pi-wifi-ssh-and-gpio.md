@@ -29,6 +29,9 @@ meta:
   _cc_page_slider_cat: a:0:{}
   _thumbnail_id: '439'
   _wpas_done_all: '1'
+
+modified: 2013-06-18
+
 thumbnail: images/2013/06/IMG_1534-tn.jpg
 ---
 <p>This is a short post on setting up the Raspberry Pi (RPi) for development for the first time.</p>

@@ -29,6 +29,9 @@ meta:
   _wpas_done_all: '1'
 image:
   feature: header.jpg
+
+modified: 2013-06-01
+
 thumbnail: images/2013/05/IMG_1478-tn.jpg
 ---
 <p style="padding: 20px;"

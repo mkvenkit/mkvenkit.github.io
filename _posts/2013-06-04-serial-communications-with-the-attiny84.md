@@ -28,6 +28,9 @@ meta:
   _edit_last: '5'
   _cc_post_template_type: img-left-content-right
   _wpas_done_all: '1'
+
+modified: 2013-06-04
+
 thumbnail: images/2013/06/IMG_1499-tn.jpg
 ---
 <p style="padding: 20px;">

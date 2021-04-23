@@ -32,6 +32,9 @@ meta:
   _cc_post_template_type: img-left-content-right
   _thumbnail_id: '220'
   _wpas_done_all: '1'
+
+modified: 2013-05-24
+
 thumbnail: images/2013/05/plot-tn.png
 ---
 <p><iframe width="560" height="315" src="http://www.youtube.com/embed/LMr5UHJJPNk" frameborder="0" allowfullscreen></iframe></p>

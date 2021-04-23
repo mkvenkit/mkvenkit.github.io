@@ -30,6 +30,8 @@ meta:
   _edit_last: '5'
   _cc_post_template_type: img-left-content-right
   _wpas_done_all: '1'
+
+modified: 2013-07-06
 ---
 <p>This is how I develop code on my Raspberry Pi:</p>
 <p><a href="http://electronut.in/starting-raspberry-pi-wifi-ssh-and-gpio/" title="Starting Raspberry Pi: WiFi, ssh and GPIO">ssh into the Pi</a> from my Macbook Pro from 2 Terminals, and use <strong>emacs</strong> on one to edit the code, while I run the code from the other. This way I don't need to use the annoyingly slow X-server or VNC solutions to display UI from the PI for editing. </p>

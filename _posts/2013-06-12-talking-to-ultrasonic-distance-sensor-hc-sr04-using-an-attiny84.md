@@ -34,6 +34,9 @@ meta:
   _wpas_done_all: '1'
 image:
   feature: header.jpg
+
+modified: 2013-06-12
+
 thumbnail: /images/2013/06/IMG_1503-tn.jpg
 ---
 

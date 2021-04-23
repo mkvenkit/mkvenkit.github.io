@@ -27,6 +27,9 @@ meta:
   _edit_last: '5'
   _thumbnail_id: '131'
   _cc_post_template_type: img-left-content-right
+
+modified: 2013-05-20
+
 thumbnail: images/2013/05/IMG_1412-tn.jpg
 ---
 <p>The first thing you do when you learn a new programming language or platform is to write a "hello world" application. This requires something like a "printf" function. That's not so straightforward when it comes to microcontrollers - where will the output of the "printf" go? That's where serial communications come in. Arduino users have it easy - they just need to use Serial.print(). But the situation is not so bad if you are using a standalone microcontroller - just choose a chip like ATmega168 which has <a href="http://en.wikipedia.org/wiki/Universal_asynchronous_receiver/transmitter">USART </a>- hardware support for serial communications.</p>
