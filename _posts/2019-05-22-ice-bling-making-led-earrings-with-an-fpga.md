@@ -71,7 +71,7 @@ Since I did not use a shift register, and the FPGA has a current limit of less t
 
 The 8 x 8 grid is represented as a Verilog array **reg \[63:0\] fb**. Here are the highlights from the frame buffer display logic in **dot88.v**.
 
-```
+```verilog
   always @ (posedge clk)
     begin
       
@@ -112,7 +112,7 @@ Now that we know how to display an 8 x 8 “frame” of 64 bits, let’s create 
 
 The first thing I wanted was to scroll the initials of my wife’s name. For this, we define two “frame buffers” and switch between them. The code for this module is in **letters88.v**.
 
-```
+```verilog
 // "H"
 r_fb1[0:7]   = 8'b01000010;    
 r_fb1[8:15]  = 8'b01000010; 
@@ -126,7 +126,7 @@ r_fb1[56:63] = 8'b01000010;
 
 The above code shows how the letter “H” is stored.
 
-```
+```verilog
 // scroll letter 1 
 r_fb1[0:7]   <= {r_fb1[6:0],  r_fb1[7]};
 r_fb1[8:15]  <= {r_fb1[14:8], r_fb1[15]};
@@ -160,7 +160,7 @@ Game of Life – State Machine
 
 On start, the state changes to “New Frame”. This initialises the simulation grid and changes state to “Compute 8NN”, which computes the sum of the 8 nearest neighbours of the current pixel. The state then changes to “Update Grid” which keeps switching back and forth with “Compute 8NN” till the whole frame is done, after which state is reset to “New Frame”. Some code snippets of this state machine can be seen below.
 
-```
+```verilog
 // handle state machine
 case (curr_state)
 
@@ -246,7 +246,7 @@ Coming from the microcontroller world, writing code for an FPGA in Verilog is a 
 
 In this pattern, we just want to blink alternate LEDs on the grid. The code for this module is in **rain88.v**. (Yes, I had fantasies of making it look like rain. It didn’t.)
 
-```
+```verilog
 always @ (posedge clk)
     begin 
         if (!resetn)
@@ -283,7 +283,7 @@ After initialising a “0101…” pattern, on each clock edge, we just invert t
 
 Now that we have our three patterns, all we need is some code to cycle through them. This is done by the module in **top.v**.
 
-```
+```verilog
 // LED pattern
 parameter PAT_LETTERS   = 2'b00;
 parameter PAT_CONWAY    = 2'b01;
@@ -368,14 +368,15 @@ To build the project, install _icestorm_ tools, use ‘**make**‘, and to uploa
 
 To upload code to iCEBling, we used the [Adafruit FT232H board](https://www.adafruit.com/product/2264). Here is the pin mapping from FT232H to iCE Bling.
 
-**iCE Bling - FT232H** 
-SS -     D4
-SCK -    D0
-MOSI -   D2
-MISO -   D1
-CRESET - D7
-CDONE -  D6 
-GND -    GND
+|**iCE Bling| **FT232H** |
+|---|---|
+|SS | D4 |
+|SCK | D0 |
+|MOSI | D2 |
+|MISO | D1 |
+|CRESET | D7 |
+|CDONE | D6 |
+|GND | GND |
 
 (Power iCE Bling using coin cell while programming.)
 
