@@ -592,7 +592,7 @@ td.art-txt-cell {
 .art-title {
   padding-top: 4px;
   padding-left: 10px;
-  font: italic small-caps bold 18px Georgia, serif;
+  font: bold 18px Georgia, serif;
 }
 
 .art-desc {
