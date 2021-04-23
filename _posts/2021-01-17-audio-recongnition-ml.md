@@ -323,14 +323,14 @@ Here are plots of a 3 second audio data as it goes through the above stages:
 
 Note that if the maximum amplitude is close to the start or end of the clip, we will end up with an extracted clip of less than one second. So we need to pad the data with zeros as follows:
 
-```
+```python
 waveform_padded = np.zeros((16000,))
 waveform_padded[:waveform.shape[0]] = waveform
 ```
 
 One more thing about the audio data. We want to skip inference if there is not much action going on. For this. we can make use of the peak-to-peak data as follows:
 
-```
+```python
 PTP = np.ptp(waveform)
 print("peak-to-peak: %.4f. Adjust as needed." % (PTP,))
 
