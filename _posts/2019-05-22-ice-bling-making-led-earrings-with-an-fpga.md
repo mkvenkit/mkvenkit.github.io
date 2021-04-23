@@ -43,7 +43,6 @@ Here’s the schematic for iCE Bling. (PDF available at the download link at the
 
 ![iCE Bling FPGA - Beautiful LED Earrings with Lattice iCE40 4](/images/2019/05/Screenshot-2019-05-18-at-7.55.58-AM-1-1024x663.png)
 
-![iCE Bling FPGA - Beautiful LED Earrings with Lattice iCE40 5](/images/2019/05/Screenshot-2019-05-18-at-7.56.09-AM-1-1024x660.png)
 
 So as you can see, not too many components. Just what’s necessary to supply voltages for the FPGA, an SPI flash chip to store the bitstream (program), and an oscillator for the clock. The LEDs are directly connected to the FPGA pins, as I mentioned earlier.
 
