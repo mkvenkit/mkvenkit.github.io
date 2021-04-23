@@ -4,7 +4,7 @@ title: About
 ---
 
 **electronut** is a culmination of my interests in programming and embedded systems. I started writing about my experiments with embedded hardware in 2010,
-and in 2015, No Starch press published my book *Python Playground*.
+and in 2015, No Starch Press published my book *Python Playground*.
 
 From 2016 to 2019 I ran a small consulting firm called Electronut Labs. In three years we built some interesting open source hardware, and custom devices 
 for a number of clients. It was an exhilarating ride!
