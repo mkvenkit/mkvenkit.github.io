@@ -58,7 +58,7 @@ In our case, the input data consists of 8000 audio files in WAV format. Each of 
 
 Now we’re not going to feed this data directly into a model. We’re going to create spectrograms from it. Why? Because a spectrogram captures how the signal frequencies changes over time as the command is spoken. This gives use features to train for, which will help in identifying the command. To compute the spectrograms, we will use STFT or the short-time Fourier transform. This is where our code deviates from the official example. See the snippet of code below:
 
-```
+```python
 def stft(x):
     f, t, spec = signal.stft(x.numpy(), fs=16000, nperseg=255, noverlap = 124, nfft=256)
     return tf.convert_to_tensor(np.abs(spec))
@@ -97,7 +97,7 @@ The input passed through an initial scaling and normalisation, and then through 
 
 Once the model is setup, it’s trained as follows:
 
-```
+```python
 model.compile(
     optimizer=tf.keras.optimizers.Adam(),
     loss=tf.keras.losses.SparseCategoricalCrossentropy(from_logits=True),
@@ -115,7 +115,7 @@ history = model.fit(
 
 For 10 epochs, the training accuracy for this model is around 0.8389. You can train for more epochs depending on how fast your computer is. The next thing to do is save the model.
 
-```
+```python
 model.save('simple_audio_model_numpy.sav')
 
 # Convert the model
@@ -137,7 +137,7 @@ The first thing to do is install the TensorFlow Lite interpreter on the Pi. The 
 
 Once you install the interpreter, transfer the TF Lite model to the Pi and test it out as follows:
 
-```
+```python
 $ python3
 Python 3.7.3 (default, Jul 25 2020, 13:03:44) 
 [GCC 8.3.0] on linux
@@ -163,7 +163,7 @@ We will use Pyaudio to grab audio data from the microphone. In this project, I a
 
 After you set up the I2S mic and Pi audio, it’s a good idea to collect some sound samples before you try any inference. Take a look at [audio\_test.py](https://github.com/mkvenkit/simple_audio_pi/blob/main/audio_test.py) utility program in the repository. First run it with the _–list_ option so you get a list of the input devices on the Pi.
 
-```
+```sh
 $python3 audio_test.py --list
 
 Found 4 devices:
@@ -181,7 +181,7 @@ Found 4 devices:
 
 Based on your output, pass in the index into the input\_device\_index parameter in the code below. In my case, the index is 1. The pyaudio code for getting the audio data is structured as follows:
 
-```
+```python
 CHUNK = 4096
 FORMAT = pyaudio.paInt32
 CHANNELS = 2
@@ -228,7 +228,7 @@ wf.close()
 
 _pyaudio_ works by opening the audio stream and reading in chunks of data. The input stream is configures to read in 32 bit 2-channel data at 16000 Hz. Above, we are discarding the first few seconds of data. I did this because I found that when the stream starts up, there is loud click every time – maybe something to do with audio initialisation. The data frames are then combined together and written to a WAV file. Let’s try it out.
 
-```
+```sh
 $python3 audio\_test.py --nsec 3 --output hello.wav
 ```
 
@@ -250,7 +250,7 @@ Another thing we need is the ability to slice the audio data. Since we’ll have
 
 Take a look at the Jupyter notebook [slice\_audio.ipynb](https://github.com/mkvenkit/simple_audio_pi/blob/main/slice_audio.ipynb) which tests out these ideas.
 
-```
+```python
 def show_audio(wavfile_name):
     # get audio data 
     rate, waveform0 = wavfile.read(wavfile_name)
@@ -306,7 +306,7 @@ def show_audio(wavfile_name):
 
 The first thing we do it is to pick the left channel (in my case) from the 2-channel data. Notice the _.T_ or transpose of the data – that’s because of the shape of the incoming data:
 
-```
+```python
 [[         0 -122814464]
  [         0 -122912768]...]
 ```
@@ -342,7 +342,7 @@ if PTP < 0.5:
 
 Now we’re ready to look at the spectrogram. We can safely use _scipy.signal.stft_, since we used the same function during training of the data.
 
-```
+```python
 def get_spectrogram(waveform):
     
     waveform_padded = process_audio_data(waveform)
@@ -380,7 +380,7 @@ For displaying text, there is a helper class called [display\_ssd1306.py](https:
 
 Now we have all the pieces required to run inference on the incoming audio data on the Pi. We know how to extract the audio data, process it, scale it correctly and compute the spectrogram. Next we need to use the TensorFlow Lite mode and run inference on it using the input data. Here’s the inference code from [simple\_audio.py](https://github.com/mkvenkit/simple_audio_pi/blob/main/simple_audio.py) from the repository.
 
-```
+```python
 def run_inference(disp, waveform):
 
     # get spectrogram data 
@@ -431,7 +431,7 @@ You can see in the code above how the interpreter is created from the Lite model
 
 Here is a typical command line output from a run. Say the keyword when you see the ‘Listening…” prompt.
 
-```
+```sh
  opening stream…
  Listening…
  Stereo detected. Picking one channel.
