@@ -9,7 +9,7 @@ My interest in computer graphics continued as I pursed my Masters in Materials S
 
 Another passion I have in life is electronics. I started writing about my experiments with embedded hardware in 2010, and in 2015, No Starch Press published my book Python Playground - a collection of projects in art, music, computer graphics, simulation, and embedded systems.
 
-From 2016 to 2019 I ran a small consulting firm called Electronut Labs. In three years we built some interesting open source hardware, and custom devices for a number of clients. It was an exhilarating ride, and you can read more about those adventures at electronut.in.
+From 2016 to 2019 I ran a small consulting firm called Electronut Labs. In three years we built some interesting open source hardware, and custom devices for a number of clients. It was an exhilarating ride, and you can read more about those adventures [here][3].
 
 **electronut** is a culmination of my interests in programming and embedded systems. 
 
@@ -25,3 +25,4 @@ You can find me on Twitter at [@mkvenkit][1] and [@electronutlabs][2].
 
 [1]: https://twitter.com/mkvenkit
 [2]: https://twitter.com/electronutLabs
+[3]: https://electronut.in//embedded/
