@@ -13,7 +13,7 @@ From 2016 to 2019 I ran a small consulting firm called Electronut Labs. In three
 
 **electronut** is a culmination of my interests in programming and embedded systems. 
 
-These days I spend time consulting on 3D computer graphics and writing technical books.
+These days I spend time consulting on 3D computer graphics, hardware hacking, and writing.
 
 You can find me on Twitter at [@mkvenkit][1] and [@electronutlabs][2].
 
