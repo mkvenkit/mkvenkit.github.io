@@ -7,6 +7,15 @@ Here's some of the hardware designed by Electronut Labs. Some of this hardware i
 
 <hr/>
 
+# Mico 
+
+![Mico](images/embedded/mico.png)
+
+Mico is an open source PDM to USB microphone based on the Raspberry Pi RP2040 
+chip. You can read the story of Mico [here](https://electronut.in/mico/).
+
+<hr/>
+
 # SnapVCC
 
 ![SnapVCC](images/embedded/snapvcc.jpg)
