@@ -3,7 +3,7 @@ layout: page
 title: Embedded
 ---
 
-Here's some of the hardware designed by Electronut Labs. Some of this hardware is available for purchase at our [Tindie Store](https://www.tindie.com/stores/electronutlabs).
+Here's some of the hardware designed by Electronut Labs. 
 
 <hr/>
 
@@ -12,7 +12,8 @@ Here's some of the hardware designed by Electronut Labs. Some of this hardware i
 ![Mico](images/embedded/mico.png)
 
 Mico is an open source PDM to USB microphone based on the Raspberry Pi RP2040 
-chip. You can read the story of Mico [here](https://electronut.in/mico/).
+chip. We're currently preparing for a crowdfunding campaign to manufacture Mico. Please 
+[sign up here](https://www.crowdsupply.com/electronut-labs/mico) for updates.
 
 <hr/>
 
