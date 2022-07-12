@@ -40,7 +40,7 @@ I am currently working on preparing for Humble iCE production. Please follow me
 
 <hr/>
 
-# Mico 
+# Mico (Dec 2021)
 
 ![Mico](images/embedded/mico.png)
 
