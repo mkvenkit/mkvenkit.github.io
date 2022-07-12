@@ -7,6 +7,39 @@ Here's some of the hardware designed by Electronut Labs.
 
 <hr/>
 
+# Humble iCE (July 2022)
+
+![hi](images/embedded/hi1.jpg)
+
+Humble iCE is a cost optimized FPGA development board based on the 
+Lattice iCE40UP5k chip. I have developed this board to make FPGA education 
+more accessible in countries like India. 
+
+## Hardware Specifications
+
+- Lattice iCE40UP5k FPGA
+- Raspberry Pi RP2040
+- 32 Mbit Flash 
+- Boot/Reset/User Buttons
+- 2 x LEDs
+- USB Type C connector
+- 4 x PMODs (3 FPGA, 1 RP) on 2x20 Headers 
+- SWD header for RP2040
+- 4 x mounting holes
+
+## Software Specifications 
+
+The RP2040 acts as a programmer and communication bridge for the FPGA. 
+The firmware on the RP2040 will expose two USB CDC ports which can be used 
+for bitstream upload and for UART communications with FPGA fabric.
+
+## Production Status 
+
+I am currently working on preparing for Humble iCE production. Please follow me 
+[@mkvenkit on Twitter](https://twitter.com/mkvenkit) for updates.  
+
+<hr/>
+
 # Mico 
 
 ![Mico](images/embedded/mico.png)
