@@ -45,9 +45,7 @@ I am currently working on preparing for Humble iCE production. Please follow me
 ![Mico](images/embedded/mico.png)
 
 Mico is an open source PDM to USB microphone based on the Raspberry Pi RP2040 
-chip. We're currently preparing for a crowdfunding campaign to manufacture Mico. Please 
-[sign up here](https://www.crowdsupply.com/electronut-labs/mico) for updates.
-
+chip. Read about it [here](https://github.com/mkvenkit/mico).
 <hr/>
 
 # SnapVCC
