@@ -1,7 +1,7 @@
-site: Personal Jekyll Theme
+site: Official web page of author Mahesh Venkitachalam
 
-url: 
-baseurl: 
+url: "https://maheshvenkit.github.io"
+baseurl: ""   # must be empty for user site
 
 collections:
   pages:
