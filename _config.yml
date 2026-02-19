@@ -1,7 +1,7 @@
 site: Official web page of author Mahesh Venkitachalam
 
-url: "https://mkvenkit.github.io"
-baseurl: "/maheshvenkit.github.io"
+url: "https://maheshvenkit.com"
+baseurl: ""
 
 collections:
   pages:
