@@ -1,5 +1,5 @@
 basic_settings:
-  site_title: Personal
+  site_title: Mahesh Venkitachalam
   favicon_image: /images/favicon.png
 
 header_settings:
@@ -8,7 +8,7 @@ header_settings:
 
 menu_settings:
   menu_items:
-    - title: 'Projects'
+    - title: 'Books'
       url: '/'
     - title: 'Blog'
       url: '/blog/'
