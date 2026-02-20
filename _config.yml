@@ -3,6 +3,7 @@ site: Official web page of author Mahesh Venkitachalam
 url: "https://maheshvenkit.com"
 baseurl: ""
 
+
 collections:
   pages:
     output: true
