@@ -1,0 +1,33 @@
+---
+layout: page
+title: YouTube
+permalink: /youtube/
+---
+
+<div id="youtube-grid" class="grid"></div>
+
+<script>
+const feedUrl = "https://www.youtube.com/feeds/videos.xml?channel_id=UCtIsuzb-qYcNALlO37X1x7A";
+
+fetch("https://api.rss2json.com/v1/api.json?rss_url=" + encodeURIComponent(feedUrl))
+  .then(res => res.json())
+  .then(data => {
+    const container = document.getElementById("youtube-grid");
+
+    data.items.slice(0, 9).forEach(video => {
+      const videoId = video.link.split("v=")[1];
+
+      const item = document.createElement("div");
+      item.className = "grid__item";
+
+      item.innerHTML = `
+        <a href="${video.link}" target="_blank">
+          <img src="https://img.youtube.com/vi/${videoId}/hqdefault.jpg">
+          <h3>${video.title}</h3>
+        </a>
+      `;
+
+      container.appendChild(item);
+    });
+  });
+</script>
