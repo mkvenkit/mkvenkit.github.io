@@ -4,6 +4,10 @@ title: YouTube
 permalink: /youtube/
 ---
 
+<p>
+About the YouTube channel...
+</p>
+
 <div id="youtube-grid" class="grid"></div>
 
 <script>
@@ -22,9 +26,10 @@ fetch("https://api.rss2json.com/v1/api.json?rss_url=" + encodeURIComponent(feedU
 
       item.innerHTML = `
         <a href="${video.link}" target="_blank">
+            <h3>${video.title}</h3>
           <img src="https://img.youtube.com/vi/${videoId}/hqdefault.jpg">
-          <h3>${video.title}</h3>
         </a>
+        <hr/>
       `;
 
       container.appendChild(item);
