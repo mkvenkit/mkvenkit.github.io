@@ -1,0 +1,84 @@
+---
+layout: default
+title: Books
+description: Personal includes a simple blog with pagination.
+featured_image: /images/demo/blog.jpg
+---
+
+<section class="hero hero--single">
+
+	<div class="hero__image" style="background-image: url({{ page.featured_image | relative_url }})">
+		<div class="hero__overlay"></div>
+	</div>
+
+	<div class="wrap">
+
+		<h1>Books</h1>
+		<p>Personal includes a simple blog with pagination.</p>
+
+	</div>
+
+</section>
+
+<section class="listing">
+
+	<div class="wrap">
+
+		<div class="books">
+
+		<!-- Book 1 -->
+		<div class="book">
+			<div class="book__image">
+			<a href="/books/webgpu-explained/">
+				<img src="/images/webgpu-book.jpg" alt="WebGPU Explained">
+			</a>
+			</div>
+
+			<div class="book__info">
+			<h2 class="book__title">
+				<a href="/books/webgpu-explained/">WebGPU Explained</a>
+			</h2>
+
+			<p class="book__desc">
+				A practical guide to modern GPU programming with WebGPU. Covers rendering,
+				compute shaders, and real-world graphics techniques.
+			</p>
+
+			<div class="book__actions">
+				<a href="/books/webgpu-explained/" class="btn btn--outline">Read More</a>
+				<a href="https://amazon.com/your-book-link" target="_blank" class="btn btn--solid">Buy</a>
+			</div>
+			</div>
+		</div>
+
+
+		<!-- Book 2 -->
+		<div class="book">
+			<div class="book__image">
+			<a href="/books/embedded-intelligence/">
+				<img src="/images/embedded-book.jpg" alt="Embedded Intelligence">
+			</a>
+			</div>
+
+			<div class="book__info">
+			<h2 class="book__title">
+				<a href="/books/embedded-intelligence/">Embedded Intelligence</a>
+			</h2>
+
+			<p class="book__desc">
+				Building intelligent embedded systems using microcontrollers and practical AI.
+			</p>
+
+			<div class="book__actions">
+				<a href="/books/embedded-intelligence/" class="btn btn--outline">Read More</a>
+				<a href="https://amazon.com/your-second-book-link" target="_blank" class="btn btn--solid">Buy</a>
+			</div>
+			</div>
+		</div>
+
+		</div>
+
+	</div>
+
+</section>
+
