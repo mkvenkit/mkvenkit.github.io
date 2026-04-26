@@ -1,82 +1,108 @@
 ---
 layout: page
 title: Books
-description: Personal includes a simple blog with pagination.
-featured_image: /images/demo/blog.jpg
+subtitle: Books on Python, graphics, and creative programming.
+description: Books by Mahesh Venkitachalam, including Python Playground and The Book of WebGPU.
+featured_image: /images/pp-page.webp
 ---
 
-<section class="hero hero--single">
+<style>
+  .books-page {
+    display: grid;
+    gap: 48px;
+  }
 
-	<div class="hero__image" style="background-image: url({{ page.featured_image | relative_url }})">
-		<div class="hero__overlay"></div>
-	</div>
+  .book-entry {
+    display: grid;
+    gap: 24px;
+    padding-bottom: 40px;
+    border-bottom: 1px solid #dddddd;
+  }
 
-	<div class="wrap">
+  .book-entry:last-child {
+    padding-bottom: 0;
+    border-bottom: 0;
+  }
 
-		<h1>Books</h1>
-		<p>Personal includes a simple blog with pagination.</p>
+  .book-entry__media img {
+    width: 100%;
+    max-width: 280px;
+    height: auto;
+    border-radius: 4px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.12);
+  }
 
-	</div>
+  .book-entry__meta {
+    display: inline-block;
+    margin-top: 8px;
+    color: #6C7A89;
+    font-size: 0.9em;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+  }
 
-</section>
+  .book-entry__actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    margin-top: 24px;
+  }
 
-<section class="listing">
+  .book-entry__actions .button {
+    margin-top: 0;
+  }
 
-	<div class="wrap">
+  @media (min-width: 900px) {
+    .book-entry {
+      grid-template-columns: 280px 1fr;
+      align-items: start;
+    }
+  }
+</style>
 
-		<!-- Book 1 -->
-		<div class="book">
-			<div class="book__image">
-			<a href="/books/webgpu-explained/">
-				<img src="/images/webgpu-book.jpg" alt="WebGPU Explained">
-			</a>
-			</div>
+<div class="books-page">
+  <section class="book-entry">
+    <div class="book-entry__media">
+      <img src="/images/2014/07/pp-cover.jpg" alt="Python Playground book cover">
+    </div>
 
-			<div class="book__info">
-			<h2 class="book__title">
-				<a href="/books/webgpu-explained/">WebGPU Explained</a>
-			</h2>
+    <div class="book-entry__content">
+      <h2>Python Playground</h2>
+      <span class="book-entry__meta">Python • Creative Coding • Hardware</span>
 
-			<p class="book__desc">
-				A practical guide to modern GPU programming with WebGPU. Covers rendering,
-				compute shaders, and real-world graphics techniques.
-			</p>
+      <p>Python Playground is a collection of imaginative programming projects built around art, music, simulation, 3D graphics, and hardware hacking.</p>
 
-			<div class="book__actions">
-				<a href="/books/webgpu-explained/" class="btn btn--outline">Read More</a>
-				<a href="https://amazon.com/your-book-link" target="_blank" class="btn btn--solid">Buy</a>
-			</div>
-			</div>
-		</div>
+      <p>The updated edition expands the original idea with new projects while keeping the same spirit: learn Python by making interesting things with libraries such as <code>numpy</code>, <code>matplotlib</code>, and Pillow, and by connecting software to real devices.</p>
 
+      <p>Topics include generative art, music synthesis, simulations, 3D visualization, image processing, and hands-on projects that bring Python into the physical world.</p>
 
-		<!-- Book 2 -->
-		<div class="book">
-			<div class="book__image">
-			<a href="/books/embedded-intelligence/">
-				<img src="/images/embedded-book.jpg" alt="Embedded Intelligence">
-			</a>
-			</div>
+      <div class="book-entry__actions">
+        <a href="https://electronut.in/projects/python-playground-2nd-edition/" class="button button--large" target="_blank" rel="noopener noreferrer">About 2nd Edition</a>
+        <a href="https://nostarch.com/pythonplayground2" class="button button--large button--light" target="_blank" rel="noopener noreferrer">Buy from No Starch</a>
+        <a href="https://electronut.in/projects/python-playground-1st-edition/" class="button button--large button--light" target="_blank" rel="noopener noreferrer">1st Edition</a>
+      </div>
+    </div>
+  </section>
 
-			<div class="book__info">
-			<h2 class="book__title">
-				<a href="/books/embedded-intelligence/">Embedded Intelligence</a>
-			</h2>
+  <section class="book-entry">
+    <div class="book-entry__media">
+      <img src="/images/webgpu-cover.jpg" alt="The Book of WebGPU book cover">
+    </div>
 
-			<p class="book__desc">
-				Building intelligent embedded systems using microcontrollers and practical AI.
-			</p>
+    <div class="book-entry__content">
+      <h2>The Book of WebGPU</h2>
+      <span class="book-entry__meta">WebGPU • JavaScript • 3D Graphics</span>
 
-			<div class="book__actions">
-				<a href="/books/embedded-intelligence/" class="btn btn--outline">Read More</a>
-				<a href="https://amazon.com/your-second-book-link" target="_blank" class="btn btn--solid">Buy</a>
-			</div>
-			</div>
-		</div>
+      <p>The Book of WebGPU is a hands-on introduction to modern browser-based 3D graphics and GPU computing with WebGPU and JavaScript.</p>
 
-		
+      <p>It covers the graphics pipeline from buffers and shaders to lighting, texturing, camera transforms, and compute workloads, with browser-based projects and exercises throughout.</p>
 
-	</div>
+      <p>According to the current publisher listing, the book is published by No Starch Press, has 400 pages, and is scheduled for release on September 22, 2026.</p>
 
-</section>
-
+      <div class="book-entry__actions">
+        <a href="https://electronut.in/webgpu/" class="button button--large" target="_blank" rel="noopener noreferrer">Book Page</a>
+        <a href="https://www.amazon.in/Book-WebGPU-Mahesh-Venkitachalam-ebook/dp/B0GGY8KC6L" class="button button--large button--light" target="_blank" rel="noopener noreferrer">Amazon India</a>
+      </div>
+    </div>
+  </section>
+</div>

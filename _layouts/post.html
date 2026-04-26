@@ -1,10 +1,11 @@
 ---
 layout: default
 ---
+{% assign hero_image = page.featured_image | default: '/images/social.jpg' %}
 
 <section class="hero hero--single">
 
-	<div class="hero__image" style="background-image: url({{ page.featured_image | relative_url }})">
+	<div class="hero__image" style="background-image: url({{ hero_image | relative_url }})">
 		<div class="hero__overlay"></div>
 	</div>
 

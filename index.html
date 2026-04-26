@@ -1,9 +1,11 @@
 ---
 layout: default
-title: A sleek, modern Jekyll theme for personal websites.
-description: A sleek, modern Jekyll theme for personal websites. Personal is the perfect theme for developers, designers and other creatives.
-featured_image: /images/demo/home.jpg
+title: "Programming, graphics, and embedded systems."
+description: "Electronut Labs by Mahesh Venkitachalam: blog posts, products, books, and videos on programming, graphics, and embedded systems."
+featured_image: /images/embedded/hi1.jpg
 ---
+{% assign latest_post = site.posts.first %}
+{% assign latest_post_image = latest_post.featured_image | default: '/images/social.jpg' %}
 
 <section class="hero">
 
@@ -13,8 +15,8 @@ featured_image: /images/demo/home.jpg
 
 	<div class="wrap">
 
-		<h4>Meet Mahesh Venkitachalam</h4>
-		<p>Mahesh Venkitachalam is a bestselling author of books on Programming. He works in the areas of Computer Graphics and Embedded Systems.</p>
+		<h4>Electronut Labs</h4>
+		<p>Programming, computer graphics, hardware hacking, books, products, and videos by Mahesh Venkitachalam.</p>
 
 		{% include socials.html %}
 
@@ -26,26 +28,90 @@ featured_image: /images/demo/home.jpg
 
 	<div class="wrap">
 
-		{% for project in site.projects reversed %}
-
 		<article class="post">
 
 			<div class="post__image-wrap">
-				<div class="post__image" style="background-image: url({{ project.featured_image | relative_url }})"></div>
+				<div class="post__image" style="background-image: url({{ latest_post_image | relative_url }})"></div>
 			</div>
 
 			<div class="post__content-wrap">
 				<div class="post__content">
-					<h2 class="post__title"><a href="{{ project.url | relative_url }}">{{ project.title }}</a></h2>
-					<p class="post__subtitle">{{ project.subtitle }}</p>
-					<p class="post__description">{{ project.description }}</p>
+					<h2 class="post__title"><a href="{{ '/blog/' | relative_url }}">Blog</a></h2>
+					<p class="post__subtitle">Latest Blog Post</p>
+					<h3><a href="{{ latest_post.url | relative_url }}">{{ latest_post.title }}</a></h3>
+					<p class="post__description">{{ latest_post.description }}</p>
+					<p><a href="{{ latest_post.url | relative_url }}" class="button button--large">Read Post</a></p>
 				</div>
 			</div>
 
 		</article>
 
-		{% endfor %}
+		<article class="post">
+
+			<div class="post__image-wrap">
+				<div class="post__image" style="background-image: url({{ '/images/embedded/hi1.jpg' | relative_url }})"></div>
+			</div>
+
+			<div class="post__content-wrap">
+				<div class="post__content">
+					<h2 class="post__title"><a href="{{ '/products/' | relative_url }}">Products</a></h2>
+					<p class="post__subtitle">Latest Product</p>
+					<h3><a href="{{ '/products/' | relative_url }}">Humble iCE</a></h3>
+					<p class="post__description">A cost-optimized FPGA development board based on the Lattice iCE40UP5K, designed to make FPGA education more accessible.</p>
+					<p><a href="{{ '/products/' | relative_url }}" class="button button--large">View Products</a></p>
+				</div>
+			</div>
+
+		</article>
+
+		<article class="post" id="latest-youtube-post">
+
+			<div class="post__image-wrap">
+				<div class="post__image" id="latest-youtube-image" style="background-image: url({{ '/images/social.jpg' | relative_url }})"></div>
+			</div>
+
+			<div class="post__content-wrap">
+				<div class="post__content">
+					<h2 class="post__title"><a href="{{ '/youtube/' | relative_url }}">YouTube</a></h2>
+					<p class="post__subtitle">Latest YouTube Video</p>
+					<h3><a id="latest-youtube-link" href="{{ '/youtube/' | relative_url }}">YouTube Channel</a></h3>
+					<p class="post__description" id="latest-youtube-description">Loading the latest video from the channel...</p>
+					<p><a id="latest-youtube-button" href="{{ '/youtube/' | relative_url }}" class="button button--large">Watch Video</a></p>
+				</div>
+			</div>
+
+		</article>
 
 	</div>
 
 </section>
+
+<script>
+const latestYoutubeFeedUrl = "https://www.youtube.com/feeds/videos.xml?channel_id=UCtIsuzb-qYcNALlO37X1x7A";
+
+fetch("https://api.rss2json.com/v1/api.json?rss_url=" + encodeURIComponent(latestYoutubeFeedUrl))
+  .then((res) => res.json())
+  .then((data) => {
+    if (!data.items || !data.items.length) return;
+
+    const video = data.items[0];
+    const videoId = video.link.split("v=")[1];
+    const description = (video.description || "")
+      .replace(/<[^>]*>/g, " ")
+      .replace(/\s+/g, " ")
+      .trim()
+      .slice(0, 180);
+
+    document.getElementById("latest-youtube-image").style.backgroundImage =
+      `url(https://img.youtube.com/vi/${videoId}/hqdefault.jpg)`;
+    document.getElementById("latest-youtube-link").href = video.link;
+    document.getElementById("latest-youtube-link").textContent = video.title;
+    document.getElementById("latest-youtube-button").href = video.link;
+    document.getElementById("latest-youtube-description").textContent =
+      description || "Watch the latest video on the Electronut Labs YouTube channel.";
+  })
+  .catch(() => {
+    document.getElementById("latest-youtube-description").textContent =
+      "Watch the latest video on the Electronut Labs YouTube channel.";
+  });
+</script>

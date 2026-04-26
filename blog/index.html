@@ -1,8 +1,8 @@
 ---
 layout: default
 title: Blog
-description: Personal includes a simple blog with pagination.
-featured_image: /images/demo/blog.jpg
+description: Writing on embedded systems, programming, and computer graphics.
+featured_image: /images/2018/thread-qrcomm/thread-qrcomm.jpg
 ---
 
 <section class="hero hero--single">
@@ -13,8 +13,8 @@ featured_image: /images/demo/blog.jpg
 
 	<div class="wrap">
 
-		<h1>What I've been up to</h1>
-		<p>Personal includes a simple blog with pagination.</p>
+		<h1>Blog</h1>
+		<p>Writing on embedded systems, programming, and computer graphics.</p>
 
 	</div>
 
@@ -25,11 +25,12 @@ featured_image: /images/demo/blog.jpg
 	<div class="wrap">
 
 		{% for post in paginator.posts %}
+		{% assign post_image = post.featured_image | default: '/images/social.jpg' %}
 
 		<article class="post">
 
 			<div class="post__image-wrap">
-				<div class="post__image" style="background-image: url({{ post.featured_image | relative_url }})"></div>
+				<div class="post__image" style="background-image: url({{ post_image | relative_url }})"></div>
 			</div>
 
 			<div class="post__content-wrap">

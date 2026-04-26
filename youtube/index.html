@@ -1,35 +1,102 @@
 ---
 layout: page
 title: YouTube
+subtitle: Videos on embedded systems, graphics, and hands-on engineering.
+description: Latest videos from the Electronut Labs YouTube channel.
+featured_image: /images/portfolio/bluey_1120x600.jpg
 permalink: /youtube/
 ---
 
-<p>
-About the YouTube channel...
-</p>
+<style>
+  .youtube-intro {
+    margin-bottom: 32px;
+  }
 
-<div id="youtube-grid" class="grid"></div>
+  .youtube-grid {
+    display: grid;
+    gap: 24px;
+  }
+
+  .youtube-card {
+    background: #ffffff;
+    border: 1px solid #dddddd;
+    box-shadow: 0 10px 24px rgba(0, 0, 0, 0.05);
+    overflow: hidden;
+  }
+
+  .youtube-card__thumb {
+    display: block;
+    aspect-ratio: 16 / 9;
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
+  }
+
+  .youtube-card__content {
+    padding: 20px;
+  }
+
+  .youtube-card__title {
+    margin: 0;
+  }
+
+  .youtube-card__title a {
+    border-bottom: 0;
+  }
+
+  .youtube-card__meta {
+    display: inline-block;
+    margin-top: 8px;
+    color: #6C7A89;
+    font-size: 0.9em;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+  }
+
+  .youtube-card__desc {
+    margin-top: 14px;
+  }
+
+  @media (min-width: 900px) {
+    .youtube-grid {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+  }
+</style>
+
+<div class="youtube-intro">
+  <p>The Electronut Labs YouTube channel features videos on embedded systems, electronics, FPGA work, computer graphics, and practical engineering projects.</p>
+  <p>Browse the most recent uploads below, or visit the <a href="https://www.youtube.com/channel/UCtIsuzb-qYcNALlO37X1x7A" target="_blank" rel="noopener noreferrer">full YouTube channel</a>.</p>
+</div>
+
+<div id="youtube-grid" class="youtube-grid"></div>
 
 <script>
 const feedUrl = "https://www.youtube.com/feeds/videos.xml?channel_id=UCtIsuzb-qYcNALlO37X1x7A";
 
 fetch("https://api.rss2json.com/v1/api.json?rss_url=" + encodeURIComponent(feedUrl))
-  .then(res => res.json())
-  .then(data => {
+  .then((res) => res.json())
+  .then((data) => {
     const container = document.getElementById("youtube-grid");
 
-    data.items.slice(0, 9).forEach(video => {
+    data.items.slice(0, 9).forEach((video) => {
       const videoId = video.link.split("v=")[1];
+      const description = (video.description || "")
+        .replace(/<[^>]*>/g, " ")
+        .replace(/\s+/g, " ")
+        .trim()
+        .slice(0, 180);
 
-      const item = document.createElement("div");
-      item.className = "grid__item";
+      const item = document.createElement("article");
+      item.className = "youtube-card";
 
       item.innerHTML = `
-        <a href="${video.link}" target="_blank">
-            <h3>${video.title}</h3>
-          <img src="https://img.youtube.com/vi/${videoId}/hqdefault.jpg">
-        </a>
-        <hr/>
+        <a class="youtube-card__thumb" href="${video.link}" target="_blank" rel="noopener noreferrer" style="background-image: url(https://img.youtube.com/vi/${videoId}/hqdefault.jpg)"></a>
+        <div class="youtube-card__content">
+          <h3 class="youtube-card__title"><a href="${video.link}" target="_blank" rel="noopener noreferrer">${video.title}</a></h3>
+          <span class="youtube-card__meta">YouTube Video</span>
+          <p class="youtube-card__desc">${description || "Watch this video on the Electronut Labs YouTube channel."}</p>
+        </div>
       `;
 
       container.appendChild(item);

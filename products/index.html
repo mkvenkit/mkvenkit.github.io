@@ -1,0 +1,221 @@
+---
+layout: page
+title: Products
+subtitle: Hardware designed by Electronut Labs.
+description: Products from Electronut Labs including development boards, tools, microphones, and FPGA hardware.
+featured_image: /images/embedded/hi1.jpg
+---
+
+<style>
+  .products-page {
+    display: grid;
+    gap: 32px;
+  }
+
+  .product-grid {
+    display: grid;
+    gap: 24px;
+  }
+
+  .product-card {
+    display: grid;
+    gap: 20px;
+    padding: 24px;
+    background: #ffffff;
+    border: 1px solid #dddddd;
+    box-shadow: 0 10px 24px rgba(0, 0, 0, 0.05);
+  }
+
+  .product-card__image img {
+    width: 100%;
+    height: auto;
+    display: block;
+    border-radius: 4px;
+  }
+
+  .product-card__meta {
+    display: inline-block;
+    margin-top: 8px;
+    color: #6C7A89;
+    font-size: 0.9em;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+  }
+
+  .product-card__actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    margin-top: 20px;
+  }
+
+  .product-card__actions .button {
+    margin-top: 0;
+  }
+
+  @media (min-width: 900px) {
+    .product-grid {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+  }
+</style>
+
+<div class="products-page">
+  <p>This page brings together the Electronut Labs hardware lineup from the original products catalog at <a href="https://electronut.in/products/" target="_blank" rel="noopener noreferrer">electronut.in/products</a>.</p>
+
+  <div class="product-grid">
+    <section class="product-card">
+      <div class="product-card__image">
+        <img src="/images/embedded/hi1.jpg" alt="Humble iCE">
+      </div>
+      <div>
+        <h2>Humble iCE</h2>
+        <span class="product-card__meta">FPGA Development Board</span>
+        <p>Humble iCE is a cost-optimized FPGA development board based on the Lattice iCE40UP5K, created to make FPGA education more accessible. It pairs the FPGA with an RP2040 for programming and communication.</p>
+        <div class="product-card__actions">
+          <a href="https://electronut.in/humble-ice-july-2022/" class="button button--large" target="_blank" rel="noopener noreferrer">Product Page</a>
+        </div>
+      </div>
+    </section>
+
+    <section class="product-card">
+      <div class="product-card__image">
+        <img src="/images/embedded/mico.png" alt="Mico">
+      </div>
+      <div>
+        <h2>Mico</h2>
+        <span class="product-card__meta">USB Microphone</span>
+        <p>Mico is an open source PDM to USB microphone based on the Raspberry Pi RP2040, designed as a compact and practical audio hardware project.</p>
+        <div class="product-card__actions">
+          <a href="https://electronut.in/mico-dec-2021/" class="button button--large" target="_blank" rel="noopener noreferrer">Product Page</a>
+        </div>
+      </div>
+    </section>
+
+    <section class="product-card">
+      <div class="product-card__image">
+        <img src="/images/embedded/iph.jpg" alt="Indrium Pi HAT">
+      </div>
+      <div>
+        <h2>Indrium Pi HAT</h2>
+        <span class="product-card__meta">Wireless Gateway</span>
+        <p>Indrium Pi HAT is a Nordic nRF52840 shield for Raspberry Pi 3B+ that converts it into a low power wireless gateway for BLE and 802.15.4 based networks. It also includes NFC hardware for device commissioning and provisioning.</p>
+        <div class="product-card__actions">
+          <a href="https://electronut.in/indrium-pi-hat/" class="button button--large" target="_blank" rel="noopener noreferrer">Product Page</a>
+        </div>
+      </div>
+    </section>
+
+    <section class="product-card">
+      <div class="product-card__image">
+        <img src="/images/embedded/blip.jpg" alt="Blip">
+      </div>
+      <div>
+        <h2>Blip</h2>
+        <span class="product-card__meta">BLE / 802.15.4 Development Board</span>
+        <p>Blip is a development board for Bluetooth Low Energy and 802.15.4 based wireless applications, built around the Nordic nRF52840. It includes a Black Magic Probe compatible debugger, sensors, and SD card support for low power prototyping.</p>
+        <div class="product-card__actions">
+          <a href="https://electronut.in/blip/" class="button button--large" target="_blank" rel="noopener noreferrer">Product Page</a>
+        </div>
+      </div>
+    </section>
+
+    <section class="product-card">
+      <div class="product-card__image">
+        <img src="/images/embedded/papyr.jpg" alt="Papyr">
+      </div>
+      <div>
+        <h2>Papyr</h2>
+        <span class="product-card__meta">Low-Power Connected Display</span>
+        <p>Papyr combines e-paper with low-power wireless design. Based on the Nordic nRF52840, it supports BLE and mesh protocols such as Thread, BLE Mesh, and Zigbee, making it a flexible platform for tags, dashboards, and sensor displays.</p>
+        <div class="product-card__actions">
+          <a href="https://electronut.in/papyr/" class="button button--large" target="_blank" rel="noopener noreferrer">Product Page</a>
+        </div>
+      </div>
+    </section>
+
+    <section class="product-card">
+      <div class="product-card__image">
+        <img src="/images/embedded/bumpy.jpg" alt="Bumpy">
+      </div>
+      <div>
+        <h2>Bumpy</h2>
+        <span class="product-card__meta">SWD Debugger</span>
+        <p>Bumpy is an inexpensive Open Source Black Magic Probe compatible SWD debugger designed for ARM GDB workflows, especially for Nordic Semiconductor BLE development boards.</p>
+        <div class="product-card__actions">
+          <a href="https://electronut.in/bumpy/" class="button button--large" target="_blank" rel="noopener noreferrer">Product Page</a>
+        </div>
+      </div>
+    </section>
+
+    <section class="product-card">
+      <div class="product-card__image">
+        <img src="/images/embedded/hackable.jpg" alt="HackaBLE">
+      </div>
+      <div>
+        <h2>HackaBLE</h2>
+        <span class="product-card__meta">Tiny BLE Board</span>
+        <p>HackaBLE is a tiny Open Source Nordic nRF52832 based BLE development board designed to disappear into your own embedded BLE projects.</p>
+        <div class="product-card__actions">
+          <a href="https://gitlab.com/electronutlabs-public/ElectronutLabs-HackaBLE" class="button button--large" target="_blank" rel="noopener noreferrer">More Information</a>
+        </div>
+      </div>
+    </section>
+
+    <section class="product-card">
+      <div class="product-card__image">
+        <img src="/images/embedded/pp.jpg" alt="PogoProg">
+      </div>
+      <div>
+        <h2>PogoProg</h2>
+        <span class="product-card__meta">Programming Adapters</span>
+        <p>PogoProg is a range of spring-loaded programming adapters from Electronut Labs, designed with aesthetics and ergonomics in mind for repeated programming and test workflows.</p>
+        <div class="product-card__actions">
+          <a href="https://electronut.in/pogoprog/" class="button button--large" target="_blank" rel="noopener noreferrer">Product Page</a>
+        </div>
+      </div>
+    </section>
+
+    <section class="product-card">
+      <div class="product-card__image">
+        <img src="/images/embedded/iceb.jpg" alt="iCE Bling">
+      </div>
+      <div>
+        <h2>iCE Bling</h2>
+        <span class="product-card__meta">FPGA Wearable</span>
+        <p>iCE Bling is a Lattice iCE40UP5K FPGA based LED earrings platform with an 8×8 LED grid, powered by a CR2032 coin cell.</p>
+        <div class="product-card__actions">
+          <a href="https://electronut.in/ice-bling/" class="button button--large" target="_blank" rel="noopener noreferrer">Product Page</a>
+        </div>
+      </div>
+    </section>
+
+    <section class="product-card">
+      <div class="product-card__image">
+        <img src="/images/embedded/bluey.jpg" alt="Bluey">
+      </div>
+      <div>
+        <h2>Bluey</h2>
+        <span class="product-card__meta">Sensor BLE Board</span>
+        <p>Bluey is an Open Source BLE development board with built-in temperature, humidity, ambient light, and accelerometer sensors.</p>
+        <div class="product-card__actions">
+          <a href="https://electronut.in/bluey/" class="button button--large" target="_blank" rel="noopener noreferrer">Product Page</a>
+        </div>
+      </div>
+    </section>
+
+    <section class="product-card">
+      <div class="product-card__image">
+        <img src="/images/embedded/snapvcc.jpg" alt="SnapVCC">
+      </div>
+      <div>
+        <h2>SnapVCC</h2>
+        <span class="product-card__meta">Portable Power Supply</span>
+        <p>snapVCC is a compact power supply that snaps onto a 9V battery to provide convenient 3.3V or 5V power for electronics projects.</p>
+        <div class="product-card__actions">
+          <a href="https://electronut.in/snapvcc/" class="button button--large" target="_blank" rel="noopener noreferrer">Product Page</a>
+        </div>
+      </div>
+    </section>
+  </div>
+</div>
