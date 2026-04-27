@@ -1,6 +1,6 @@
 ---
 title: Contact
-subtitle: Get in touch for consulting, graphics, hardware, and writing.
+subtitle: 
 description: Contact details for Mahesh Venkitachalam.
 featured_image: /images/contact-img.jpg
 ---

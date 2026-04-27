@@ -8,6 +8,8 @@ header_settings:
 
 menu_settings:
   menu_items:
+    - title: 'Home'
+      url: '/'
     - title: 'Books'
       url: '/books/'
     - title: 'Products'
@@ -38,7 +40,7 @@ contact_settings:
 
 social_settings:
   facebook_url: ''
-  twitter_url: ''
+  twitter_url: 'mkvenkit'
   instagram_url: ''
   snapchat_url: ''
   youtube_url: ''

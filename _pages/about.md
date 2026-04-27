@@ -1,6 +1,6 @@
 ---
 title: About
-subtitle: Programming, computer graphics, and embedded systems.
+subtitle: My Embedded Systems Journey
 description: About Mahesh Venkitachalam and the work behind electronut.
 featured_image: /images/mahesh-portrait.jpg
 ---
@@ -11,16 +11,14 @@ My interest in computer graphics continued as I pursed my Masters in Materials S
 
 Another passion I have in life is electronics. I started writing about my experiments with embedded hardware in 2010, and in 2015, No Starch Press published my book Python Playground - a collection of projects in art, music, computer graphics, simulation, and embedded systems.
 
-From 2016 to 2019 I ran a small consulting firm called Electronut Labs. In three years we built some interesting open source hardware, and custom devices for a number of clients. It was an exhilarating ride, and you can read more about those adventures [here](/embedded/).
+From 2016 to 2019 I ran a small consulting firm called Electronut Labs. In three years we built some interesting open source hardware, and custom devices for a number of clients. It was an exhilarating ride, and you can read more about those adventures [here](/products/).
 
-**electronut** is a culmination of my interests in programming and embedded systems.
+**Electronut Labs** is a culmination of my interests in programming and embedded systems.
 
 These days I spend time consulting on 3D computer graphics, hardware hacking, and writing.
 
 You can find me on Twitter at [@mkvenkit](https://twitter.com/mkvenkit) and [@electronutlabs](https://twitter.com/electronutLabs).
 
 **Mahesh Venkitachalam**
-
-(August 2021)
 
 ![Mahesh Venkitachalam](/images/mahesh-portrait.jpg)
