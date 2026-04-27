@@ -3,6 +3,8 @@ site: Official web page of author Mahesh Venkitachalam
 url: "https://electronut.in"
 baseurl: ""
 
+permalink: pretty
+
 
 collections:
   pages:
