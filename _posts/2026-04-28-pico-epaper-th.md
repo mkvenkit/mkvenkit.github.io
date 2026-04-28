@@ -18,4 +18,4 @@ categories:
 
 ## Coming soon...
 
-![](images/2026/04/coming.jpg)
+![](/images/2026/04/coming.jpg)
