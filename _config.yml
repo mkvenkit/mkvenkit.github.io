@@ -12,7 +12,7 @@ collections:
     permalink: /:name
   posts:
     output: true
-    permalink: /:slug
+    permalink: /:slug/
   projects:
     output: true
     permalink: /project/:slug
