@@ -1,7 +1,6 @@
 ---
-title: RP 2040 Pico based low power ePaper Temparature/Humidity Display
-description: A transistor based touch activated LED flasher badge to teach electronics
-  and SMD soldering to kids and beginners.
+title: RP 2040 Pico based low power ePaper Temperature/Humidity Display
+description: A low power battery powered ePaper Temperature/Humidity Display
 featured_image: "/images/2026/04/coming.jpg"
 tags:
 - LED
