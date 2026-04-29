@@ -4,7 +4,7 @@ layout: default
 
 <section class="hero hero--single">
 
-	<div class="hero__image" style="background-image: url({{ page.featured_image | relative_url }})">
+	<div class="hero__image" style="background-image: url({{ page.featured_image | relative_url }});{% if page.featured_image_position %} background-position: {{ page.featured_image_position }};{% endif %}">
 		<div class="hero__overlay"></div>
 	</div>
 
