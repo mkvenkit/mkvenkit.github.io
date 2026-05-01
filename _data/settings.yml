@@ -158,7 +158,7 @@ font_settings:
 
 advanced_settings:
   ajax_loading: false
-  analytics_code: ""
+  analytics_code: "<script async src=\"https://www.googletagmanager.com/gtag/js?id=G-KFNM832XRN\"></script><script>window.dataLayer = window.dataLayer || []; function gtag(){dataLayer.push(arguments);} gtag('js', new Date()); gtag('config', 'G-KFNM832XRN');</script>"
   custom_styles: ""
   header_js: ""
   footer_js: ""
