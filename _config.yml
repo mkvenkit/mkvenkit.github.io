@@ -16,6 +16,9 @@ collections:
   projects:
     output: true
     permalink: /project/:slug
+  begin_fpga:
+    output: true
+    permalink: /begin-fpga/:name/
 
 defaults:
   -
@@ -41,6 +44,12 @@ defaults:
       type: "projects"
     values:
       layout: "project"
+  -
+    scope:
+      path: ""
+      type: "begin_fpga"
+    values:
+      layout: "book"
 
 markdown: kramdown
 

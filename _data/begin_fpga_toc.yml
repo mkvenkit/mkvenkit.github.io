@@ -1,0 +1,47 @@
+- num: 1
+  slug: "ch01-introduction"
+  title: "Introduction to FPGAs"
+  description: "What is an FPGA, how it compares to CPUs and microcontrollers, and why you'd choose one."
+  status: published
+
+- num: 2
+  slug: "ch02-digital-logic-basics"
+  title: "Digital Logic Basics"
+  description: "Logic gates, Boolean algebra, truth tables, and the combinational circuits that form an FPGA's building blocks."
+  status: coming-soon
+
+- num: 3
+  slug: "ch03-fpga-architecture"
+  title: "FPGA Architecture"
+  description: "Inside an FPGA: Look-Up Tables, flip-flops, configurable logic blocks, I/O pins, and the routing fabric."
+  status: coming-soon
+
+- num: 4
+  slug: "ch04-hdl-introduction"
+  title: "Introduction to HDL"
+  description: "Hardware Description Languages — Verilog and VHDL — and how hardware design differs from software programming."
+  status: coming-soon
+
+- num: 5
+  slug: "ch05-verilog-basics"
+  title: "Verilog Basics"
+  description: "Modules, ports, wire vs reg, always blocks, and your first Verilog design."
+  status: coming-soon
+
+- num: 6
+  slug: "ch06-simulation-and-testbenches"
+  title: "Simulation and Testbenches"
+  description: "Writing testbenches, running simulations with Icarus Verilog, and viewing waveforms in GTKWave."
+  status: coming-soon
+
+- num: 7
+  slug: "ch07-synthesis-and-implementation"
+  title: "Synthesis and Implementation"
+  description: "Turning HDL into a bitstream: synthesis, place-and-route, timing analysis, and programming the FPGA."
+  status: coming-soon
+
+- num: 8
+  slug: "ch08-your-first-project"
+  title: "Your First FPGA Project"
+  description: "A complete worked example: blinking LEDs, a 7-segment display driver, and a simple state machine."
+  status: coming-soon

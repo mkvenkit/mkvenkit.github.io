@@ -1,0 +1,5 @@
+User-agent: *
+Disallow: /begin-fpga/
+
+User-agent: *
+Allow: /

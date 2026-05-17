@@ -1,0 +1,123 @@
+---
+layout: default
+---
+
+<section class="book-hero">
+  <div class="wrap">
+    <div class="book-hero__inner">
+      <a href="/begin-fpga/" class="book-hero__book-title">FPGA for Beginners</a>
+      {% if page.chapter_num %}
+      <span class="book-hero__sep">›</span>
+      <span class="book-hero__chapter-label">Chapter {{ page.chapter_num }}</span>
+      {% endif %}
+    </div>
+  </div>
+</section>
+
+<section class="book-body">
+  <div class="wrap">
+    <div class="book-layout">
+
+      <!-- Sidebar -->
+      <aside class="book-sidebar">
+        <div class="book-sidebar__inner">
+          <p class="book-sidebar__heading">Contents</p>
+          <nav class="book-toc-nav">
+            <a href="/begin-fpga/"
+               class="book-toc-nav__item book-toc-nav__item--index{% if page.url == '/begin-fpga/' %} book-toc-nav__item--active{% endif %}">
+              Overview
+            </a>
+            {% for chapter in site.data.begin_fpga_toc %}
+              {% if chapter.status == "published" %}
+                <a href="/begin-fpga/{{ chapter.slug }}/"
+                   class="book-toc-nav__item{% if page.chapter_num == chapter.num %} book-toc-nav__item--active{% endif %}">
+                  <span class="book-toc-nav__num">{{ chapter.num }}.</span>
+                  {{ chapter.title }}
+                </a>
+              {% else %}
+                <span class="book-toc-nav__item book-toc-nav__item--soon">
+                  <span class="book-toc-nav__num">{{ chapter.num }}.</span>
+                  {{ chapter.title }}
+                  <span class="book-toc-nav__badge">Soon</span>
+                </span>
+              {% endif %}
+            {% endfor %}
+          </nav>
+        </div>
+      </aside>
+
+      <!-- Main content -->
+      <main class="book-content">
+
+        <header class="book-content__header">
+          {% if page.chapter_num %}
+          <p class="book-content__chapter-num">Chapter {{ page.chapter_num }}</p>
+          {% endif %}
+          <h1 class="book-content__title">{{ page.title }}</h1>
+          {% if page.description %}
+          <p class="book-content__subtitle">{{ page.description }}</p>
+          {% endif %}
+        </header>
+
+        {% if page.chapter_num %}
+        <div class="book-page-toc" id="book-page-toc" style="display:none;">
+          <p class="book-page-toc__heading">In this chapter</p>
+          <ul class="book-page-toc__list" id="book-page-toc-list"></ul>
+        </div>
+        {% endif %}
+
+        <article class="book-article single-post" id="book-article">
+          {{ content }}
+        </article>
+
+        <!-- Prev / Next navigation -->
+        <nav class="book-pagination">
+          {% if page.prev_url %}
+          <a href="{{ page.prev_url }}" class="book-pagination__item book-pagination__item--prev">
+            <span class="book-pagination__label">← Previous</span>
+            <span class="book-pagination__title">{{ page.prev_title }}</span>
+          </a>
+          {% else %}
+          <span class="book-pagination__spacer"></span>
+          {% endif %}
+
+          {% if page.next_url %}
+          <a href="{{ page.next_url }}" class="book-pagination__item book-pagination__item--next">
+            <span class="book-pagination__label">Next →</span>
+            <span class="book-pagination__title">{{ page.next_title }}</span>
+          </a>
+          {% endif %}
+        </nav>
+
+      </main>
+    </div>
+  </div>
+</section>
+
+<script>
+(function() {
+  var article = document.getElementById('book-article');
+  var tocList = document.getElementById('book-page-toc-list');
+  var tocBox  = document.getElementById('book-page-toc');
+  if (!article || !tocList) return;
+
+  var headings = article.querySelectorAll('h2, h3');
+  if (headings.length < 2) return;
+
+  headings.forEach(function(h) {
+    // Ensure the heading has an id for anchor links
+    if (!h.id) {
+      h.id = h.textContent.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
+    }
+    var li = document.createElement('li');
+    li.className = h.tagName === 'H3' ? 'book-page-toc__item book-page-toc__item--sub' : 'book-page-toc__item';
+    var a = document.createElement('a');
+    a.href = '#' + h.id;
+    a.textContent = h.textContent;
+    li.appendChild(a);
+    tocList.appendChild(li);
+  });
+
+  tocBox.style.display = '';
+})();
+</script>
