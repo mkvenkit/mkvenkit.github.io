@@ -8,7 +8,11 @@ next_url: /begin-fpga/ch02-digital-logic-basics/
 next_title: "Digital Logic Basics"
 ---
 
-## What Is an FPGA?
+## What's the deal with FPGAs?
+
+IEEE article
+
+https://spectrum.ieee.org/fpga-chip-ieee-milestone
 
 A **Field-Programmable Gate Array** (FPGA) is an integrated circuit that can be reconfigured after manufacturing to implement virtually any digital circuit you can describe. Unlike a fixed processor that executes instructions one after another, an FPGA is a blank slate of programmable logic fabric — you wire it up in hardware.
 
