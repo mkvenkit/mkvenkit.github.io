@@ -31,6 +31,11 @@ featured_image: /images/humble-ice.jpg
     <p class="book-home__chapter-desc">What is an FPGA, how it compares to CPUs and microcontrollers, and why you'd choose one.</p>
   </li>
 
+  <li class="book-home__chapter-item">
+    <a href="/begin-fpga/ch02-digital-design-with-verilog/" class="book-home__chapter-title">Digital Design with Verilog</a>
+    <p class="book-home__chapter-desc">Gates, behavioral design, building blocks (MUX, encoder, shift register, counter), ASM/ASMD state machines, and a complete datapath+controller example — all with testbenches and synthesis.</p>
+  </li>
+
   <li class="book-home__chapter-item book-home__chapter-item--soon">
     <span class="book-home__chapter-title">Digital Logic Basics</span>
     <p class="book-home__chapter-desc">Logic gates, Boolean algebra, truth tables, and the combinational circuits that form an FPGA's building blocks.</p>

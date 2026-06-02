@@ -4,8 +4,8 @@ description: "What is an FPGA, how it compares to CPUs and microcontrollers, and
 chapter_num: 1
 prev_url: /begin-fpga/
 prev_title: "Overview"
-next_url: /begin-fpga/ch02-digital-logic-basics/
-next_title: "Digital Logic Basics"
+next_url: /begin-fpga/ch02-digital-design-with-verilog/
+next_title: "Digital Design with Verilog"
 ---
 
 ## What's the deal with FPGAs?
