@@ -1,24 +1,25 @@
 ---
 layout: book
-title: "FPGA for Beginners"
-description: "A hands-on introduction to Field-Programmable Gate Arrays — from digital logic fundamentals to writing your first Verilog design."
+title: "The Humble iCE Cookbook"
+description: "A hands-on beginners guide to digital design with FPGAs."
 featured_image: /images/humble-ice.jpg
 ---
 
 <div class="book-home__cover">
-  <img src="/images/fpga-beginners-cover-small.jpg" alt="FPGA for Beginners cover">
+  <img src="/images/fpga-beginners-cover-small.jpg" alt="The Humble iCE Cookbook cover">
 </div>
 
 <div class="book-home__intro">
   <p>
-    <strong>FPGA for Beginners</strong> takes you from zero to writing and synthesizing your first hardware design.
-    Unlike a CPU that runs software instructions one by one, an FPGA is a blank canvas of programmable logic —
-    you describe a circuit, and the chip becomes that circuit. Thousands of operations can happen in parallel,
-    every single clock cycle.
+    <strong>The Humble iCE Cookbook</strong> is a collection of practical FPGA projects built around 
+    Humble iCE - a Lattice Semiconductor iCE40UP5K FPGA based development board with a built-in USB programmer.
+    Each chapter takes a real project from idea to working hardware. You write the Verilog code,
+    simulate it, synthesize a bitstream, and finally flash it on to the board.
   </p>
   <p>
-    No prior hardware experience is required. Each chapter builds on the last, mixing concepts with practical
-    examples you can follow on a real FPGA board or a free simulator.
+    Along the way you will pick up the <m>digital design</m> fundamentals you need: logic, state machines,
+    timing, and the Verilog HDL. You need only a basic knowledge of programming and electronics to 
+    follow along. Happy hacking with FPGAs!
   </p>
 </div>
 
@@ -32,7 +33,7 @@ featured_image: /images/humble-ice.jpg
   </li>
 
   <li class="book-home__chapter-item">
-    <div><strong><a href="/begin-fpga/ch02-digital-design-with-verilog/">Digital Design with Verilog</a></strong><br>
+    <div><strong><a href="/begin-fpga/ch02-digital-design-with-verilog/">Digital Design with Verilog HDL</a></strong><br>
     Gates, behavioral design, building blocks (MUX, encoder, shift register, counter), ASM/ASMD state machines, and a complete datapath+controller example — all with testbenches and synthesis.</div>
   </li>
 

@@ -1,5 +1,5 @@
 ---
-title: "Digital Design with Verilog"
+title: "Digital Design with Verilog HDL"
 description: "Gates, behavioral design, building blocks (MUX, encoder, shift register, counter), ASM/ASMD state machines, and a complete datapath+controller example — all in Verilog with testbenches and synthesis."
 chapter_num: 2
 prev_url: /begin-fpga/ch01-introduction/
