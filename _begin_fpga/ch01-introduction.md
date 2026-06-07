@@ -1,6 +1,6 @@
 ---
-title: "Introduction to FPGAs"
-description: "What is an FPGA, how it compares to CPUs and microcontrollers, and why you'd choose one for your next project."
+title: "Getting Started with Humble iCE"
+description: "Install the open-source iCE40 toolchain on Windows, macOS, or Linux, then build, simulate, and flash your first Verilog design — a blinking LED."
 chapter_num: 1
 prev_url: /begin-fpga/
 prev_title: "Overview"
@@ -8,85 +8,341 @@ next_url: /begin-fpga/ch02-digital-design-with-verilog/
 next_title: "Digital Design with Verilog"
 ---
 
-## What's the deal with FPGAs?
+This chapter gets you from a bare board and an empty terminal to a blinking LED programmed over USB — entirely with open-source tools. Along the way you will write your first Verilog module, run a simulation, inspect the waveform, synthesize to a bitstream, and flash it to the iCE40.
 
-IEEE article
+All source code lives under `examples/book/blinky/` in the companion repository.
 
-https://spectrum.ieee.org/fpga-chip-ieee-milestone
+---
 
-A **Field-Programmable Gate Array** (FPGA) is an integrated circuit that can be reconfigured after manufacturing to implement virtually any digital circuit you can describe. Unlike a fixed processor that executes instructions one after another, an FPGA is a blank slate of programmable logic fabric — you wire it up in hardware.
+## The Humble iCE Board
 
-The "field-programmable" part means a customer, developer, or hobbyist can configure it in the field, rather than the chip manufacturer hardwiring its logic during fabrication. The "gate array" part describes what's actually inside: an array of logic gates and flip-flops interconnected by a programmable routing network.
+Humble iCE is a compact development board built around the **Lattice iCE40 UP5K** FPGA. An RP2040 microcontroller lives alongside the FPGA and serves two roles: it generates the 12 MHz clock the FPGA needs, and it acts as the USB programmer — no separate JTAG probe required.
 
-When you program an FPGA, you aren't uploading code that runs on a processor. You are describing a *circuit* — specifying which logic cells do what, and how they connect to each other and to the I/O pins. The result is hardware that behaves exactly like a custom chip you designed yourself.
+Key facts about the iCE40 UP5K:
 
-## How FPGAs Differ from CPUs and Microcontrollers
+| Resource | Count |
+|---|---|
+| Logic cells (4-LUT + FF) | 5280 |
+| SPRAM (single-port RAM) | 4 × 256 Kb |
+| BRAM (block RAM) | 30 × 4 Kbit |
+| DSP blocks | 8 |
+| PLLs | 1 |
+| Package | SG48 (QFN-48) |
 
-To appreciate why FPGAs are useful, it helps to contrast them with the devices you might already know.
+The UP5K is small enough that synthesis and place-and-route finish in seconds, which makes it ideal for learning.
 
-### CPUs and Microcontrollers
+---
 
-A CPU or microcontroller executes a program: it fetches an instruction, decodes it, executes it, and moves to the next one. This sequential cycle is typically measured in nanoseconds, but it means operations happen one at a time (or a small number at a time on superscalar cores). A microcontroller like the Arduino's ATmega328 has fixed peripherals — UART, SPI, I2C — etched permanently into silicon.
+## Installing the Toolchain
 
-### FPGAs
+The open-source iCE40 toolchain has three main components:
 
-An FPGA has no "instructions" in the traditional sense. Everything happens in parallel, simultaneously, every clock cycle. If you design a circuit with 100 adders, all 100 adders add their inputs at the same instant. There is no loop, no fetch-decode-execute — just logic propagating through combinational paths and state captured in flip-flops on each clock edge.
+- **Yosys** — synthesis: turns Verilog into a netlist of logic primitives
+- **nextpnr-ice40** — place and route: maps the netlist onto iCE40 fabric
+- **IceStorm** (`icepack`, `iceprog`) — packs the routed design into a bitstream and programs the chip
 
-| Property | Microcontroller | CPU | FPGA |
-|---|---|---|---|
-| Execution model | Sequential | Sequential (pipelined) | Parallel / concurrent |
-| Programmability | Software | Software | Hardware description |
-| Fixed peripherals | Yes | Yes | No — you build them |
-| Reconfigurable | No | No | Yes |
-| Power efficiency | Medium | Lower | Can be very high |
-| Performance ceiling | Fixed | Fixed | Scales with silicon area |
+You also need **Icarus Verilog** (`iverilog`) and **GTKWave** for simulation.
 
-## Where Are FPGAs Used?
+### macOS
 
-FPGAs appear wherever a problem needs high throughput, low and predictable latency, or custom I/O that no off-the-shelf processor provides.
+The easiest path is [Homebrew](https://brew.sh):
 
-### Telecommunications
+```bash
+brew install icestorm yosys nextpnr
+brew install icarus-verilog gtkwave
+```
 
-Base stations and network switches use FPGAs to process data at line rate — handling frames arriving at 100 Gbps or more with deterministic, nanosecond-level timing that a general-purpose CPU cannot guarantee.
+Verify the tools are on your PATH:
 
-### High-Frequency Trading
+```bash
+yosys --version
+nextpnr-ice40 --version
+icepack --version
+iverilog -V
+```
 
-Financial firms run trading algorithms on FPGAs because market data can be processed and orders submitted in under a microsecond, orders of magnitude faster than a software stack on a server.
+### Linux (Ubuntu / Debian)
 
-### Video and Image Processing
+```bash
+sudo apt update
+sudo apt install fpga-icestorm nextpnr-ice40 yosys iverilog gtkwave
+```
 
-Frame buffers, scalers, HDMI/SDI transceivers, and real-time filters all benefit from the parallel nature of FPGAs. A single FPGA can process full 4K video streams without breaking a sweat.
+For newer versions of any tool, build from source following the instructions at [github.com/YosysHQ](https://github.com/YosysHQ).
 
-### Prototyping and ASIC Emulation
+On Linux, add yourself to the `dialout` group so you can access the USB serial port without `sudo`:
 
-Before committing to a multi-million-dollar ASIC tape-out, chip designers prototype their designs on FPGAs. The logic is the same; the FPGA just runs slower and costs less.
+```bash
+sudo usermod -aG dialout $USER
+# Log out and back in for the change to take effect
+```
 
-### Embedded Systems and Maker Projects
+### Windows
 
-Inexpensive boards like the Lattice iCE40 (found on the iCEBreaker) or Xilinx Artix-7 (found on the Arty A7) make FPGAs accessible to hobbyists and students. You can build custom CPU cores, retro game consoles, LED controllers, and audio synthesizers — all on affordable hardware.
+The recommended approach on Windows is [OSS CAD Suite](https://github.com/YosysHQ/oss-cad-suite-build), a self-contained bundle with all tools pre-built:
 
-## How an FPGA Gets Configured
+1. Download the latest `oss-cad-suite-windows-x64-*.tgz` from the [releases page](https://github.com/YosysHQ/oss-cad-suite-build/releases).
+2. Extract it to a folder such as `C:\oss-cad-suite`.
+3. Activate the environment in each terminal session before using the tools:
 
-Configuring an FPGA involves a toolchain, not a compiler in the traditional sense. The high-level steps are:
+```bat
+C:\oss-cad-suite\environment.bat
+```
 
-1. **Write HDL** — Describe your circuit in Verilog or VHDL (Hardware Description Language).
-2. **Synthesize** — The synthesis tool converts your HDL into a netlist of logical primitives (AND gates, flip-flops, etc.).
-3. **Place and Route** — The P&R tool maps those primitives onto the FPGA's actual logic cells and routes the connections through the programmable interconnect.
-4. **Generate Bitstream** — The output is a bitstream file: a binary blob that, when loaded into the FPGA, configures every cell, every connection, every I/O standard.
-5. **Program the FPGA** — The bitstream is sent to the chip over JTAG or SPI. Most FPGAs are volatile (SRAM-based), so they need to be programmed each power-on unless paired with a configuration flash chip.
+Or add `C:\oss-cad-suite\bin` to your `PATH` permanently via System Properties → Environment Variables → Path.
 
-## Choosing Your First FPGA Board
+Verify from a Command Prompt or PowerShell:
 
-For learning, you want a board with:
+```bat
+yosys --version
+nextpnr-ice40 --version
+icepack --version
+iverilog -V
+```
 
-- **A small FPGA** — fewer resources means faster compile times and a less overwhelming toolchain
-- **Open-source or free tools** — Lattice iCE40 works with the fully open-source Yosys/nextpnr toolchain; Xilinx offers free Vivado WebPACK for smaller devices
-- **Good community support** — tutorials, example projects, and forums
+### Programmer: hiprog
 
-Two excellent starting points are the **iCEBreaker** (Lattice iCE40UP5K, $50–$60) for a fully open-source experience, and the **Arty A7-35T** (Xilinx Artix-7, ~$130) if you want access to Xilinx's mature toolchain and IP ecosystem.
+Humble iCE uses a custom programmer called **hiprog** that communicates with the RP2040 over USB. It is a Python script bundled in the companion repository:
+
+```
+hiprog/hiprog.py
+```
+
+Install its only dependency:
+
+```bash
+pip install pyserial
+```
+
+Plug in the board. The RP2040 enumerates as a USB serial port:
+
+- **macOS** — `/dev/cu.usbmodemHI_V3_0011` (or similar)
+- **Linux** — `/dev/ttyACM0`
+- **Windows** — `COM3` (check Device Manager)
+
+The Makefile defaults to `/dev/cu.usbmodemHI_V3_0011`. Override it on the command line if yours differs:
+
+```bash
+make hiprog PORT=/dev/ttyACM0        # Linux
+make hiprog PORT=COM3                # Windows
+```
+
+---
+
+## The Blinky Project
+
+The blinky project toggles the blue LED (D2) at about 1.4 Hz — slow enough to see, fast enough to confirm the clock is running.
+
+```
+examples/book/blinky/
+├── top.v        ← Verilog design
+├── blinky.pcf   ← Pin constraints
+└── Makefile     ← Build rules
+```
+
+### Pin Constraints (`blinky.pcf`)
+
+The Physical Constraints File maps Verilog port names to physical FPGA pins:
+
+```
+set_io clk 35
+set_io led 13
+```
+
+Pin 35 is connected to the RP2040's GP21, which outputs a 12 MHz clock. Pin 13 drives the blue LED D2 through a current-limiting resistor.
+
+### The Verilog Design (`top.v`)
+
+```verilog
+`default_nettype none
+
+module blinky(
+  input  clk,   // 12 MHz from RP2040 GP21 — FPGA pin 35
+  output led    // D2 Blue LED — FPGA pin 13
+);
+```
+
+**Always open with `` `default_nettype none ``.** Without it, any undeclared signal is implicitly a 1-bit wire, silently turning typos into phantom nets. With it, the tools error on any undeclared name.
+
+#### Reset Synchronizer
+
+```verilog
+reg [7:0] resetn_counter = 0;
+wire resetn = &resetn_counter;
+
+always @(posedge clk) begin
+    if (!resetn)
+        resetn_counter <= resetn_counter + 1;
+end
+```
+
+iCE40 registers always power up as 0. The 8-bit counter starts at `8'h00` and increments every clock cycle. `&resetn_counter` is a **reduction AND** — it returns 1 only when every bit is 1, i.e., after 255 cycles. Until then `resetn` is 0 and the rest of the design stays in reset. At 12 MHz, 255 cycles is about 21 µs — enough time for power rails to stabilise before logic starts running.
+
+#### Blink Counter
+
+```verilog
+reg RL;
+reg [22:0] counter;
+
+always @(posedge clk) begin
+    if (!resetn) begin
+        counter <= 0;
+    end else begin
+        counter <= counter + 1;
+        if (!counter)
+            RL <= ~RL;
+    end
+end
+
+assign led = RL;
+```
+
+A 23-bit free-running counter wraps from `2^23 − 1` back to 0 once every:
+
+```
+2^23 / 12 000 000 Hz  ≈  0.70 s
+```
+
+Each wrap, `!counter` is momentarily true and `RL` toggles. Since RL toggles every 0.70 s, the LED completes a full on/off cycle every **~1.4 s**.
+
+---
+
+## Simulation
+
+Simulation lets you inspect every internal signal before touching the hardware. You can verify the reset sequence fires correctly and the counter is counting — all in a few seconds.
+
+Create `testbench.v` alongside `top.v`:
+
+```verilog
+`default_nettype none
+`timescale 1ns/1ps
+
+module tb();
+
+reg clk = 0;
+wire led;
+
+blinky dut (
+    .clk(clk),
+    .led(led)
+);
+
+// 12 MHz clock: period ≈ 83 ns → half-period ≈ 42 ns
+always #42 clk = ~clk;
+
+initial begin
+    $dumpfile("testbench.vcd");
+    $dumpvars(0, tb);
+    #50000
+    $finish;
+end
+
+endmodule
+```
+
+Compile and run:
+
+```bash
+iverilog -o tb.out -s tb testbench.v top.v
+vvp tb.out
+```
+
+Open the waveform:
+
+```bash
+gtkwave testbench.vcd
+```
+
+In GTKWave, drag `clk`, `resetn_counter`, `resetn`, `counter`, and `led` into the signals pane. What you should see:
+
+1. `resetn_counter` incrementing from 0 on every rising clock edge.
+2. `resetn` going high once `resetn_counter` reaches `8'hFF`.
+3. `counter` resetting to 0 then counting freely.
+4. At simulation scale the 23-bit wrap takes millions of cycles, so you won't see the LED toggle — but you can confirm reset behaviour and that the counter is incrementing correctly.
+
+The Makefile wraps both steps:
+
+```bash
+make sim       # compile and run
+make sim-show  # open GTKWave
+```
+
+---
+
+## Synthesis and Place-and-Route
+
+Running `make` triggers the three-stage build:
+
+```
+top.v
+  │
+  ▼  yosys — synthesis
+blinky.json   (technology-mapped netlist)
+  │
+  ▼  nextpnr-ice40 — place and route
+blinky.asc    (placed-and-routed design)
+  │
+  ▼  icepack — bitstream packing
+blinky.bin    (binary bitstream ready to flash)
+```
+
+```bash
+make
+```
+
+**Synthesis (Yosys)** parses the Verilog, applies optimisations, and maps to iCE40 primitives — `SB_LUT4`, `SB_DFF`, `SB_CARRY`. It writes `blinky.json` and a log file (`blinky-yosys.log`) worth reading once to understand what the synthesiser decided.
+
+**Place and route (nextpnr-ice40)** assigns each logic cell to a physical iCE40 cell and routes all connections through the programmable interconnect. It reads `blinky.json` and `blinky.pcf` and writes `blinky.asc`.
+
+**Bitstream packing (icepack)** converts the ASCII routing description to the compact binary `blinky.bin`.
+
+### Visualising the Design
+
+The Makefile has four targets that open synthesis diagrams as SVG:
+
+```bash
+make show-rtl    # RTL view — closest to the Verilog you wrote
+make show-gates  # gate-level after synthesis (AND/OR/NOT/DFF)
+make show-synth  # iCE40 primitives (SB_LUT4, SB_DFF)
+make show-pnr    # place-and-routed result in nextpnr GUI
+```
+
+For blinky the RTL view shows the counter register, the reduction AND feeding `resetn`, and the toggle flip-flop driving `led`. The synth view shows how Yosys packed all of that into a handful of `SB_LUT4` and `SB_DFF` primitives — confirming the design is tiny.
+
+---
+
+## Uploading to the Board
+
+With the board connected over USB:
+
+```bash
+make hiprog
+```
+
+This runs hiprog, which sends the bitstream to the RP2040 which streams it to the iCE40 over SPI. The transfer takes under a second. If everything is correct the blue LED starts blinking at ~1.4 Hz.
+
+### Troubleshooting
+
+**LED doesn't blink** — Check that `blinky.bin` has a non-zero size (`ls -lh blinky.bin`). A zero-byte binary usually means a port name mismatch between the PCF and the Verilog module.
+
+**`hiprog` can't open the port on Linux** — Verify you are in the `dialout` group (`groups $USER`). If not: `sudo usermod -aG dialout $USER`, then log out and back in.
+
+**`hiprog` can't find the port on Windows** — Check Device Manager for the correct COM port number and pass it explicitly: `make hiprog PORT=COM5`.
+
+**nextpnr reports an error placing cells** — This won't happen with blinky, but if you modify the design and see placement errors, confirm the PCF pin numbers match the actual board schematic.
+
+---
 
 ## Summary
 
-An FPGA is a reconfigurable hardware fabric you describe in a Hardware Description Language. Unlike a CPU, it executes logic in parallel rather than running sequential instructions, which makes it uniquely suited to high-throughput, low-latency, and custom-I/O problems. Configuring an FPGA means synthesizing HDL into a bitstream and loading it onto the chip.
+You now have a working iCE40 development environment and have completed the full toolchain loop: write Verilog → simulate → synthesize → place and route → flash.
 
-In the next chapter we'll build the digital logic foundation you'll need before writing a single line of HDL.
+The key ideas from this chapter:
+
+- `` `default_nettype none `` catches undeclared-wire bugs at compile time.
+- A reduction AND (`&counter`) cleanly detects the all-ones state without a comparator.
+- The three-step build is: Yosys (synthesis) → nextpnr (P&R) → icepack (bitstream).
+- Simulate with Icarus Verilog and inspect waveforms in GTKWave before going near hardware.
+- hiprog streams the bitstream to the iCE40 through the RP2040 over USB — no extra probe needed.
+
+In the next chapter we step back from the toolchain and take a proper tour of digital design with Verilog: gates, state machines, and the datapath-controller pattern.

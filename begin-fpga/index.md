@@ -27,48 +27,53 @@ featured_image: /images/humble-ice.jpg
 <ol class="book-home__chapter-list">
 
   <li class="book-home__chapter-item">
-    <a href="/begin-fpga/ch01-introduction/" class="book-home__chapter-title">Introduction to FPGAs</a>
-    <p class="book-home__chapter-desc">What is an FPGA, how it compares to CPUs and microcontrollers, and why you'd choose one.</p>
+    <div><strong><a href="/begin-fpga/ch01-introduction/">Getting Started with Humble iCE</a></strong><br>
+    Install the open-source iCE40 toolchain on Windows, macOS, or Linux, then build, simulate, and flash your first Verilog design — a blinking LED.</div>
   </li>
 
   <li class="book-home__chapter-item">
-    <a href="/begin-fpga/ch02-digital-design-with-verilog/" class="book-home__chapter-title">Digital Design with Verilog</a>
-    <p class="book-home__chapter-desc">Gates, behavioral design, building blocks (MUX, encoder, shift register, counter), ASM/ASMD state machines, and a complete datapath+controller example — all with testbenches and synthesis.</p>
+    <div><strong><a href="/begin-fpga/ch02-digital-design-with-verilog/">Digital Design with Verilog</a></strong><br>
+    Gates, behavioral design, building blocks (MUX, encoder, shift register, counter), ASM/ASMD state machines, and a complete datapath+controller example — all with testbenches and synthesis.</div>
   </li>
 
   <li class="book-home__chapter-item book-home__chapter-item--soon">
-    <span class="book-home__chapter-title">Digital Logic Basics</span>
-    <p class="book-home__chapter-desc">Logic gates, Boolean algebra, truth tables, and the combinational circuits that form an FPGA's building blocks.</p>
+    <div><strong>Digital Logic Basics</strong><br>
+    Logic gates, Boolean algebra, truth tables, and the combinational circuits that form an FPGA's building blocks.</div>
   </li>
 
   <li class="book-home__chapter-item book-home__chapter-item--soon">
-    <span class="book-home__chapter-title">FPGA Architecture</span>
-    <p class="book-home__chapter-desc">Inside an FPGA: Look-Up Tables, flip-flops, configurable logic blocks, I/O pins, and the routing fabric.</p>
+    <div><strong>FPGA Architecture</strong><br>
+    Inside an FPGA: Look-Up Tables, flip-flops, configurable logic blocks, I/O pins, and the routing fabric.</div>
+  </li>
+
+  <li class="book-home__chapter-item">
+    <div><strong><a href="/begin-fpga/ch05-uart-tx/">UART Transmitter</a></strong><br>
+    Build a UART TX in Verilog — baud rate generation with a fractional accumulator, a partitioned controller-datapath state machine, simulation with GTKWave, and synthesis onto the iCE40.</div>
   </li>
 
   <li class="book-home__chapter-item book-home__chapter-item--soon">
-    <span class="book-home__chapter-title">Introduction to HDL</span>
-    <p class="book-home__chapter-desc">Hardware Description Languages — Verilog and VHDL — and how hardware design differs from software programming.</p>
+    <div><strong>Introduction to HDL</strong><br>
+    Hardware Description Languages — Verilog and VHDL — and how hardware design differs from software programming.</div>
   </li>
 
   <li class="book-home__chapter-item book-home__chapter-item--soon">
-    <span class="book-home__chapter-title">Verilog Basics</span>
-    <p class="book-home__chapter-desc">Modules, ports, wire vs reg, always blocks, and your first Verilog design.</p>
+    <div><strong>Verilog Basics</strong><br>
+    Modules, ports, wire vs reg, always blocks, and your first Verilog design.</div>
   </li>
 
   <li class="book-home__chapter-item book-home__chapter-item--soon">
-    <span class="book-home__chapter-title">Simulation and Testbenches</span>
-    <p class="book-home__chapter-desc">Writing testbenches, running simulations with Icarus Verilog, and viewing waveforms in GTKWave.</p>
+    <div><strong>Simulation and Testbenches</strong><br>
+    Writing testbenches, running simulations with Icarus Verilog, and viewing waveforms in GTKWave.</div>
   </li>
 
   <li class="book-home__chapter-item book-home__chapter-item--soon">
-    <span class="book-home__chapter-title">Synthesis and Implementation</span>
-    <p class="book-home__chapter-desc">Turning HDL into a bitstream: synthesis, place-and-route, timing analysis, and programming the FPGA.</p>
+    <div><strong>Synthesis and Implementation</strong><br>
+    Turning HDL into a bitstream: synthesis, place-and-route, timing analysis, and programming the FPGA.</div>
   </li>
 
   <li class="book-home__chapter-item book-home__chapter-item--soon">
-    <span class="book-home__chapter-title">Your First FPGA Project</span>
-    <p class="book-home__chapter-desc">A complete worked example: blinking LEDs, a 7-segment display driver, and a simple state machine.</p>
+    <div><strong>Your First FPGA Project</strong><br>
+    A complete worked example: blinking LEDs, a 7-segment display driver, and a simple state machine.</div>
   </li>
 
 </ol>
