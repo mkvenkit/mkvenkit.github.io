@@ -1,7 +1,7 @@
 ---
 layout: book
 title: "The Humble iCE Cookbook"
-description: "A hands-on beginners guide to digital design with FPGAs."
+description: "A hands-on beginner's guide to Digital Design with FPGAs."
 featured_image: /images/humble-ice.jpg
 ---
 
@@ -19,7 +19,10 @@ featured_image: /images/humble-ice.jpg
   <p>
     Along the way you will pick up the <m>digital design</m> fundamentals you need: logic, state machines,
     timing, and the Verilog HDL. You need only a basic knowledge of programming and electronics to 
-    follow along. Happy hacking with FPGAs!
+    follow along. 
+  </p>
+  <p>
+    Happy hacking with FPGAs!
   </p>
 </div>
 
