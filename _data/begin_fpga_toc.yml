@@ -51,3 +51,9 @@
   title: "Your First FPGA Project"
   description: "A complete worked example: blinking LEDs, a 7-segment display driver, and a simple state machine."
   status: coming-soon
+
+- num: 0
+  slug: "changelog"
+  title: "Changelog"
+  description: "A running log of additions, corrections, and updates to the book."
+  status: published

@@ -5,6 +5,8 @@ description: "A hands-on beginner's guide to Digital Design with FPGAs."
 featured_image: /images/humble-ice.jpg
 ---
 
+<p style="font-size:0.75rem; color: #888; margin-bottom: 0.5rem;">Last Updated: June 8, 2026 &nbsp;·&nbsp; <a href="/begin-fpga/changelog/">Changelog</a></p>
+
 <div class="book-home__cover">
   <img src="/images/fpga-beginners-cover-small.jpg" alt="The Humble iCE Cookbook cover">
 </div>
@@ -78,6 +80,12 @@ featured_image: /images/humble-ice.jpg
   <li class="book-home__chapter-item book-home__chapter-item--soon">
     <div><strong>Your First FPGA Project</strong><br>
     A complete worked example: blinking LEDs, a 7-segment display driver, and a simple state machine.</div>
+  </li>
+
+
+  <li class="book-home__chapter-item">
+    <div><strong><a href="/begin-fpga/changelog/">Changelog</a></strong><br>
+    A running log of additions, corrections, and updates to the book.</div>
   </li>
 
 </ol>
