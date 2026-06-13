@@ -59,6 +59,165 @@ end
 
 In sequential blocks, use **non-blocking assignments** (`<=`). In combinational blocks, use **blocking assignments** (`=`).
 
+### You Are Describing a Circuit, Not Writing a Program
+
+This is the single most important thing to internalise before writing Verilog. When you write:
+
+```verilog
+a = b + 1;
+c = a * 2;
+```
+
+in a C program, those two lines execute one after the other. The second line sees the *new* value of `a`. In Verilog, inside a clocked `always` block, the same syntax carries a completely different meaning depending on whether you use blocking (`=`) or non-blocking (`<=`) assignment — and one of them produces a circuit that programmers almost never intend.
+
+The synthesiser is not running your code. It is reading your code as a *specification* for hardware and mapping it to flip-flops and gates. Understanding what circuit each assignment style produces is not optional — it determines the actual silicon.
+
+#### Blocking Assignments in a Sequential Block — The Collapse Trap
+
+Consider four registers `a`, `b`, `c`, `q` that you want to form a 4-stage pipeline (a shift register): `D → a → b → c → q`, each stage capturing the previous value on the clock edge.
+
+A programmer's instinct is to write this as a sequence of assignments:
+
+```verilog
+// examples/book/ch02/00_blocking_nonblocking/blocking_chain.v
+module blocking_chain (
+    input  wire clk,
+    input  wire d,
+    output reg  a, b, c, q
+);
+    always @(posedge clk) begin
+        a = d;   // (1) a gets d
+        b = a;   // (2) b gets a  — but a is ALREADY d from line (1)!
+        c = b;   // (3) c gets b  — but b is ALREADY d from line (2)!
+        q = c;   // (4) q gets c  — but c is ALREADY d from line (3)!
+    end
+endmodule
+```
+
+Because `=` is blocking, each line completes before the next begins — exactly like a C program. Line (2) reads the *already-updated* value of `a`, which is `d`. So `b` gets `d`. Line (3) reads the *already-updated* value of `b`, which is also `d`. All four registers end up capturing `d` in the same clock cycle.
+
+The synthesiser sees this too. It produces:
+
+![Blocking assignment collapse — all FFs driven by D](/begin-fpga/figures/ch02-blocking-collapse.svg)
+
+All four flip-flops are driven by the same input. There is no pipeline. There is no shift register. The circuit is functionally equivalent to four independent single-stage registers, and the intermediate stages `a`, `b`, `c` are useless.
+
+```
+# Synthesis summary (blocking_chain, iCE40)
+   Number of DFF:  4   (but all four capture D — no chaining)
+   Equivalent to:  a = D, b = D, c = D, q = D after one clock
+```
+
+Worse, the result is **order-dependent**. Reverse the statements and you accidentally get the correct shift register:
+
+```verilog
+// Reversed order — accidentally correct, but fragile and confusing
+always @(posedge clk) begin
+    q = c;   // q gets OLD c
+    c = b;   // c gets OLD b
+    b = a;   // b gets OLD a
+    a = d;   // a gets OLD d
+end
+```
+
+Code whose correctness depends on the order of statements is a maintenance disaster. Add one line in the wrong place and the circuit silently changes.
+
+#### Non-Blocking Assignments — The Correct Pattern
+
+Non-blocking (`<=`) separates evaluation from assignment. On a clock edge, **all right-hand sides are sampled first** (using the values from *before* the clock), and **then all left-hand sides are updated simultaneously**. The order of the statements is irrelevant.
+
+```verilog
+// examples/book/ch02/00_blocking_nonblocking/nonblocking_chain.v
+module nonblocking_chain (
+    input  wire clk,
+    input  wire d,
+    output reg  a, b, c, q
+);
+    always @(posedge clk) begin
+        a <= d;   // samples OLD d
+        b <= a;   // samples OLD a
+        c <= b;   // samples OLD b
+        q <= c;   // samples OLD c
+    end
+endmodule
+```
+
+All four right-hand sides are evaluated with the pre-clock values, then all four registers update simultaneously. The result is the intended 4-stage shift register:
+
+![Non-blocking assignment — proper 4-stage shift register](/begin-fpga/figures/ch02-nonblocking-chain.svg)
+
+```
+# Synthesis summary (nonblocking_chain, iCE40)
+   Number of DFF:  4   (proper shift register chain)
+   Latency:        D appears at Q after exactly 4 clock cycles
+```
+
+#### Testbench — Seeing the Difference
+
+```verilog
+// examples/book/ch02/00_blocking_nonblocking/tb_compare.v
+`timescale 1ns/1ps
+module tb_compare;
+    reg clk, d;
+    wire ba, bb, bc, bq;   // blocking outputs
+    wire na, nb, nc, nq;   // non-blocking outputs
+
+    blocking_chain    dut_b (.clk(clk), .d(d), .a(ba), .b(bb), .c(bc), .q(bq));
+    nonblocking_chain dut_n (.clk(clk), .d(d), .a(na), .b(nb), .c(nc), .q(nq));
+
+    always #5 clk = ~clk;
+
+    initial begin
+        $dumpfile("compare.vcd");
+        $dumpvars(0, tb_compare);
+        clk = 0; d = 0;
+        repeat(2) @(posedge clk);
+
+        d = 1;   // send a 1 into the pipeline
+        repeat(6) @(posedge clk);
+
+        d = 0;
+        repeat(6) @(posedge clk);
+        $finish;
+    end
+
+    always @(posedge clk) #1 begin
+        $display("t=%3t  d=%b | BLOCKING  a=%b b=%b c=%b q=%b | NONBLOCKING  a=%b b=%b c=%b q=%b",
+                 $time, d,
+                 ba, bb, bc, bq,
+                 na, nb, nc, nq);
+    end
+endmodule
+```
+
+**Simulation output:**
+
+```
+t= 15  d=1 | BLOCKING  a=1 b=1 c=1 q=1 | NONBLOCKING  a=1 b=0 c=0 q=0
+t= 25  d=1 | BLOCKING  a=1 b=1 c=1 q=1 | NONBLOCKING  a=1 b=1 c=0 q=0
+t= 35  d=1 | BLOCKING  a=1 b=1 c=1 q=1 | NONBLOCKING  a=1 b=1 c=1 q=0
+t= 45  d=1 | BLOCKING  a=1 b=1 c=1 q=1 | NONBLOCKING  a=1 b=1 c=1 q=1
+t= 55  d=0 | BLOCKING  a=0 b=0 c=0 q=0 | NONBLOCKING  a=0 b=1 c=1 q=1
+t= 65  d=0 | BLOCKING  a=0 b=0 c=0 q=0 | NONBLOCKING  a=0 b=0 c=1 q=1
+t= 75  d=0 | BLOCKING  a=0 b=0 c=0 q=0 | NONBLOCKING  a=0 b=0 c=0 q=1
+t= 85  d=0 | BLOCKING  a=0 b=0 c=0 q=0 | NONBLOCKING  a=0 b=0 c=0 q=0
+```
+
+The blocking version collapses — all four outputs change identically every cycle. The non-blocking version shows the `1` propagating through the stages over four clock cycles, exactly as a pipeline should behave.
+
+#### The Rule, and Why
+
+| Block type | Assignment style | Why |
+|---|---|---|
+| `always @(posedge clk)` | `<=` non-blocking | Registers must capture *old* values simultaneously |
+| `always @(*)` combinational | `=` blocking | No registers; sequential evaluation models pure logic |
+
+Mixing these — using `=` in a sequential block or `<=` in a combinational block — produces simulation/synthesis mismatches or unintended latches. The rule is absolute:
+
+> **Use `<=` in every clocked `always` block. Use `=` in every combinational `always` block. No exceptions.**
+
+The underlying reason is the hardware model. On a real clock edge, every flip-flop samples its D input and updates its Q output *simultaneously*. Non-blocking assignment models this: all RHS values are captured before any LHS changes. Blocking assignment imposes an artificial ordering that has no physical counterpart in synchronous hardware.
+
 ---
 
 ## 1. Basic Gates
@@ -854,7 +1013,194 @@ The partition is clear in synthesis: the controller is tiny (2 flip-flops, 8 LUT
 
 ---
 
-## 6. Running the Examples
+## 6. Edge Detector — Generating a Single-Cycle Strobe
+
+A **clock-domain edge detector** solves a fundamental problem: you have a signal that changes at some unknown moment (a button press, a flag set by another module, an external event), and you want to react to it exactly once — for precisely one clock cycle — on either its rising edge, its falling edge, or both.
+
+This one-cycle pulse is called a **strobe**. Strobes are ubiquitous in embedded systems design. A few examples of where you'll use this exact pattern:
+
+- **UART baud rate generator** — a baud tick strobe fired once every N clock cycles tells the transmitter/receiver to sample or shift data. Without a clean single-cycle tick you'd sample multiple times per bit period.
+- **I²S audio clock** — the bit clock (BCLK) and word-select (WS) transitions drive audio data shifting; edge detection on WS signals the start of a new audio frame.
+- **SPI chip-select** — detecting the falling edge of CS_N triggers a new transaction.
+- **Button debouncing** — after filtering the bouncing input through a synchroniser chain, an edge detector fires a single clean event per press.
+- **Handshake protocols** — detecting the rising edge of a `valid` or `req` signal starts a one-time response.
+
+In every case the pattern is the same: **compare the current value of a signal to its registered (one-cycle-delayed) version**.
+
+### How It Works
+
+The core idea is to register the input signal, then compare the current and delayed values:
+
+```
+sig_d  ← sig    (on every rising clock edge)
+
+rise   = sig  & ~sig_d   -- was 0, now 1
+fall   = ~sig &  sig_d   -- was 1, now 0
+edge   = sig  ^  sig_d   -- either transition (XOR)
+```
+
+The diagram below shows the three output strobes for a signal that rises then falls:
+
+![Edge detector timing diagram](/begin-fpga/figures/ch02-edge-detector.svg)
+
+`rise` and `fall` are each asserted for **exactly one clock cycle**, one cycle after the input transition. This one-cycle delay is unavoidable: the flip-flop that captures `sig_d` only updates on a clock edge, so the comparison can only happen after the clock that follows the transition.
+
+### Verilog Module
+
+```verilog
+// examples/book/ch02/09_edge_detector/edge_detector.v
+module edge_detector (
+    input  wire clk,
+    input  wire rst_n,
+    input  wire sig,      // signal to monitor
+    output wire rise,     // one-cycle strobe on rising  edge
+    output wire fall,     // one-cycle strobe on falling edge
+    output wire edge_p    // one-cycle strobe on either  edge
+);
+    reg sig_d;   // one-cycle delayed copy
+
+    always @(posedge clk or negedge rst_n) begin
+        if (!rst_n)
+            sig_d <= 1'b0;
+        else
+            sig_d <= sig;
+    end
+
+    assign rise   =  sig & ~sig_d;
+    assign fall   = ~sig &  sig_d;
+    assign edge_p =  sig ^  sig_d;   // equivalent to rise | fall
+endmodule
+```
+
+There are no magic numbers, no counters, no `case` statements — just one flip-flop and three gates. That simplicity is a feature: it synthesises to exactly one DFF and a handful of LUT inputs, so you can use as many instances as you need with negligible resource cost.
+
+### Testbench
+
+```verilog
+// examples/book/ch02/09_edge_detector/tb_edge_detector.v
+`timescale 1ns/1ps
+module tb_edge_detector;
+    reg  clk, rst_n, sig;
+    wire rise, fall, edge_p;
+
+    edge_detector dut (
+        .clk(clk), .rst_n(rst_n), .sig(sig),
+        .rise(rise), .fall(fall), .edge_p(edge_p)
+    );
+
+    always #5 clk = ~clk;
+
+    initial begin
+        $dumpfile("edge_detector.vcd");
+        $dumpvars(0, tb_edge_detector);
+        clk = 0; rst_n = 0; sig = 0;
+        @(posedge clk); @(posedge clk);
+        rst_n = 1;
+
+        // --- Rising edge ---
+        @(posedge clk); #1; sig = 1;
+        repeat(4) @(posedge clk);
+
+        // --- Falling edge ---
+        #1; sig = 0;
+        repeat(4) @(posedge clk);
+
+        // --- Another rising edge ---
+        #1; sig = 1;
+        repeat(4) @(posedge clk);
+
+        $finish;
+    end
+
+    always @(posedge clk) begin
+        if (rise)   $display("t=%0t  RISE  strobe", $time);
+        if (fall)   $display("t=%0t  FALL  strobe", $time);
+        if (edge_p) $display("t=%0t  EDGE  strobe", $time);
+    end
+endmodule
+```
+
+### Simulation Output
+
+```
+t=30   RISE  strobe
+t=30   EDGE  strobe
+t=80   FALL  strobe
+t=80   EDGE  strobe
+t=130  RISE  strobe
+t=130  EDGE  strobe
+```
+
+Each strobe fires exactly once, the cycle after the input transition. `edge_p` fires on both rising and falling edges, while `rise` and `fall` are mutually exclusive.
+
+### Synthesis Result
+
+```
+# Synthesis summary (edge_detector, iCE40)
+   Number of DFF:   1   (sig_d register)
+   Number of LUT1:  2   (two inverters)
+   Number of LUT2:  2   (AND gates for rise and fall)
+   # edge_p is absorbed into existing LUT inputs
+```
+
+One flip-flop. A few gate inputs. This is about as resource-light as a sequential circuit can get.
+
+### Practical Example: UART Baud Tick Generator
+
+A UART baud rate generator uses a counter that reloads every `CLK_FREQ / BAUD_RATE` cycles. Rather than using the counter's terminal count value directly as a multi-cycle enable, you wrap it with an edge detector to get a clean single-cycle tick:
+
+```verilog
+// examples/book/ch02/09_edge_detector/baud_tick.v
+module baud_tick #(
+    parameter CLK_FREQ  = 12_000_000,   // 12 MHz system clock
+    parameter BAUD_RATE = 115_200
+)(
+    input  wire clk,
+    input  wire rst_n,
+    output wire tick    // one-cycle strobe at baud rate
+);
+    localparam DIVISOR = CLK_FREQ / BAUD_RATE;   // 104 for 12 MHz / 115200
+    localparam W = $clog2(DIVISOR);              // counter width
+
+    reg [W-1:0] cnt;
+    reg         tc;      // terminal count flag
+
+    // Counter
+    always @(posedge clk or negedge rst_n) begin
+        if (!rst_n) begin
+            cnt <= '0;
+            tc  <= 1'b0;
+        end else begin
+            if (cnt == DIVISOR - 1) begin
+                cnt <= '0;
+                tc  <= 1'b1;
+            end else begin
+                cnt <= cnt + 1'b1;
+                tc  <= 1'b0;
+            end
+        end
+    end
+
+    // Edge detector on tc produces one-cycle tick
+    edge_detector ed (
+        .clk(clk), .rst_n(rst_n),
+        .sig(tc),
+        .rise(tick),    // fires once per baud period
+        .fall(),
+        .edge_p()
+    );
+endmodule
+```
+
+The `tick` output is high for exactly one clock cycle every `DIVISOR` clocks. The UART transmitter shifts one bit on each tick, so the two modules together implement a complete, timing-accurate bit clock.
+
+The same pattern applies directly to **I²S** (detect the rising/falling edge of the word-select line to latch audio samples), **SPI** (detect chip-select assertion to reset the shift register), and any other protocol that needs a precisely timed one-cycle enable derived from a slower event.
+
+---
+
+## 7. Running the Examples
+
+Add the edge detector to your workflow by adding a `09_edge_detector/` directory alongside the other examples:
 
 All examples are under `examples/book/ch02/`. Each directory contains Verilog source files, a testbench, and a `Makefile`.
 

@@ -1,0 +1,100 @@
+<svg viewBox="0 0 720 360" xmlns="http://www.w3.org/2000/svg" font-family="monospace" font-size="13">
+
+  <!-- Background -->
+  <rect width="720" height="360" fill="#1e1e2e" rx="8"/>
+
+  <!-- Title -->
+  <text x="360" y="28" text-anchor="middle" fill="#cdd6f4" font-size="15" font-weight="bold">Edge Detector — Timing Diagram</text>
+
+  <!-- Lane backgrounds (alternating) -->
+  <rect x="110" y="42" width="590" height="46" fill="#181825" rx="3"/>
+  <rect x="110" y="94" width="590" height="46" fill="#1e1e2e" rx="3"/>
+  <rect x="110" y="146" width="590" height="46" fill="#181825" rx="3"/>
+  <rect x="110" y="198" width="590" height="46" fill="#1e1e2e" rx="3"/>
+  <rect x="110" y="250" width="590" height="46" fill="#181825" rx="3"/>
+  <rect x="110" y="302" width="590" height="46" fill="#1e1e2e" rx="3"/>
+
+  <!-- Signal labels -->
+  <text x="100" y="73" text-anchor="end" fill="#89b4fa" font-weight="bold">CLK</text>
+  <text x="100" y="125" text-anchor="end" fill="#a6e3a1">sig</text>
+  <text x="100" y="177" text-anchor="end" fill="#89dceb">sig_d</text>
+  <text x="100" y="229" text-anchor="end" fill="#f38ba8">rise</text>
+  <text x="100" y="281" text-anchor="end" fill="#fab387">fall</text>
+  <text x="100" y="333" text-anchor="end" fill="#cba6f7">edge</text>
+
+  <!-- Clock period markers (10 cycles, each 59px wide) -->
+  <!-- CLK: period = 59px. Low at 53, High at 68. 10 half-cycles = 590px total -->
+  <!-- CLK waveform (y_low=82, y_high=50, period=118, half=59) -->
+  <polyline points="
+    110,82 110,50 169,50 169,82 228,82 228,50 287,50 287,82 346,82 346,50 405,50 405,82 464,82 464,50 523,50 523,82 582,82 582,50 641,50 641,82 700,82
+  " fill="none" stroke="#89b4fa" stroke-width="2"/>
+
+  <!-- Vertical clock grid lines (faint) -->
+  <line x1="169" y1="42" x2="169" y2="348" stroke="#313244" stroke-width="1" stroke-dasharray="3,3"/>
+  <line x1="228" y1="42" x2="228" y2="348" stroke="#313244" stroke-width="1" stroke-dasharray="3,3"/>
+  <line x1="287" y1="42" x2="287" y2="348" stroke="#313244" stroke-width="1" stroke-dasharray="3,3"/>
+  <line x1="346" y1="42" x2="346" y2="348" stroke="#313244" stroke-width="1" stroke-dasharray="3,3"/>
+  <line x1="405" y1="42" x2="405" y2="348" stroke="#313244" stroke-width="1" stroke-dasharray="3,3"/>
+  <line x1="464" y1="42" x2="464" y2="348" stroke="#313244" stroke-width="1" stroke-dasharray="3,3"/>
+  <line x1="523" y1="42" x2="523" y2="348" stroke="#313244" stroke-width="1" stroke-dasharray="3,3"/>
+  <line x1="582" y1="42" x2="582" y2="348" stroke="#313244" stroke-width="1" stroke-dasharray="3,3"/>
+  <line x1="641" y1="42" x2="641" y2="348" stroke="#313244" stroke-width="1" stroke-dasharray="3,3"/>
+
+  <!-- sig: low until cycle 3 posedge (346), high until cycle 7 posedge (582), then low -->
+  <!-- y_low=134, y_high=102 -->
+  <polyline points="110,134 346,134 346,102 582,102 582,134 700,134"
+    fill="none" stroke="#a6e3a1" stroke-width="2.5"/>
+
+  <!-- sig_d: delayed by one full clock (59px * 2 = 118 = one period) from sig -->
+  <!-- rises at cycle 4 posedge (405), falls at cycle 8 posedge (641) -->
+  <!-- y_low=186, y_high=154 -->
+  <polyline points="110,186 405,186 405,154 641,154 641,186 700,186"
+    fill="none" stroke="#89dceb" stroke-width="2.5"/>
+
+  <!-- rise: sig=1 AND sig_d=0, i.e., one clock after sig rises -->
+  <!-- High for exactly one clock cycle: from 405 to 464 -->
+  <!-- y_low=238, y_high=206 -->
+  <polyline points="110,238 405,238 405,206 464,206 464,238 700,238"
+    fill="none" stroke="#f38ba8" stroke-width="2.5"/>
+  <!-- Highlight rise pulse -->
+  <rect x="405" y="206" width="59" height="32" fill="#f38ba8" fill-opacity="0.15" rx="2"/>
+  <text x="434" y="225" text-anchor="middle" fill="#f38ba8" font-size="10">1 clk</text>
+
+  <!-- fall: sig=0 AND sig_d=1, i.e., one clock after sig falls -->
+  <!-- High for one clock cycle: from 641 to 700 -->
+  <!-- y_low=290, y_high=258 -->
+  <polyline points="110,290 641,290 641,258 700,258 700,290"
+    fill="none" stroke="#fab387" stroke-width="2.5"/>
+  <!-- Highlight fall pulse -->
+  <rect x="641" y="258" width="59" height="32" fill="#fab387" fill-opacity="0.15" rx="2"/>
+  <text x="670" y="277" text-anchor="middle" fill="#fab387" font-size="10">1 clk</text>
+
+  <!-- edge: rise OR fall -->
+  <!-- y_low=342, y_high=310 -->
+  <polyline points="110,342 405,342 405,310 464,310 464,342 641,342 641,310 700,310 700,342"
+    fill="none" stroke="#cba6f7" stroke-width="2.5"/>
+  <!-- Highlight edge pulses -->
+  <rect x="405" y="310" width="59" height="32" fill="#cba6f7" fill-opacity="0.15" rx="2"/>
+  <rect x="641" y="310" width="59" height="32" fill="#cba6f7" fill-opacity="0.15" rx="2"/>
+
+  <!-- Annotation arrows: sig rise → rise pulse -->
+  <line x1="346" y1="102" x2="405" y2="206" stroke="#f38ba8" stroke-width="1" stroke-dasharray="4,3" opacity="0.6"/>
+  <text x="358" y="160" fill="#f38ba8" font-size="10" opacity="0.8">+1 clk</text>
+
+  <!-- Annotation: sig fall → fall pulse -->
+  <line x1="582" y1="102" x2="641" y2="258" stroke="#fab387" stroke-width="1" stroke-dasharray="4,3" opacity="0.6"/>
+  <text x="590" y="195" fill="#fab387" font-size="10" opacity="0.8">+1 clk</text>
+
+  <!-- Cycle number labels at top -->
+  <text x="140" y="40" text-anchor="middle" fill="#585b70" font-size="10">0</text>
+  <text x="199" y="40" text-anchor="middle" fill="#585b70" font-size="10">1</text>
+  <text x="258" y="40" text-anchor="middle" fill="#585b70" font-size="10">2</text>
+  <text x="317" y="40" text-anchor="middle" fill="#585b70" font-size="10">3</text>
+  <text x="376" y="40" text-anchor="middle" fill="#585b70" font-size="10">4</text>
+  <text x="435" y="40" text-anchor="middle" fill="#585b70" font-size="10">5</text>
+  <text x="494" y="40" text-anchor="middle" fill="#585b70" font-size="10">6</text>
+  <text x="553" y="40" text-anchor="middle" fill="#585b70" font-size="10">7</text>
+  <text x="612" y="40" text-anchor="middle" fill="#585b70" font-size="10">8</text>
+  <text x="671" y="40" text-anchor="middle" fill="#585b70" font-size="10">9</text>
+
+</svg>

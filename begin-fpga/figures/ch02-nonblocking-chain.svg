@@ -1,0 +1,80 @@
+<svg viewBox="0 0 700 280" xmlns="http://www.w3.org/2000/svg" font-family="monospace, sans-serif">
+
+  <!-- Background -->
+  <rect width="700" height="280" fill="#0f1117" rx="10"/>
+
+  <!-- Title -->
+  <text x="350" y="28" text-anchor="middle" fill="#e2e8f0" font-size="14" font-weight="bold">Non-Blocking Assignment in Sequential Block</text>
+  <text x="350" y="46" text-anchor="middle" fill="#34d399" font-size="12">Result: 4-stage shift register — data propagates one stage per clock cycle</text>
+
+  <!-- D input -->
+  <line x1="20" y1="155" x2="80" y2="155" stroke="#60a5fa" stroke-width="2"/>
+  <text x="8" y="159" fill="#60a5fa" font-size="13" font-weight="bold">D</text>
+
+  <!-- FF1 -->
+  <rect x="80" y="115" width="80" height="80" fill="#1e293b" stroke="#34d399" stroke-width="2" rx="4"/>
+  <text x="120" y="148" text-anchor="middle" fill="#94a3b8" font-size="10">FF</text>
+  <text x="120" y="163" text-anchor="middle" fill="#e2e8f0" font-size="13" font-weight="bold">a</text>
+  <text x="92" y="183" fill="#94a3b8" font-size="9">D  Q</text>
+  <line x1="120" y1="195" x2="120" y2="207" stroke="#a78bfa" stroke-width="1.5"/>
+  <text x="104" y="218" fill="#a78bfa" font-size="9">clk ▲</text>
+
+  <!-- Arrow FF1 → FF2 -->
+  <line x1="160" y1="155" x2="205" y2="155" stroke="#34d399" stroke-width="2.5"/>
+  <polygon points="205,150 218,155 205,160" fill="#34d399"/>
+  <text x="170" y="148" fill="#34d399" font-size="10">a[n-1]</text>
+
+  <!-- FF2 -->
+  <rect x="220" y="115" width="80" height="80" fill="#1e293b" stroke="#34d399" stroke-width="2" rx="4"/>
+  <text x="260" y="148" text-anchor="middle" fill="#94a3b8" font-size="10">FF</text>
+  <text x="260" y="163" text-anchor="middle" fill="#e2e8f0" font-size="13" font-weight="bold">b</text>
+  <text x="232" y="183" fill="#94a3b8" font-size="9">D  Q</text>
+  <line x1="260" y1="195" x2="260" y2="207" stroke="#a78bfa" stroke-width="1.5"/>
+  <text x="244" y="218" fill="#a78bfa" font-size="9">clk ▲</text>
+
+  <!-- Arrow FF2 → FF3 -->
+  <line x1="300" y1="155" x2="345" y2="155" stroke="#34d399" stroke-width="2.5"/>
+  <polygon points="345,150 358,155 345,160" fill="#34d399"/>
+  <text x="310" y="148" fill="#34d399" font-size="10">b[n-1]</text>
+
+  <!-- FF3 -->
+  <rect x="360" y="115" width="80" height="80" fill="#1e293b" stroke="#34d399" stroke-width="2" rx="4"/>
+  <text x="400" y="148" text-anchor="middle" fill="#94a3b8" font-size="10">FF</text>
+  <text x="400" y="163" text-anchor="middle" fill="#e2e8f0" font-size="13" font-weight="bold">c</text>
+  <text x="372" y="183" fill="#94a3b8" font-size="9">D  Q</text>
+  <line x1="400" y1="195" x2="400" y2="207" stroke="#a78bfa" stroke-width="1.5"/>
+  <text x="384" y="218" fill="#a78bfa" font-size="9">clk ▲</text>
+
+  <!-- Arrow FF3 → FF4 -->
+  <line x1="440" y1="155" x2="485" y2="155" stroke="#34d399" stroke-width="2.5"/>
+  <polygon points="485,150 498,155 485,160" fill="#34d399"/>
+  <text x="450" y="148" fill="#34d399" font-size="10">c[n-1]</text>
+
+  <!-- FF4 -->
+  <rect x="500" y="115" width="80" height="80" fill="#1e293b" stroke="#34d399" stroke-width="2" rx="4"/>
+  <text x="540" y="148" text-anchor="middle" fill="#94a3b8" font-size="10">FF</text>
+  <text x="540" y="163" text-anchor="middle" fill="#e2e8f0" font-size="13" font-weight="bold">q</text>
+  <text x="512" y="183" fill="#94a3b8" font-size="9">D  Q</text>
+  <line x1="540" y1="195" x2="540" y2="207" stroke="#a78bfa" stroke-width="1.5"/>
+  <text x="524" y="218" fill="#a78bfa" font-size="9">clk ▲</text>
+
+  <!-- Q output -->
+  <line x1="580" y1="155" x2="640" y2="155" stroke="#60a5fa" stroke-width="2"/>
+  <text x="648" y="159" fill="#60a5fa" font-size="13" font-weight="bold">Q</text>
+
+  <!-- Cycle labels below arrows -->
+  <text x="120" y="240" text-anchor="middle" fill="#fbbf24" font-size="10">cycle 1</text>
+  <text x="260" y="240" text-anchor="middle" fill="#fbbf24" font-size="10">cycle 2</text>
+  <text x="400" y="240" text-anchor="middle" fill="#fbbf24" font-size="10">cycle 3</text>
+  <text x="540" y="240" text-anchor="middle" fill="#fbbf24" font-size="10">cycle 4</text>
+
+  <!-- Code snippet -->
+  <rect x="55" y="58" width="590" height="44" fill="#1e293b" rx="6" opacity="0.9"/>
+  <text x="70" y="74" fill="#94a3b8" font-size="10">// Non-blocking: RHS evaluated with OLD values, then all assigned simultaneously</text>
+  <text x="70" y="92" fill="#fbbf24" font-size="11">always @(posedge clk) begin  a &lt;= d;  b &lt;= a;  c &lt;= b;  q &lt;= c;  end</text>
+
+  <!-- Key insight box -->
+  <rect x="55" y="252" width="590" height="22" fill="#14532d" rx="5" opacity="0.85"/>
+  <text x="350" y="267" text-anchor="middle" fill="#86efac" font-size="11">✓ Statement order doesn't matter — all RHS values are sampled before any LHS is updated.</text>
+
+</svg>
