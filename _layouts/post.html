@@ -1,6 +1,15 @@
 ---
 layout: default
 ---
+<script>
+MathJax = {
+  tex: {
+    inlineMath: [['$', '$'], ['\\(', '\\)']],
+    displayMath: [['$$', '$$'], ['\\[', '\\]']]
+  }
+};
+</script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js" crossorigin="anonymous"></script>
 {% assign hero_image = page.featured_image | default: '/images/social.jpg' %}
 
 <section class="hero hero--single">
