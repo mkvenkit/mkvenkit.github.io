@@ -4,8 +4,8 @@ description: "Combine I2S and PDM microphone PMODs with a USB-C PMOD to stream 2
 chapter_num: 11
 prev_url: /begin-fpga/ch10-hm01b0-camera/
 prev_title: "Project: HM01B0 Camera PMOD"
-next_url: /begin-fpga/
-next_title: "Overview"
+next_url: /begin-fpga/ch12-sn76489/
+next_title: "Project: Replicating the SN76489 Sound Generator"
 published: true
 ---
 

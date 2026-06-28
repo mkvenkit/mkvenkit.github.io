@@ -88,6 +88,11 @@ featured_image: /images/humble-ice.jpg
   </li>
 
   <li class="book-home__chapter-item">
+    <div><strong><a href="/begin-fpga/ch12-sn76489/">Project: Replicating the SN76489 Sound Generator</a></strong><br>
+    Replicate the classic TI SN76489 PSG in Verilog — three square-wave tone channels, a 15-bit noise LFSR, a DAC attenuation ROM, and signed PCM output streamed to a GY-PCM5102 I2S DAC.</div>
+  </li>
+
+  <li class="book-home__chapter-item">
     <div><strong><a href="/begin-fpga/changelog/">Changelog</a></strong><br>
     A running log of additions, corrections, and updates to the book.</div>
   </li>
