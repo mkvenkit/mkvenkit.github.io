@@ -1,11 +1,11 @@
 ---
-title: "Digital Design with Verilog HDL"
+title: "A Crash Course in Digital Design with Verilog HDL"
 description: "Gates, behavioral design, building blocks (MUX, encoder, shift register, counter), ASM/ASMD state machines, and a complete datapath+controller example — all in Verilog with testbenches and synthesis."
-chapter_num: 2
-prev_url: /begin-fpga/ch01-introduction/
-prev_title: "Introduction to FPGAs"
-next_url: /begin-fpga/ch03-digital-logic-basics/
-next_title: "Digital Logic Basics"
+chapter_num: 3
+prev_url: /begin-fpga/ch02-getting-started/
+prev_title: "Getting Started with Humble iCE"
+next_url: /begin-fpga/ch04-fpga-architecture/
+next_title: "FPGA Architecture"
 ---
 
 This chapter is a practical introduction to digital design using Verilog. It covers everything from individual logic gates up to structured state machines and datapath/controller architectures. Every example comes with a testbench you can simulate immediately, and we show what the synthesiser actually produces for each design. All source code lives under `examples/book/ch02/` in the companion repository.

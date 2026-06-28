@@ -1,12 +1,12 @@
 ---
 title: "FPGA Architecture"
-description: "Inside an FPGA: Look-Up Tables, flip-flops, configurable logic blocks, I/O pins, and the programmable routing fabric."
+description: "Inside the iCE40UP5K: Look-Up Tables, flip-flops, configurable logic blocks, I/O pins, PLLs, BRAM, SPRAM, DSP blocks, and the programmable routing fabric."
 chapter_num: 4
-prev_url: /begin-fpga/ch03-digital-logic-basics/
-prev_title: "Digital Logic Basics"
-next_url: /begin-fpga/
-next_title: "Overview"
-published: false
+prev_url: /begin-fpga/ch03-digital-design-with-verilog/
+prev_title: "A Crash Course in Digital Design with Verilog HDL"
+next_url: /begin-fpga/ch05-uart-tx/
+next_title: "Project: UART Transmitter"
+published: true
 ---
 
 ## The Programmable Logic Fabric

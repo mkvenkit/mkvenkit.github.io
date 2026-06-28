@@ -65,7 +65,15 @@
 	<!-- Extra Header JS Code -->
 	{{ site.data.settings.advanced_settings.header_js }}
 	{% endif %}
-	
+
+	{% if page.title == "Page Not Found" %}
+	<script>
+	  if (window.location.pathname.startsWith('/begin-fpga/')) {
+	    window.location.replace('/begin-fpga/');
+	  }
+	</script>
+	{% endif %}
+
 </head>
 
 

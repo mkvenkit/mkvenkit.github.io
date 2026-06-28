@@ -1,11 +1,11 @@
 ---
-title: "UART Transmitter"
+title: "Project: UART Transmitter"
 description: "Build a UART TX in Verilog — baud rate generation, a partitioned state machine, and a complete simulation — then synthesize it onto an iCE40 FPGA."
 chapter_num: 5
 prev_url: /begin-fpga/ch04-fpga-architecture/
 prev_title: "FPGA Architecture"
-next_url: /begin-fpga/
-next_title: "Overview"
+next_url: /begin-fpga/ch06-7seg-pmod/
+next_title: "Project: 4×7-Segment PMOD"
 published: true
 ---
 

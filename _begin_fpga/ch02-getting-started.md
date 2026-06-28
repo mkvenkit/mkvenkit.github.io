@@ -1,11 +1,11 @@
 ---
 title: "Getting Started with Humble iCE"
-description: "Install the open-source iCE40 toolchain on Windows, macOS, or Linux, then build, simulate, and flash your first Verilog design — a blinking LED."
-chapter_num: 1
-prev_url: /begin-fpga/
-prev_title: "Overview"
-next_url: /begin-fpga/ch02-digital-design-with-verilog/
-next_title: "Digital Design with Verilog"
+description: "Install the open-source iCE40 toolchain on Windows, macOS, or Linux, then build, simulate, and flash your first Verilog design — a blinking LED and an RGB blinky."
+chapter_num: 2
+prev_url: /begin-fpga/ch01-specifications/
+prev_title: "Humble iCE Specifications"
+next_url: /begin-fpga/ch03-digital-design-with-verilog/
+next_title: "A Crash Course in Digital Design with Verilog HDL"
 ---
 
 This chapter gets you from a bare board and an empty terminal to a blinking LED programmed over USB — entirely with open-source tools. Along the way you will write your first Verilog module, run a simulation, inspect the waveform, synthesize to a bitstream, and flash it to the iCE40.

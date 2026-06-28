@@ -5,7 +5,7 @@ description: "A hands-on beginner's guide to Digital Design with FPGAs."
 featured_image: /images/humble-ice.jpg
 ---
 
-<p style="font-size:0.75rem; color: #888; margin-bottom: 0.5rem;">Last Updated: June 8, 2026 &nbsp;·&nbsp; <a href="/begin-fpga/changelog/">Changelog</a></p>
+<p style="font-size:0.75rem; color: #888; margin-bottom: 0.5rem;">Last Updated: June 28, 2026 &nbsp;·&nbsp; <a href="/begin-fpga/changelog/">Changelog</a></p>
 
 <div class="book-home__cover">
   <img src="/images/fpga-beginners-cover-small.jpg" alt="The Humble iCE Cookbook cover">
@@ -33,55 +33,59 @@ featured_image: /images/humble-ice.jpg
 <ol class="book-home__chapter-list">
 
   <li class="book-home__chapter-item">
-    <div><strong><a href="/begin-fpga/ch01-introduction/">Getting Started with Humble iCE</a></strong><br>
-    Install the open-source iCE40 toolchain on Windows, macOS, or Linux, then build, simulate, and flash your first Verilog design — a blinking LED.</div>
+    <div><strong><a href="/begin-fpga/ch01-specifications/">Humble iCE Specifications</a></strong><br>
+    Board overview, iCE40UP5K resources, RP2040 programmer, PMOD connectors, power supply, and schematic walkthrough.</div>
   </li>
 
   <li class="book-home__chapter-item">
-    <div><strong><a href="/begin-fpga/ch02-digital-design-with-verilog/">Digital Design with Verilog HDL</a></strong><br>
+    <div><strong><a href="/begin-fpga/ch02-getting-started/">Getting Started with Humble iCE</a></strong><br>
+    Install the open-source iCE40 toolchain on Windows, macOS, or Linux, then build, simulate, and flash your first Verilog designs — a blinking LED and an RGB blinky.</div>
+  </li>
+
+  <li class="book-home__chapter-item">
+    <div><strong><a href="/begin-fpga/ch03-digital-design-with-verilog/">A Crash Course in Digital Design with Verilog HDL</a></strong><br>
     Gates, behavioral design, building blocks (MUX, encoder, shift register, counter), ASM/ASMD state machines, and a complete datapath+controller example — all with testbenches and synthesis.</div>
   </li>
 
-  <li class="book-home__chapter-item book-home__chapter-item--soon">
-    <div><strong>Digital Logic Basics</strong><br>
-    Logic gates, Boolean algebra, truth tables, and the combinational circuits that form an FPGA's building blocks.</div>
-  </li>
-
-  <li class="book-home__chapter-item book-home__chapter-item--soon">
-    <div><strong>FPGA Architecture</strong><br>
-    Inside an FPGA: Look-Up Tables, flip-flops, configurable logic blocks, I/O pins, and the routing fabric.</div>
+  <li class="book-home__chapter-item">
+    <div><strong><a href="/begin-fpga/ch04-fpga-architecture/">FPGA Architecture</a></strong><br>
+    Inside the iCE40UP5K: Look-Up Tables, flip-flops, BRAM, SPRAM, DSP blocks, PLLs, I/O pins, and the programmable routing fabric.</div>
   </li>
 
   <li class="book-home__chapter-item">
-    <div><strong><a href="/begin-fpga/ch05-uart-tx/">UART Transmitter</a></strong><br>
+    <div><strong><a href="/begin-fpga/ch05-uart-tx/">Project: UART Transmitter</a></strong><br>
     Build a UART TX in Verilog — baud rate generation with a fractional accumulator, a partitioned controller-datapath state machine, simulation with GTKWave, and synthesis onto the iCE40.</div>
   </li>
 
-  <li class="book-home__chapter-item book-home__chapter-item--soon">
-    <div><strong>Introduction to HDL</strong><br>
-    Hardware Description Languages — Verilog and VHDL — and how hardware design differs from software programming.</div>
+  <li class="book-home__chapter-item">
+    <div><strong><a href="/begin-fpga/ch06-7seg-pmod/">Project: 4×7-Segment PMOD</a></strong><br>
+    Drive a 4-digit 7-segment display PMOD — multiplexed scanning, BCD decoding, and a counter demo.</div>
   </li>
 
-  <li class="book-home__chapter-item book-home__chapter-item--soon">
-    <div><strong>Verilog Basics</strong><br>
-    Modules, ports, wire vs reg, always blocks, and your first Verilog design.</div>
+  <li class="book-home__chapter-item">
+    <div><strong><a href="/begin-fpga/ch07-vga-pmod/">Project: VGA PMOD</a></strong><br>
+    Generate a VGA signal using our VGA PMOD — sync timing, pixel clock via PLL, and a colour test pattern.</div>
   </li>
 
-  <li class="book-home__chapter-item book-home__chapter-item--soon">
-    <div><strong>Simulation and Testbenches</strong><br>
-    Writing testbenches, running simulations with Icarus Verilog, and viewing waveforms in GTKWave.</div>
+  <li class="book-home__chapter-item">
+    <div><strong><a href="/begin-fpga/ch08-i2s-mic/">Project: I2S Microphone PMOD</a></strong><br>
+    Capture audio from an I2S MEMS microphone using our PMOD and stream samples over UART.</div>
   </li>
 
-  <li class="book-home__chapter-item book-home__chapter-item--soon">
-    <div><strong>Synthesis and Implementation</strong><br>
-    Turning HDL into a bitstream: synthesis, place-and-route, timing analysis, and programming the FPGA.</div>
+  <li class="book-home__chapter-item">
+    <div><strong><a href="/begin-fpga/ch09-pdm-mic/">Project: PDM Microphone PMOD</a></strong><br>
+    Capture audio from a PDM MEMS microphone using our PMOD, implement a CIC decimation filter, and stream PCM samples over UART.</div>
   </li>
 
-  <li class="book-home__chapter-item book-home__chapter-item--soon">
-    <div><strong>Your First FPGA Project</strong><br>
-    A complete worked example: blinking LEDs, a 7-segment display driver, and a simple state machine.</div>
+  <li class="book-home__chapter-item">
+    <div><strong><a href="/begin-fpga/ch10-hm01b0-camera/">Project: HM01B0 Camera PMOD</a></strong><br>
+    Capture QVGA grayscale images from an HM01B0 camera using our PMOD and stream frames to a host PC.</div>
   </li>
 
+  <li class="book-home__chapter-item">
+    <div><strong><a href="/begin-fpga/ch11-usb-audio/">Project: 2-Channel USB Audio Out</a></strong><br>
+    Combine I2S and PDM microphone PMODs with a USB-C PMOD to stream 2-channel audio to a host PC using soft IP.</div>
+  </li>
 
   <li class="book-home__chapter-item">
     <div><strong><a href="/begin-fpga/changelog/">Changelog</a></strong><br>
