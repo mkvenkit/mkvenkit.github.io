@@ -59,6 +59,161 @@ end
 
 In sequential blocks, use **non-blocking assignments** (`<=`). In combinational blocks, use **blocking assignments** (`=`).
 
+### How `reg` Infers Hardware — Flip-Flop vs Combinational
+
+The `reg` keyword is one of Verilog's most misunderstood features. It does **not** mean "this will become a register". It means "this is a variable that can be assigned inside a procedural block". Whether the synthesiser turns it into a flip-flop or into pure combinational logic depends entirely on which `always` construct you use.
+
+The rule is simple:
+
+| `always` sensitivity list | Assignment style | Inferred hardware |
+|---|---|---|
+| `always @(posedge clk)` | `<=` non-blocking | **Flip-flops** — one DFF per bit |
+| `always @(*)` | `=` blocking | **Combinational logic** — LUTs/gates, no DFFs |
+
+#### Example: the same `reg [1:0] A`, two completely different circuits
+
+Both modules below contain the identical internal declaration `reg [1:0] A`. The synthesiser produces radically different hardware for each — determined entirely by the `always` block that drives it.
+
+**Version 1 — clocked block → 2-bit counter (flip-flops)**
+
+```verilog
+// examples/book/ch02/10_reg_inference/reg_as_counter.v
+module reg_as_counter (
+    input  wire       clk,
+    input  wire       rst_n,
+    output wire [1:0] out
+);
+    reg [1:0] A;   // <-- internal reg declaration
+
+    always @(posedge clk) begin
+        if (!rst_n)
+            A <= 2'b00;
+        else
+            A <= A + 1'b1;   // non-blocking: A updates at the clock edge
+    end
+
+    assign out = A;
+endmodule
+```
+
+```
+# Synthesis (reg_as_counter, iCE40)
+   Number of DFF:  2   (A[1] and A[0] — the circuit holds state)
+   Number of LUT:  2   (incrementer: computes A+1 each cycle)
+```
+
+Yosys infers two flip-flops. Their Q outputs feed back into an incrementer, and the incrementer drives the D inputs. `A` *remembers* its value between clock edges — that feedback loop with memory is what makes it a counter.
+
+**Version 2 — combinational block → half-adder (no flip-flops)**
+
+```verilog
+// examples/book/ch02/10_reg_inference/reg_as_adder.v
+module reg_as_adder (
+    input  wire       a,
+    input  wire       b,
+    output wire [1:0] out
+);
+    reg [1:0] A;   // <-- identical declaration
+
+    always @(*) begin
+        A = a + b;   // blocking: purely combinational
+    end
+
+    assign out = A;
+endmodule
+```
+
+```
+# Synthesis (reg_as_adder, iCE40)
+   Number of DFF:  0   (no clock edge → no storage anywhere)
+   Number of LUT:  2   (half-adder: XOR for A[0], AND for A[1])
+```
+
+`reg [1:0] A` is declared exactly the same way. But with no clock edge in the sensitivity list, the synthesiser produces pure logic: a half-adder where `A[0]` is `a XOR b` and `A[1]` is `a AND b`. There are no flip-flops.
+
+#### Seeing the difference in simulation
+
+```verilog
+// examples/book/ch02/10_reg_inference/tb_reg_inference.v
+`timescale 1ns/1ps
+module tb_reg_inference;
+    reg        clk, rst_n;
+    reg        a, b;
+    wire [1:0] count;    // from reg_as_counter — changes only at clock edges
+    wire [1:0] result;   // from reg_as_adder   — changes instantly with inputs
+
+    reg_as_counter dut_cnt (.clk(clk), .rst_n(rst_n), .count(count));
+    reg_as_adder   dut_add (.a(a), .b(b), .result(result));
+
+    always #5 clk = ~clk;
+
+    initial begin
+        clk = 0; rst_n = 0; a = 0; b = 0;
+        @(posedge clk); #1; rst_n = 1;
+
+        $display("--- Counter: increments only on clock edges ---");
+        repeat (5) begin
+            @(posedge clk); #1;
+            $display("  t=%0t  count=%0d", $time, count);
+        end
+
+        $display("--- Adder: output tracks inputs with zero clock delay ---");
+        a = 0; b = 0; #2; $display("  t=%0t  a=%b b=%b → result=%0d  (0+0)", $time, a, b, result);
+        b = 1;        #2; $display("  t=%0t  a=%b b=%b → result=%0d  (0+1)", $time, a, b, result);
+        a = 1; b = 0; #2; $display("  t=%0t  a=%b b=%b → result=%0d  (1+0)", $time, a, b, result);
+        a = 1; b = 1; #2; $display("  t=%0t  a=%b b=%b → result=%0d  (1+1, carry)", $time, a, b, result);
+
+        $display("--- Mid-cycle: adder moves, counter does not ---");
+        a = 1; b = 1; #1;
+        $display("  t=%0t  (between edges)  count=%0d  result=%0d", $time, count, result);
+        a = 0; b = 0; #1;
+        $display("  t=%0t  (between edges)  count=%0d  result=%0d", $time, count, result);
+        @(posedge clk); #1;
+        $display("  t=%0t  (after edge)     count=%0d  result=%0d", $time, count, result);
+
+        $finish;
+    end
+endmodule
+```
+
+**Simulation output:**
+
+```
+--- Counter: increments only on clock edges ---
+  t=16  count=1
+  t=26  count=2
+  t=36  count=3
+  t=46  count=0
+  t=56  count=1
+
+--- Adder: output tracks inputs with zero clock delay ---
+  t=58  a=0 b=0 → result=0  (0+0)
+  t=60  a=0 b=1 → result=1  (0+1)
+  t=62  a=1 b=0 → result=1  (1+0)
+  t=64  a=1 b=1 → result=2  (1+1, carry)
+
+--- Mid-cycle: adder moves, counter does not ---
+  t=66  (between edges)  count=1  result=2
+  t=67  (between edges)  count=1  result=0
+  t=76  (after edge)     count=2  result=0
+```
+
+The counter only moves at `t=16, 26, 36, ...` — the rising clock edges. Between edges it is frozen. The adder has no such constraint: change `a` or `b` and `result` changes immediately, with no clock involved. In the mid-cycle section, `count` stays at `1` through both input changes and only advances to `2` after the next rising edge.
+
+This is the fundamental distinction between sequential and combinational circuits:
+
+- **Sequential** (`always @(posedge clk)`): the circuit has *state*. It remembers what happened in previous clock cycles. Two flip-flops implement `count`, and their Q outputs are the circuit's memory.
+- **Combinational** (`always @(*)`): the circuit has no memory. `result` is just a function of the current inputs, computed through gates. Disconnect the inputs and the output is undefined.
+
+#### Why this matters in practice
+
+A combinational `always @(*)` block with an incomplete `if`/`case` (missing `else` or `default`) will infer an **unintended latch** — a storage element that holds its value whenever the missing branch is taken. Latches are rarely what you want and are hard to time correctly. The synthesiser will warn you, but the circuit may still simulate correctly while failing in hardware.
+
+The safe pattern:
+
+- Use `always @(posedge clk)` with `<=` for anything that should hold state.
+- Use `always @(*)` with `=` and cover **every** input combination (always include `else` / `default`) for purely combinational logic.
+
 ### You Are Describing a Circuit, Not Writing a Program
 
 This is the single most important thing to internalise before writing Verilog. When you write:
