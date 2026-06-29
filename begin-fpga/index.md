@@ -93,6 +93,11 @@ featured_image: /images/humble-ice.jpg
   </li>
 
   <li class="book-home__chapter-item">
+    <div><strong><a href="/begin-fpga/ch13-systolic-array/">Project: Systolic Array Matrix Multiplier</a></strong><br>
+    Build a 4×4 systolic array in Verilog that computes C = A × B for 8-bit integer matrices — the same dataflow used in Google's TPU — and verify it completes in 10 clock cycles on the iCE40UP5K.</div>
+  </li>
+
+  <li class="book-home__chapter-item">
     <div><strong><a href="/begin-fpga/changelog/">Changelog</a></strong><br>
     A running log of additions, corrections, and updates to the book.</div>
   </li>
