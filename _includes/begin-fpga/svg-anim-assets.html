@@ -1,0 +1,38 @@
+<style>
+.svg-anim {
+  display: flex; flex-direction: column; align-items: center;
+  gap: 0.75rem; margin: 2rem 0;
+}
+.svg-anim__btn {
+  width: 220px; padding: 0.55rem 0;
+  font-size: 0.9rem; font-weight: 600; letter-spacing: 0.03em;
+  font-family: ui-monospace, SFMono-Regular, monospace;
+  border: none; border-radius: 6px;
+  cursor: pointer; transition: background 0.15s, transform 0.1s;
+}
+.svg-anim__btn[data-running="true"]  { background: #16a34a; color: #fff; }
+.svg-anim__btn[data-running="false"] { background: #dc2626; color: #fff; }
+.svg-anim__btn:hover { filter: brightness(1.1); transform: translateY(-1px); }
+.svg-anim__btn:active { transform: translateY(0); }
+.svg-anim__caption {
+  font-size: 0.8rem; color: #64748b; font-style: italic; text-align: center;
+  max-width: 100%; line-height: 1.45;
+}
+.svg-fig { display: flex; flex-direction: column; align-items: center; gap: 0.5rem; margin: 2rem 0; }
+.svg-fig__caption { font-size: 0.8rem; color: #64748b; font-style: italic; text-align: center; line-height: 1.45; }
+</style>
+
+<script>
+function svgAnimToggle(btn) {
+  var svg = btn.closest('.svg-anim').querySelector('svg');
+  if (btn.dataset.running === 'true') {
+    svg.pauseAnimations();
+    btn.textContent = '▶  Play Animation';
+    btn.dataset.running = 'false';
+  } else {
+    svg.unpauseAnimations();
+    btn.textContent = '⏸  Pause Animation';
+    btn.dataset.running = 'true';
+  }
+}
+</script>

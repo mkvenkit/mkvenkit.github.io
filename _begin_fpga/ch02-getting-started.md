@@ -8,9 +8,11 @@ next_url: /begin-fpga/ch03-digital-design-with-verilog/
 next_title: "A Crash Course in Digital Design with Verilog HDL"
 ---
 
-This chapter gets you from a bare board and an empty terminal to a blinking LED programmed over USB — entirely with open-source tools. Along the way you will write your first Verilog module, run a simulation, inspect the waveform, synthesize to a bitstream, and flash it to the iCE40.
+{% include begin-fpga/svg-anim-assets.html %}
 
-All source code lives under `examples/book/blinky/` in the companion repository.
+This chapter gets you from a bare board and an empty terminal to a blinking LED programmed over USB — entirely with open-source tools. Along the way you will write your first Verilog module, run a simulation, inspect the waveform, synthesize to a bitstream, and flash it to the iCE40. Two projects carry the chapter: a single-LED **blinky** and an on-board **RGB blinky**.
+
+Source code lives under `examples/blinky/` and `examples/rgb_blinky/` in the companion repository.
 
 ---
 
@@ -105,7 +107,7 @@ iverilog -V
 Humble iCE uses a custom programmer called **hiprog** that communicates with the RP2040 over USB. It is a Python script bundled in the companion repository:
 
 ```
-hiprog/hiprog.py
+hiprog_ver0.4/hiprog.py
 ```
 
 Install its only dependency:
@@ -120,25 +122,37 @@ Plug in the board. The RP2040 enumerates as a USB serial port:
 - **Linux** — `/dev/ttyACM0`
 - **Windows** — `COM3` (check Device Manager)
 
-The Makefile defaults to `/dev/cu.usbmodemHI_V3_0011`. Override it on the command line if yours differs:
+The `make prog` target auto-detects the port. If detection fails, or you have more than one board attached, name the port explicitly:
 
 ```bash
-make hiprog PORT=/dev/ttyACM0        # Linux
-make hiprog PORT=COM3                # Windows
+make prog PORT=/dev/cu.usbmodemHI_V3_0011   # macOS
+make prog PORT=/dev/ttyACM0                  # Linux
+make prog PORT=COM3                          # Windows
 ```
 
 ---
 
 ## The Blinky Project
 
-The blinky project toggles the blue LED (D2) at about 1.4 Hz — slow enough to see, fast enough to confirm the clock is running.
+The blinky project drives a single LED through two demos that alternate automatically: a square-wave **blink** at ~1.4 Hz, then a PWM **breathe** that fades the LED in and out. Each phase lasts about 2.8 s before switching to the other. The blink half confirms the clock is running; the breathe half is a first taste of pulse-width modulation, which returns in the RGB project below.
 
 ```
-examples/book/blinky/
+examples/blinky/
 ├── top.v        ← Verilog design
 ├── blinky.pcf   ← Pin constraints
 └── Makefile     ← Build rules
 ```
+
+### Wiring the LED
+
+The ver0.4 board has no on-board user LED, so blinky drives an external one on a breadboard. The signal comes out of **PMOD_2 pin 1** (FPGA package pin 43, `IOT_51A`):
+
+```
+PMOD_2 pin1 ----[ 220–1k Ω ]----|>|---- GND
+   (pkg 43)        resistor       LED   (PMOD_2 pin 5 or 11)
+```
+
+Put the LED's longer leg (anode) toward the resistor and the shorter leg (cathode) to any GND pin on the PMOD. The resistor limits current so you don't burn out the LED.
 
 ### Pin Constraints (`blinky.pcf`)
 
@@ -146,10 +160,10 @@ The Physical Constraints File maps Verilog port names to physical FPGA pins:
 
 ```
 set_io clk 35
-set_io led 13
+set_io led 43
 ```
 
-Pin 35 is connected to the RP2040's GP21, which outputs a 12 MHz clock. Pin 13 drives the blue LED D2 through a current-limiting resistor.
+Pin 35 is connected to the RP2040's GP21, which outputs a 12 MHz clock. Pin 43 is PMOD_2 pin 1, driving the external LED.
 
 ### The Verilog Design (`top.v`)
 
@@ -157,8 +171,8 @@ Pin 35 is connected to the RP2040's GP21, which outputs a 12 MHz clock. Pin 13 d
 `default_nettype none
 
 module blinky(
-  input  clk,   // 12 MHz from RP2040 GP21 — FPGA pin 35
-  output led    // D2 Blue LED — FPGA pin 13
+  input  clk,  // 12 MHz from RP2040 GP21 — FPGA pin 35
+  output led   // external LED on PMOD_2 pin1 — FPGA pin 43
 );
 ```
 
@@ -178,32 +192,65 @@ end
 
 iCE40 registers always power up as 0. The 8-bit counter starts at `8'h00` and increments every clock cycle. `&resetn_counter` is a **reduction AND** — it returns 1 only when every bit is 1, i.e., after 255 cycles. Until then `resetn` is 0 and the rest of the design stays in reset. At 12 MHz, 255 cycles is about 21 µs — enough time for power rails to stabilise before logic starts running.
 
-#### Blink Counter
+#### The Master Time Counter
+
+A single free-running 26-bit counter, `tick`, drives everything. Different bits of the same counter tick at different rates, so we can pull a phase select, a blink signal, and a brightness ramp all from one register.
 
 ```verilog
-reg RL;
-reg [22:0] counter;
-
+reg [25:0] tick = 0;
 always @(posedge clk) begin
-    if (!resetn) begin
-        counter <= 0;
-    end else begin
-        counter <= counter + 1;
-        if (!counter)
-            RL <= ~RL;
-    end
+    if (!resetn)
+        tick <= 0;
+    else
+        tick <= tick + 1;
 end
 
-assign led = RL;
+wire phase = tick[25];  // 0 = blink, 1 = breathe
 ```
 
-A 23-bit free-running counter wraps from `2^23 − 1` back to 0 once every:
+The top bit, `tick[25]`, flips every `2^25 / 12e6 ≈ 2.8 s`, so it cleanly alternates between the two phases.
 
-```
-2^23 / 12 000 000 Hz  ≈  0.70 s
+#### Phase 0 — Blink
+
+```verilog
+wire blink = tick[22];
 ```
 
-Each wrap, `!counter` is momentarily true and `RL` toggles. Since RL toggles every 0.70 s, the LED completes a full on/off cycle every **~1.4 s**.
+`tick[22]` toggles every `2^22 / 12e6 ≈ 0.35 s`, giving an on/off period of ~0.70 s — a **~1.4 Hz** blink. No extra logic needed: it is just a wire tapped off the counter.
+
+#### Phase 1 — Breathe (PWM)
+
+Pulse-width modulation dims an LED by switching it on and off faster than the eye can follow; the fraction of time it stays on — the **duty cycle** — sets the apparent brightness.
+
+```verilog
+reg [7:0] pwm_cnt = 0;
+always @(posedge clk) begin
+    if (!resetn)
+        pwm_cnt <= 0;
+    else
+        pwm_cnt <= pwm_cnt + 1;
+end
+
+wire [7:0] ramp  = tick[21:14];
+wire [7:0] duty  = tick[22] ? ~ramp : ramp;
+wire breathe     = (pwm_cnt < duty);
+```
+
+`pwm_cnt` is an 8-bit carrier that wraps at `12e6 / 256 ≈ 47 kHz` — far too fast to see flicker. The LED is on whenever `pwm_cnt < duty`, so a larger `duty` means a brighter LED.
+
+{% include begin-fpga/ch02-fig1-pwm.html %}
+
+To make the LED *fade*, `duty` itself sweeps slowly. `ramp` is eight mid-range bits of `tick`, and `tick[22]` inverts it every half-cycle, producing a triangle wave that climbs `0 → 255` then falls `255 → 0`. The result is a smooth fade in and out.
+
+{% include begin-fpga/ch02-fig2-breathe.html %}
+
+#### Choosing the Output
+
+```verilog
+assign led = phase ? breathe : blink;
+```
+
+A single multiplexer picks the blink wave or the breathe wave based on the current phase, and drives the LED.
 
 ---
 
@@ -253,12 +300,12 @@ Open the waveform:
 gtkwave testbench.vcd
 ```
 
-In GTKWave, drag `clk`, `resetn_counter`, `resetn`, `counter`, and `led` into the signals pane. What you should see:
+In GTKWave, drag `clk`, `resetn_counter`, `resetn`, `tick`, `pwm_cnt`, and `led` into the signals pane. What you should see:
 
 1. `resetn_counter` incrementing from 0 on every rising clock edge.
 2. `resetn` going high once `resetn_counter` reaches `8'hFF`.
-3. `counter` resetting to 0 then counting freely.
-4. At simulation scale the 23-bit wrap takes millions of cycles, so you won't see the LED toggle — but you can confirm reset behaviour and that the counter is incrementing correctly.
+3. `tick` resetting to 0 then counting freely; `pwm_cnt` wrapping every 256 cycles.
+4. At simulation scale the phase and blink bits (`tick[25]`, `tick[22]`) take millions of cycles to flip, so you won't watch the LED blink or breathe in real time — but you can confirm the reset releases and both counters advance correctly.
 
 The Makefile wraps both steps:
 
@@ -307,7 +354,7 @@ make show-synth  # iCE40 primitives (SB_LUT4, SB_DFF)
 make show-pnr    # place-and-routed result in nextpnr GUI
 ```
 
-For blinky the RTL view shows the counter register, the reduction AND feeding `resetn`, and the toggle flip-flop driving `led`. The synth view shows how Yosys packed all of that into a handful of `SB_LUT4` and `SB_DFF` primitives — confirming the design is tiny.
+For blinky the RTL view shows the `tick` and `pwm_cnt` counter registers, the reduction AND feeding `resetn`, the PWM comparator, and the multiplexer that selects blink or breathe onto `led`. The synth view shows how Yosys packed all of that into a modest set of `SB_LUT4`, `SB_DFF`, and `SB_CARRY` primitives — confirming the design is tiny.
 
 ---
 
@@ -316,31 +363,157 @@ For blinky the RTL view shows the counter register, the reduction AND feeding `r
 With the board connected over USB:
 
 ```bash
-make hiprog
+make prog
 ```
 
-This runs hiprog, which sends the bitstream to the RP2040 which streams it to the iCE40 over SPI. The transfer takes under a second. If everything is correct the blue LED starts blinking at ~1.4 Hz.
+This runs hiprog, which sends the bitstream to the RP2040 which streams it to the iCE40 over SPI. The transfer takes under a second. If everything is correct the LED blinks at ~1.4 Hz for a few seconds, then fades smoothly in and out, then returns to blinking — repeating forever.
 
 ### Troubleshooting
 
-**LED doesn't blink** — Check that `blinky.bin` has a non-zero size (`ls -lh blinky.bin`). A zero-byte binary usually means a port name mismatch between the PCF and the Verilog module.
+**Nothing lights up** — First check the LED wiring: the anode (longer leg) must face the resistor and pin 43, the cathode must go to GND. A backwards LED stays dark. Then check that `blinky.bin` has a non-zero size (`ls -lh blinky.bin`); a zero-byte binary usually means a port name mismatch between the PCF and the Verilog module.
 
 **`hiprog` can't open the port on Linux** — Verify you are in the `dialout` group (`groups $USER`). If not: `sudo usermod -aG dialout $USER`, then log out and back in.
 
-**`hiprog` can't find the port on Windows** — Check Device Manager for the correct COM port number and pass it explicitly: `make hiprog PORT=COM5`.
+**`hiprog` can't find the port** — Pass it explicitly, e.g. `make prog PORT=COM5` on Windows (check Device Manager) or `make prog PORT=/dev/ttyACM0` on Linux.
 
 **nextpnr reports an error placing cells** — This won't happen with blinky, but if you modify the design and see placement errors, confirm the PCF pin numbers match the actual board schematic.
 
 ---
 
+## The RGB Blinky Project
+
+Blinky used a plain I/O pin and an external LED. The second project drives the board's **on-board RGB LED (D3)** — and to do it well, it reaches for a piece of dedicated silicon inside the iCE40UP5K: the hard **`SB_RGBA_DRV`** LED driver.
+
+```
+examples/rgb_blinky/
+├── top.v            ← Verilog design
+├── rgb_blinky.pcf   ← Pin constraints
+└── Makefile         ← Build rules
+```
+
+Each colour fades smoothly in and out, then the design steps to the next, cycling through red, green, blue, yellow, cyan, magenta, and white.
+
+### Pin Constraints (`rgb_blinky.pcf`)
+
+```
+set_io clk  35
+set_io RGB0 39   # Blue  cathode  (iCE40 RGB0)
+set_io RGB1 40   # Green cathode  (iCE40 RGB1)
+set_io RGB2 41   # Red   cathode  (iCE40 RGB2)
+```
+
+D3 is **common-anode**: its anode sits at 3.3 V, and each colour lights when the driver sinks current out of its cathode. Note the mapping is not in R-G-B order — `RGB0` is blue, `RGB2` is red — so it pays to keep the schematic handy.
+
+### The Constant-Current Driver (`SB_RGBA_DRV`)
+
+Rather than a normal output pin plus an external resistor per colour, the iCE40UP5K provides three dedicated **constant-current sinks** that drive an RGB LED directly. You instantiate them as a hard primitive:
+
+```verilog
+SB_RGBA_DRV #(
+    .CURRENT_MODE("0b1"),
+    .RGB0_CURRENT("0b000001"),  // Blue
+    .RGB1_CURRENT("0b000001"),  // Green
+    .RGB2_CURRENT("0b000001")   // Red
+) rgba (
+    .CURREN  (1'b1),
+    .RGBLEDEN(1'b1),
+    .RGB0PWM (blue),
+    .RGB1PWM (green),
+    .RGB2PWM (red),
+    .RGB0    (RGB0),
+    .RGB1    (RGB1),
+    .RGB2    (RGB2)
+);
+```
+
+`CURRENT_MODE` and the per-channel `*_CURRENT` parameters set the sink current at build time — here the lowest half-current step, which is comfortably dim and easy on the eyes. Each `RGBxPWM` input is a simple on/off gate for its channel, and the `RGBx` outputs go straight to the LED pins.
+
+{% include begin-fpga/ch02-fig3-rgb-driver.html %}
+
+### Brightness by PWM
+
+Because the driver's current is *fixed*, brightness has to come from switching each channel on and off — the same PWM idea as blinky's breathe phase. A fast 8-bit counter provides the carrier:
+
+```verilog
+reg [7:0] pwm_cnt;
+always @(posedge clk)
+    if (!resetn) pwm_cnt <= 0;
+    else         pwm_cnt <= pwm_cnt + 1;
+
+wire pwm_on = (pwm_cnt < duty);
+```
+
+`pwm_cnt` wraps at `12e6 / 256 ≈ 47 kHz`, and a channel is enabled when `pwm_cnt < duty`.
+
+### Fading with a Gamma-Corrected Triangle
+
+A slow triangle ramp sweeps `level` from 0 up to 255 and back down; when it returns to 0 the design advances to the next colour:
+
+```verilog
+reg [14:0] prescale;
+reg [7:0]  level;
+reg        falling;
+reg [2:0]  color;
+
+wire step = &prescale;
+
+always @(posedge clk) begin
+    if (!resetn) begin
+        prescale <= 0; level <= 0; falling <= 0; color <= 0;
+    end else begin
+        prescale <= prescale + 1;
+        if (step) begin
+            if (!falling) begin
+                if (level == 8'd255) falling <= 1;
+                else                 level   <= level + 1;
+            end else begin
+                if (level == 8'd0) begin
+                    falling <= 0;
+                    color   <= (color == 3'd6) ? 3'd0 : color + 1;
+                end else level <= level - 1;
+            end
+        end
+    end
+end
+```
+
+`&prescale` fires once every `2^15 / 12e6 ≈ 2.7 ms`, so a full fade in and out takes about 1.4 s.
+
+The eye's response to light is non-linear, so a linear ramp *looks* like it brightens in a rush and then crawls. Squaring the level — a rough **gamma correction** — cancels this out and makes the fade look even:
+
+```verilog
+wire [15:0] level_sq = level * level;
+wire [7:0]  duty     = level_sq[15:8];
+```
+
+{% include begin-fpga/ch02-fig4-gamma.html %}
+
+Note the 16-bit `level_sq` wire: writing `(level*level) >> 8` directly would evaluate the multiply at the 8-bit target width and truncate to zero. Giving the product a full-width wire first is a common Verilog gotcha worth remembering.
+
+Finally a `case` on the 3-bit `color` picks which channels are active for each of the seven colours, and each channel is `AND`ed with `pwm_on` before feeding the driver.
+
+### Build and Flash
+
+```bash
+make
+make prog
+```
+
+The on-board RGB LED cycles through the colour set, each fading gently in and out.
+
+---
+
 ## Summary
 
-You now have a working iCE40 development environment and have completed the full toolchain loop: write Verilog → simulate → synthesize → place and route → flash.
+You now have a working iCE40 development environment and have completed the full toolchain loop: write Verilog → simulate → synthesize → place and route → flash, across two projects.
 
 The key ideas from this chapter:
 
 - `` `default_nettype none `` catches undeclared-wire bugs at compile time.
-- A reduction AND (`&counter`) cleanly detects the all-ones state without a comparator.
+- A reduction AND (`&resetn_counter`) cleanly detects the all-ones state without a comparator.
+- Taps off a single free-running counter give you multiple time bases for free — a phase select, a blink, and a fade ramp all came from `tick`.
+- PWM turns a one-bit output into apparent brightness; gamma-correcting the duty makes fades look linear to the eye.
+- The iCE40UP5K's hard `SB_RGBA_DRV` drives an RGB LED with constant current — no external resistors needed.
 - The three-step build is: Yosys (synthesis) → nextpnr (P&R) → icepack (bitstream).
 - Simulate with Icarus Verilog and inspect waveforms in GTKWave before going near hardware.
 - hiprog streams the bitstream to the iCE40 through the RP2040 over USB — no extra probe needed.

@@ -123,6 +123,74 @@ The SWD header (J4) lets you flash the RP2040 via an external debug probe (e.g. 
 
 ---
 
+## PMOD Expansion Boards
+
+Five PMOD add-on boards extend the Humble iCE for common peripherals. Each uses the standard 2×6, 2.54 mm dual-row PMOD connector (pins 5/11 = GND, 6/12 = VCC/3.3 V unless noted) and plugs into PMOD1 or the PMOD2A/PMOD2B pair described above.
+
+### 4×7-Segment Display
+
+Drives a 4-digit common-cathode 7-segment display via multiplexed scanning: 8 segment lines (a–g, dp) plus 4 digit-select lines switched through NPN transistors (MMBT3904). Uses **PMOD2A + PMOD2B**.
+
+| PMOD Pin | Signal | iCE40 Pin |
+|---|---|---|
+| 2A.1–2A.4, 2A.7–2A.10 | SEG[0:7] (a,b,c,d,e,f,g,dp) | 43, 38, 34, 32, 42, 36, 31, 28 |
+| 2B.1–2B.4 | DIG[0:3] (digit select, active high → NPN) | 27, 25, 21, 19 |
+
+Segment lines use 100 Ω current-limiting resistors (~13 mA peak, ~3.3 mA average per digit); digit-select transistors switch up to ~104 mA per digit through 2.2 kΩ base resistors.
+
+### VGA Output (12-bit Color)
+
+Standard DB-15 VGA output at 4-4-4 RGB (12-bit color) plus HSYNC/VSYNC, using a binary-weighted resistor DAC per channel (2 kΩ/1 kΩ/510 Ω/270 Ω). Equivalent to the Digilent PmodVGA design. Uses **PMOD2A + PMOD2B**, matching the existing `vga_hello` example pinout exactly.
+
+| PMOD Pin | Signal | iCE40 Pin |
+|---|---|---|
+| 2A.1–2A.4 | R[0:3] (red, LSB→MSB) | 43, 38, 34, 31 |
+| 2A.7–2A.10 | B[0:3] (blue, LSB→MSB) | 42, 36, 32, 28 |
+| 2B.1–2B.4 | G[0:3] (green, LSB→MSB) | 27, 25, 21, 19 |
+| 2B.7, 2B.8 | VSYNC, HSYNC | 23, 26 |
+
+Supports 640×480@60Hz (25.175 MHz pixel clock), 800×600@60Hz (40 MHz), and 640×480@75Hz (31.5 MHz) via PLL-generated pixel clocks.
+
+### HM01B0 Camera
+
+324×324 monochrome camera (HM01B0-MNA-00FT870, 87° FOV) in 4-bit parallel mode, connected via a 24-pin 0.5 mm FPC. Onboard LDOs generate AVDD (2.8 V) and DVDD (1.5 V) from the 3.3 V PMOD rail; IOVDD runs at 3.3 V directly (above the 3.0 V datasheet max, but standard practice on known HM01B0 breakouts). Uses **PMOD1**.
+
+| PMOD Pin | Signal | iCE40 Pin |
+|---|---|---|
+| 1–4 | D[0:3] (4-bit pixel data) | 44, 46, 48, 3 |
+| 7 | PCLK | 45 |
+| 8 | VSYNC (FLVD) | 47 |
+| 9, 10 | SCL, SDA (I²C, addr 0x24) | 2, 4 |
+
+The sensor uses its internal 48 MHz oscillator (no MCLK from the FPGA) and has no LVLD (line valid) on the connector — the FPGA derives line boundaries by counting PCLK cycles.
+
+### USB-C (Soft-Logic USB Device)
+
+USB-C receptacle for a Full-Speed (12 Mbps) USB device implemented entirely in iCE40 soft logic — no USB PHY IC. Includes USBLC6-2SC6 ESD protection, 5.1 kΩ CC1/CC2 pull-downs for UFP device advertisement, a 1.5 kΩ D+ pull-up, and a resistor-divider VBUS detect. Uses **PMOD1** (3 of 8 signals).
+
+| PMOD Pin | Signal | iCE40 Pin |
+|---|---|---|
+| 1 | USB_DP (D+, via 33 Ω series) | 44 |
+| 2 | USB_DN (D−, via 33 Ω series) | 46 |
+| 3 | VBUS_DET (~1.65 V when connected) | 48 |
+
+Compatible with soft-USB cores such as `usb_cdc` and TinyFPGA-Bootloader-style designs, and with the UAC1 audio path used by the I2S/PDM mic PMOD below.
+
+### I2S + PDM Stereo Microphone
+
+Pairs an I2S mic (ICS-43434, left channel) with a PDM mic (MP34DT01-M, right channel) to form a stereo pair, decoded in the FPGA to PCM and streamed out over the USB-C PMOD as UAC1 audio. Uses **PMOD1** (5 of 8 signals).
+
+| PMOD Pin | Signal | iCE40 Pin |
+|---|---|---|
+| 1, 2 | I2S_SCK, I2S_WS (FPGA → mic) | 44, 46 |
+| 3 | I2S_SD (mic → FPGA) | 48 |
+| 4 | PDM_CLK (FPGA → mic) | 3 |
+| 7 | PDM_DATA (mic → FPGA, open-drain, 10 kΩ pull-up) | 45 |
+
+I2S runs at ~3 MHz SCK / 48 kHz WS; PDM runs at 2.4 MHz clock, decimated in-FPGA with a sinc3 CIC filter. For exact 48 kHz audio, the iCE40 PLL is configured for 49.152 MHz and divided down.
+
+---
+
 ## LEDs and Buttons
 
 | Ref | Part | Function |
