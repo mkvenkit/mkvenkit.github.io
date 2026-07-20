@@ -11,29 +11,13 @@ published: true
 
 The **Humble iCE** (ver 0.4) is a compact FPGA development board built around the Lattice **iCE40UP5K** FPGA and a **Raspberry Pi RP2040** microcontroller. The RP2040 acts as a USB programmer and clock source for the FPGA — plug the board into your computer via USB-C and you can synthesise, flash, and run Verilog designs without any external programmer hardware.
 
+![The Humble iCE ver 0.4 FPGA development board](/images/humble-ice.jpg)
+
 ---
 
 ## Block Diagram
 
-```
-                  USB-C (J1)
-                      │
-                 ┌────▼────┐       SPI slave
-                 │  RP2040 │──GP3-6 (MOSI/MISO/SS/SCK)──► iCE40UP5K
-                 │  (U3)   │──GP14 (~CRESET), GP15 (CDONE)─►
-                 │         │──GP21 (12 MHz clock out)───────►
-                 │         │──GP12/13 (UART TX/RX)──────────►
-                 └────┬────┘
-                      │ QSPI (internal)
-                 ┌────▼────┐
-                 │ W25Q32  │  4 MB flash (shared)
-                 │  (U4)   │  0x000000–0x1DFFFF: RP2040 firmware (1920 KB)
-                 └─────────┘  0x1E0000–0x1FFFFF: FPGA bitstream (128 KB)
-
-Power:
-  USB VBUS (5 V) ──► STPS2L40AF (D1) ──► 3.3 V rail (NCP115, U2)
-                                      └─► 1.2 V rail (NCP114, U1) → iCE40 core
-```
+![Humble iCE block diagram: RP2040 programmer, iCE40UP5K FPGA, shared flash, and power rails](/begin-fpga/figures/ch01-block-diagram.svg)
 
 ---
 
