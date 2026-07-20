@@ -86,4 +86,6 @@
   <text x="75" y="90" fill="#fbbf24" font-size="11">always @(posedge clk) begin  a = d;  b = a;  c = b;  q = c;  end</text>
   <text x="75" y="107" fill="#f87171" font-size="10">// b = a uses the NEW value of a (already = d), so b = d too. Same for c and q.</text>
 
+
+  <text class="electronut-credit" x="692" y="312" text-anchor="end" font-family="monospace, sans-serif" font-size="9" fill="#9ca3af" opacity="0.8">© Electronut Labs</text>
 </svg>

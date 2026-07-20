@@ -102,4 +102,6 @@
   <text x="608" y="519" fill="#94a3b8" font-size="10">iCE40</text>
   <text x="608" y="531" fill="#94a3b8" font-size="10">core</text>
 
+
+  <text class="electronut-credit" x="712" y="582" text-anchor="end" font-family="monospace, sans-serif" font-size="13" fill="#9ca3af" opacity="0.8">© Electronut Labs</text>
 </svg>

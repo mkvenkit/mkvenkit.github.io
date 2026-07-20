@@ -97,4 +97,6 @@
   <text x="612" y="40" text-anchor="middle" fill="#585b70" font-size="10">8</text>
   <text x="671" y="40" text-anchor="middle" fill="#585b70" font-size="10">9</text>
 
+
+  <text class="electronut-credit" x="712" y="352" text-anchor="end" font-family="monospace, sans-serif" font-size="9" fill="#9ca3af" opacity="0.8">© Electronut Labs</text>
 </svg>

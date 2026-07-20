@@ -77,4 +77,6 @@
   <rect x="55" y="252" width="590" height="22" fill="#14532d" rx="5" opacity="0.85"/>
   <text x="350" y="267" text-anchor="middle" fill="#86efac" font-size="11">✓ Statement order doesn't matter — all RHS values are sampled before any LHS is updated.</text>
 
+
+  <text class="electronut-credit" x="692" y="272" text-anchor="end" font-family="monospace, sans-serif" font-size="9" fill="#9ca3af" opacity="0.8">© Electronut Labs</text>
 </svg>

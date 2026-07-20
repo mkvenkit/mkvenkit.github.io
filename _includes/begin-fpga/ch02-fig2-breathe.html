@@ -1,20 +1,5 @@
 <div class="svg-anim">
-<svg viewBox="0 0 700 300" xmlns="http://www.w3.org/2000/svg" font-family="ui-monospace,SFMono-Regular,monospace">
-<line x1="70" y1="210" x2="470" y2="210" stroke="#94a3b8" stroke-width="1.2"/>
-<line x1="70" y1="60" x2="70" y2="210" stroke="#94a3b8" stroke-width="1.2"/>
-<text x="62" y="64" text-anchor="end" font-size="10" fill="#64748b">255</text>
-<text x="62" y="213" text-anchor="end" font-size="10" fill="#64748b">0</text>
-<text x="18" y="135.0" text-anchor="middle" font-size="11" fill="#64748b" transform="rotate(-90 18 135.0)">duty</text>
-<text x="270.0" y="236" text-anchor="middle" font-size="11" fill="#64748b">time  (~2.8 s breathe phase)</text>
-<path id="tri" d="M 70 210 L 270.0 60 L 470 210" fill="none" stroke="#16a34a" stroke-width="2.6" stroke-linejoin="round"/>
-<circle r="6" fill="#16a34a"><animateMotion dur="6s" repeatCount="indefinite" keyPoints="0;1" keyTimes="0;1" calcMode="linear"><mpath href="#tri"/></animateMotion></circle>
-<text x="270.0" y="52" text-anchor="middle" font-size="10" fill="#64748b">level ramps 0 &#8594; 255 &#8594; 0</text>
-<text x="590" y="55" text-anchor="middle" font-size="12" font-weight="600" fill="#64748b">LED</text>
-<circle cx="590" cy="135" r="46" fill="#f59e0b"><animate attributeName="opacity" values="0;0.35;0" keyTimes="0;0.5;1" dur="6s" repeatCount="indefinite"/></circle>
-<circle cx="590" cy="135" r="30" fill="#f59e0b"><animate attributeName="opacity" values="0.06;1;0.06" keyTimes="0;0.5;1" dur="6s" repeatCount="indefinite"/></circle>
-<circle cx="590" cy="135" r="30" fill="none" stroke="#94a3b8" stroke-width="1.2"/>
-<text x="590" y="215" text-anchor="middle" font-size="10" fill="#64748b">fades in, then out</text>
-</svg>
+<object class="svg-anim__obj" type="image/svg+xml" data="{{ '/begin-fpga/figures/ch02-fig2-breathe.svg' | relative_url }}" style="width:100%;height:auto;aspect-ratio:700/300;" aria-label="animated figure"></object>
 <button class="svg-anim__btn" data-running="true" onclick="svgAnimToggle(this)">⏸  Pause Animation</button>
 <p class="svg-anim__caption"><strong>Figure 2.</strong> The breathe ramp. A slow triangle sweeps <code>duty</code> from 0 up to 255 and back down over the ~2.8 s breathe phase; the green dot traces it. The LED's brightness follows the ramp, fading smoothly in and then out. The fast ~47 kHz PWM from Figure 1 is doing the dimming underneath — here we only see its slowly-changing duty.</p>
 </div>

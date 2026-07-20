@@ -18,13 +18,17 @@
   font-size: 0.8rem; color: #64748b; font-style: italic; text-align: center;
   max-width: 100%; line-height: 1.45;
 }
+.svg-anim__obj { display: block; width: 100%; max-width: 900px; }
 .svg-fig { display: flex; flex-direction: column; align-items: center; gap: 0.5rem; margin: 2rem 0; }
 .svg-fig__caption { font-size: 0.8rem; color: #64748b; font-style: italic; text-align: center; line-height: 1.45; }
+.svg-fig__img { display: block; width: 100%; max-width: 900px; }
 </style>
 
 <script>
 function svgAnimToggle(btn) {
-  var svg = btn.closest('.svg-anim').querySelector('svg');
+  var obj = btn.closest('.svg-anim').querySelector('object');
+  var svg = obj && obj.contentDocument && obj.contentDocument.querySelector('svg');
+  if (!svg) { return; }
   if (btn.dataset.running === 'true') {
     svg.pauseAnimations();
     btn.textContent = '▶  Play Animation';
