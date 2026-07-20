@@ -364,8 +364,10 @@
   margin-bottom: 32px;
 
   img {
+    display: block;
     width: 180px;
     height: auto;
+    margin: 0 auto;
     border-radius: 6px;
     box-shadow: 0 8px 28px rgba(0,0,0,0.18);
   }
@@ -376,6 +378,8 @@
   line-height: 1.8;
   color: $text-medium-color;
   margin-bottom: 28px;
+  padding-bottom: 28px;
+  border-bottom: 1px solid $border-color;
 
   p {
     margin-bottom: 1em;
@@ -385,6 +389,11 @@
 
   strong {
     color: $text-dark-color;
+  }
+
+  .book-home__signature {
+    margin-top: 1.4em;
+    line-height: 1.5;
   }
 }
 

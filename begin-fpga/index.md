@@ -13,12 +13,16 @@ featured_image: /images/humble-ice.jpg
 
 <div class="book-home__intro">
   <p>
-    In March 2026, the IEEE dedicated a Milestone plaque to the field-programmable gate array, honouring
-    Ross Freeman's 1984 invention and the Xilinx XC2064 that shipped a year later with an 8-by-8 grid of
-    64 programmable logic blocks. Freeman's bet was that as transistors got cheap, flexibility would matter
-    more than squeezing out every last one. Four decades on, that bet has paid off: FPGAs sit inside routers,
+    In March 2026, the IEEE dedicated a Milestone plaque to the field-programmable gate array (FPGA), honouring
+    Ross Freeman's 1984 invention and the Xilinx XC2064 that shipped a year later - with an 8 x 8 grid of
+    64 programmable logic blocks! Freeman's bet was that as transistors got cheap, flexibility would matter
+    more than squeezing the performance out of every last one. Four decades on, that bet has paid off. FPGAs sit inside routers,
     base stations, MRI scanners, and AI accelerators, and the workflow he started - describe the hardware,
-    compile it, load the bitstream - is still exactly what you will do in this book, except now on a board
+    compile it, load the bitstream - is pretty much the same as today's workflow. 
+    
+    I wanted to create an affordable FPGA 
+    with a set of useful PMODs  
+    still exactly what you will do in this book, except now on a board
     that costs less than a good dinner and with a toolchain that is entirely open source. That is what I set
     out to build: an affordable FPGA board, and a kit of genuinely useful PMODs to plug into it.
   </p>
@@ -34,7 +38,16 @@ featured_image: /images/humble-ice.jpg
     follow along. 
   </p>
   <p>
+    Unlike a printed book, this one is never finished. I will keep adding chapters, projects, and
+    corrections as the boards and PMODs evolve - check the <a href="/begin-fpga/changelog/">changelog</a>
+    to see what is new.
+  </p>
+  <p>
     Happy hacking with FPGAs!
+  </p>
+  <p class="book-home__signature">
+    <strong>Mahesh Venkitachalam</strong><br>
+    Electronut Labs
   </p>
 </div>
 
