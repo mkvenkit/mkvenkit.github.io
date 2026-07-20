@@ -13,7 +13,17 @@ featured_image: /images/humble-ice.jpg
 
 <div class="book-home__intro">
   <p>
-    <strong>The Humble iCE Cookbook</strong> is a collection of practical FPGA projects built around 
+    In March 2026, the IEEE dedicated a Milestone plaque to the field-programmable gate array, honouring
+    Ross Freeman's 1984 invention and the Xilinx XC2064 that shipped a year later with an 8-by-8 grid of
+    64 programmable logic blocks. Freeman's bet was that as transistors got cheap, flexibility would matter
+    more than squeezing out every last one. Four decades on, that bet has paid off: FPGAs sit inside routers,
+    base stations, MRI scanners, and AI accelerators, and the workflow he started - describe the hardware,
+    compile it, load the bitstream - is still exactly what you will do in this book, except now on a board
+    that costs less than a good dinner and with a toolchain that is entirely open source. That is what I set
+    out to build: an affordable FPGA board, and a kit of genuinely useful PMODs to plug into it.
+  </p>
+  <p>
+    <strong>The Humble iCE Cookbook</strong> is the third piece - a collection of practical FPGA projects built around 
     Humble iCE - a Lattice Semiconductor iCE40UP5K FPGA based development board with a built-in USB programmer.
     Each chapter takes a real project from idea to working hardware. You write the Verilog code,
     simulate it, synthesize a bitstream, and finally flash it on to the board.
@@ -28,10 +38,9 @@ featured_image: /images/humble-ice.jpg
   </p>
 </div>
 
-<h2 class="book-home__chapters-heading">Chapters</h2>
+<h2 class="book-home__chapters-heading">Table of Contents</h2>
 
 <ol class="book-home__chapter-list">
-
   <li class="book-home__chapter-item">
     <div><strong><a href="/begin-fpga/ch01-specifications/">Humble iCE Specifications</a></strong><br>
     Board overview, iCE40UP5K resources, RP2040 programmer, PMOD connectors, power supply, and schematic walkthrough.</div>
