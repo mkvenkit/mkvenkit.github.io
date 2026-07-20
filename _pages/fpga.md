@@ -2,7 +2,7 @@
 title: Humble iCE
 subtitle: FPGA Development Board by Electronut Labs
 description: Humble iCE is a cost-optimized FPGA development board based on the Lattice iCE40UP5k chip, designed to make FPGA education more accessible.
-featured_image: /images/embedded/hi1.jpg
+featured_image: /images/humble-ice.jpg
 permalink: /fpga
 ---
 
@@ -71,7 +71,7 @@ permalink: /fpga
 
 <div class="humble-ice-page">
 
-  <img src="/images/embedded/hi1.jpg" alt="Humble iCE FPGA board" class="humble-ice-hero-img">
+  <img src="/images/humble-ice.jpg" alt="Humble iCE FPGA board" class="humble-ice-hero-img">
 
   <span class="status-badge">Coming Soon</span>
 
@@ -90,7 +90,8 @@ permalink: /fpga
       <li>Raspberry Pi RP2040 for USB programming and UART bridge</li>
       <li>USB-C connector</li>
       <li>Open source toolchain compatible (Yosys / nextpnr / IceStorm)</li>
-      <li>Compact, breadboard-friendly form factor</li>
+      <li>Compact form factor</li>
+      <li>Standard PMOD support</li>
       <li>Designed for FPGA education and experimentation</li>
     </ul>
   </div>
